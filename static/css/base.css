@@ -7,3 +7,34 @@ body {
   main {
     flex: 1 0 auto;
   }
+
+  .nogutter{
+    margin:0 !important;
+    padding:0 !important;
+  }
+
+  .card-image img {
+    height: 50vh;
+    object-fit: cover;
+}
+.btn{
+  left:50% !important;
+  bottom: 10% !important;
+  position: absolute;
+}
+.author {
+  right: 0;
+  bottom: 0;
+  left: unset !important;
+  background: black;
+  font-size: 14px;
+  padding: 10px !important;
+  line-height: 14px;
+  color: white;
+  position: absolute;
+}
+
+.author a{
+  color: white;
+  font-weight: bold;
+}

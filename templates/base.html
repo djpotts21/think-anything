@@ -14,22 +14,35 @@
     <header>
         <nav>
             <div class="nav-wrapper indigo darken-1">
-              <a href="#!" class="brand-logo">Think Anything</a>
-              <a href="#" data-target="mobile-nav" class="sidenav-trigger right"><i class="fa-solid fa-bars"></i></a>
-              <ul class="right hide-on-med-and-down">
-                <li><a href="sass.html">Sass</a></li>
-                <li><a href="badges.html">Components</a></li>
-                <li><a href="collapsible.html">Javascript</a></li>
-                <li><a href="mobile.html">Mobile</a></li>
-              </ul>
+                <div class="container">
+                <a href="#!" class="brand-logo">Think Anything</a>
+                <a href="#" data-target="mobile-nav" class="sidenav-trigger right"><i class="fa-solid fa-bars"></i></a>
+                <ul class="right hide-on-med-and-down">
+                    <li><a href="{{ url_for('home') }}">Home</a></li>
+                    {% if session.user %}
+                        <li><a href="#logout">Log Out</a></li>
+                        <li><a href="#myjournal">My Journal</a></li>
+                        <li><a href="#social">Social</a></li>
+                        <li><a href="#myaccount"><i class="fa-regular fa-circle-user"></i></a></li>
+                    {% else %}
+                        <li><a href="#login">Log In</a></li>
+                        <li><a href="#signup">Sign Up</a></li>
+                    {% endif %}
+                </ul>
+                </div>
             </div>
           </nav>
         
           <ul class="sidenav" id="mobile-nav">
-            <li><a href="sass.html">Sass</a></li>
-            <li><a href="badges.html">Components</a></li>
-            <li><a href="collapsible.html">Javascript</a></li>
-            <li><a href="mobile.html">Mobile</a></li>
+            {% if session.user %}
+                    <li><a href="#logout">Log Out</a></li>
+                    <li><a href="#myjournal">My Journal</a></li>
+                    <li><a href="#social">Social</a></li>
+                    <li><a href="#myaccount">Manage Account</a></li>
+                {% else %}
+                    <li><a href="#login">Log In</a></li>
+                    <li><a href="#signup">Sign Up</a></li>
+                {% endif %}
           </ul>
     </header>
     <section>
@@ -44,7 +57,7 @@
             {% endif %}
         {% endwith %}
     </section>
-    <main class="container">
+    <main>
         {% block content %}
         {% endblock %}
     </main>
