@@ -35,8 +35,7 @@ Home
   </div>
 </section>
 <section class="container">
-  {{ tommorow }}
-  {% if not session.user %}
+  {% if session.user %}
   <!-- User Logged In-->
   <h3 class="center-align">Quick View - Tasks for Today</h3>
   <div class="row">

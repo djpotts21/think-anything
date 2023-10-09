@@ -40,7 +40,7 @@ def home():
     return render_template(
         "home.html",
         reviews=reviews,
-        goals=goals, tommorow=tommorow_formated)
+        goals=goals)
 
 
 @app.route("/goal-done/<goal_id>", methods=["POST"])
