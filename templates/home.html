@@ -8,7 +8,7 @@
 
 <!-- page title below **NO FORMATING** -->
 {% block pagetitle %}
-    Home
+Home
 {% endblock %}
 <!-- end section-->
 
@@ -16,26 +16,104 @@
 {% block content %}
 <!-- Home Hero -->
 <section class="row nogutter">
-    <div class="col s12 m12 nogutter">
-      <div class="hero nogutter">
-        <div class="hero-image nogutter">
-          <img src="https://miro.medium.com/v2/resize:fit:1000/1*esN2hDU1lrtZHhhAriQbNA.jpeg">
-          <span class="hero-title">Welcome to Think Anything</span>
-          <span class="hero-slogan">Embrace the Journey, Empower Your Mind</span>
-          {% if session.user %}
-          <a class="btn indigo darken-1 hero-btn large" href="#">Go to your Journal</a>
-          {% else %}
-          <a class="btn indigo darken-1 hero-btn left small" href="#">Log in</a>
-          <a class="btn indigo darken-1 hero-btn right small" href="#">Sign up</a>
-          {% endif %}
-          <span class="author">Creator: <a href="http://rawpixel.com">rawpixel.com</a><br>Source: <a href="https://www.google.co.uk/url?sa=i&url=https%3A%2F%2Fmedium.com%2F%40JGLove%2Fdoes-the-solution-to-our-mental-health-crisis-lie-in-a-collective-purpose-2617ef2552e3&psig=AOvVaw3PScSej9W09lDhw7cJi4m5&ust=1696886957445000&source=images&cd=vfe&opi=89978449&ved=0CBIQjhxqFwoTCJib59ey54EDFQAAAAAdAAAAABAD">Medium</a></span>
+  <div class="col s12 m12 nogutter">
+    <div class="hero nogutter">
+      <div class="hero-image nogutter">
+        <img src="https://miro.medium.com/v2/resize:fit:1000/1*esN2hDU1lrtZHhhAriQbNA.jpeg">
+        <h1 class="hero-title">Welcome to Think Anything</h1>
+        <h2 class="hero-slogan">Embrace the Journey, Empower Your Mind</h2>
+        {% if session.user %}
+        <a class="btn indigo darken-1 hero-btn large" href="#">Go to your Journal</a>
+        {% else %}
+        <a class="btn indigo darken-1 hero-btn left small" href="#">Log in</a>
+        <a class="btn indigo darken-1 hero-btn right small" href="#">Sign up</a>
+        {% endif %}
+        <span class="author">Creator: <a href="http://rawpixel.com">rawpixel.com</a><br>Source: <a
+            href="https://www.google.co.uk/url?sa=i&url=https%3A%2F%2Fmedium.com%2F%40JGLove%2Fdoes-the-solution-to-our-mental-health-crisis-lie-in-a-collective-purpose-2617ef2552e3&psig=AOvVaw3PScSej9W09lDhw7cJi4m5&ust=1696886957445000&source=images&cd=vfe&opi=89978449&ved=0CBIQjhxqFwoTCJib59ey54EDFQAAAAAdAAAAABAD">Medium</a></span>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="container">
+  {{ tommorow }}
+  {% if not session.user %}
+  <!-- User Logged In-->
+  <h3 class="center-align">Quick View - Tasks for Today</h3>
+  <div class="row">
+    {% for goal in goals %}
+    <div class="col s12 m6 l4">
+      <div class="card indigo darken-1">
+        <div class="card-content white-text">
+          <span class="card-title review-name">{{ goal.title }}</span><span>
+          </span>
+          <p class="review-description">{{ goal.description }}</p>
+          <br>
+          <a class="btn indigo green" href="{{ url_for('goal_done', goal_id=goal._id )}}">Done</a>
+          <a class="btn indigo white black-text" href="{{ url_for('goal_move_tomorrow', goal_id=goal._id )}}">Tomorrow</a>
         </div>
       </div>
     </div>
-  </section>
-  <section class="container">
+    {% endfor %}
+  </div>
+  {% else %}
+  <!-- No User Logged In-->
+  <div class="row">
+    {% for review in reviews %}
+    <h3 class="center-align">Take a look at our reviews so far!</h3>
+    <div class="col s12 m6 l4">
+      <div class="card indigo darken-1">
+        <div class="card-content white-text">
+          <span class="card-title review-name">
+            {% if review.user_photo %}
+            <img class="user-photo" src="{{ review.user_photo }}" alt="{{ review.name }}'s avatar">
+            {% else %}
+            <i class="fa-regular fa-circle-user"></i>
+            {% endif %}
+            {{ review.name }}</span>
+          <span>
+            {% if review.stars == 1 %}
+            <i class="fa-solid fa-star white-text"></i>
+            <i class="fa-regular fa-star white-text"></i>
+            <i class="fa-regular fa-star white-text"></i>
+            <i class="fa-regular fa-star white-text"></i>
+            <i class="fa-regular fa-star white-text"></i>
+            {% elif review.stars == 2 %}
+            <i class="fa-solid fa-star white-text"></i>
+            <i class="fa-solid fa-star white-text"></i>
+            <i class="fa-regular fa-star white-text"></i>
+            <i class="fa-regular fa-star white-text"></i>
+            <i class="fa-regular fa-star white-text"></i>
+            {% elif review.stars == 3 %}
+            <i class="fa-solid fa-star white-text"></i>
+            <i class="fa-solid fa-star white-text"></i>
+            <i class="fa-solid fa-star white-text"></i>
+            <i class="fa-regular fa-star white-text"></i>
+            <i class="fa-regular fa-star white-text"></i>
+            {% elif review.stars == 4 %}
+            <i class="fa-solid fa-star white-text"></i>
+            <i class="fa-solid fa-star white-text"></i>
+            <i class="fa-solid fa-star white-text"></i>
+            <i class="fa-solid fa-star white-text"></i>
+            <i class="fa-regular fa-star white-text"></i>
+            {% elif review.stars == 5 %}
+            <i class="fa-solid fa-star white-text"></i>
+            <i class="fa-solid fa-star white-text"></i>
+            <i class="fa-solid fa-star white-text"></i>
+            <i class="fa-solid fa-star white-text"></i>
+            <i class="fa-solid fa-star white-text"></i>
+            {% else %}
+            <br>
+            {% endif %}
+          </span>
+          <p class="review-description">{{ review.description }}</p>
+        </div>
+      </div>
+    </div>
 
-  </section>
+    {% endfor %}
+  </div>
+  {% endif %}
+</section>
 {% endblock%}
 <!-- end section-->
 

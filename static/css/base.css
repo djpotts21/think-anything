@@ -9,6 +9,12 @@ main {
   flex: 1 0 auto;
 }
 
+/* Headings */
+
+h3 {
+  font-size: 1.5rem;
+}
+
 /* Home Hero  */
 .nogutter {
   margin: 0 !important;
@@ -91,6 +97,25 @@ main {
   text-align: center;
 }
 
+
+/* Review Card */
+.review-name {
+  text-transform: capitalize;
+}
+.review-description {
+  font-size: 12px;
+  text-align: justify;
+  padding-top: 10px;
+}
+
+.user-photo {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-right: 10px;
+}
+
 /* Mobile view (600px and down) */
 @media only screen and (max-width: 600px) {
 
@@ -152,12 +177,14 @@ main {
     width: 80vw;
     line-height: 37px;
     top: 25%;
+    margin:0;
   }
 
   .hero-slogan {
     font-size: 20px;
     top: 50%;
     width: 80vw;
+    margin: 0;
   }
 
   .hero-btn.small {
