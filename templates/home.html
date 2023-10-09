@@ -48,8 +48,10 @@ Home
           </span>
           <p class="review-description">{{ goal.description }}</p>
           <br>
-          <a class="btn indigo green" href="{{ url_for('goal_done', goal_id=goal._id )}}">Done</a>
-          <a class="btn indigo white black-text" href="{{ url_for('goal_move_tomorrow', goal_id=goal._id )}}">Tomorrow</a>
+          <form action="{{ url_for('goal_done', goal_id=goal._id )}}" class="in-line-btn" method="POST">
+            <button class="btn indigo green in-line-btn" type="submit">Done</button> </form>
+          <form action="{{ url_for('goal_move_tomorrow', goal_id=goal._id )}}" class="in-line-btn" method="POST">
+            <button class="btn indigo white black-text" type="submit">Tomorrow</button> </form>
         </div>
       </div>
     </div>

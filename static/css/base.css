@@ -98,7 +98,7 @@ h3 {
 }
 
 
-/* Review Card */
+/* Review/Tasks Card */
 .review-name {
   text-transform: capitalize;
 }
@@ -114,6 +114,10 @@ h3 {
   border-radius: 50%;
   object-fit: cover;
   margin-right: 10px;
+}
+
+.in-line-btn{
+  display: inline-block;
 }
 
 /* Mobile view (600px and down) */

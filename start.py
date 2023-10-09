@@ -36,7 +36,7 @@ def home():
     #     {"created_by": session["user"]},
     #     {"date": today.strftime("%d %B, %Y")}).limit(3))
     goals = list(mongo.db.goals.find(
-        {"created_by": "daniel", "date": today}).limit(3))
+        {"created_by": "daniel", "date": today, "done": False}).limit(3))
     return render_template(
         "home.html",
         reviews=reviews,
@@ -45,18 +45,20 @@ def home():
 
 @app.route("/goal-done/<goal_id>", methods=["POST"])
 def goal_done(goal_id):
-    mongo.db.tasks.update_one(
+    mongo.db.goals.update_one(
         {"_id": ObjectId(goal_id)},
-        {'$set': {"status": "done"}})
+        {'$set': {"done": True}})
     flash("Goal marked as done")
+    return redirect(url_for("home"))
 
 
 @app.route("/goal-move-tomorrow/<goal_id>", methods=["POST"])
 def goal_move_tomorrow(goal_id):
-    mongo.db.tasks.update_one(
+    mongo.db.goals.update_one(
         {"_id": ObjectId(goal_id)},
         {'$set': {"date": tommorow_formated}})
     flash("Goal moved to tommorow")
+    return redirect(url_for("home"))
 
 
 if __name__ == "__main__":
