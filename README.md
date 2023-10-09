@@ -53,3 +53,9 @@ This project is build as a student of Code Institute Full Stack Developer Progra
 - [Report something (Logged in)](/readme-files/wireframe/report-something-(logged-in)_page_3.png)
 - [Report something (Logged out)](/readme-files/wireframe/report-something-(logged-out)_page_3.png)
 - [Share Artwork (Logged in)](/readme-files/wireframe/share-artwork-(logged-in)_page_3.png)
+
+## Acknowledgements
+
+ - [Materialize Framework](https://materializecss.com/)
+ - [Home Hereo Image (Multi-coloured illustration of a head and patterns) is from Medium and created by rawpixel.com](https://miro.medium.com/v2/resize:fit:1000/1*esN2hDU1lrtZHhhAriQbNA.jpeg)
+
