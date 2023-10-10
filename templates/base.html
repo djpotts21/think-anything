@@ -26,7 +26,7 @@
                     <ul class="right hide-on-med-and-down">
                         <li><a href="{{ url_for('home') }}">Home</a></li>
                         {% if session.user %}
-                        <li><a href="#logout">Log Out</a></li>
+                        <li><a href="{{ url_for('logout') }}">Log Out</a></li>
                         <li><a href="#myjournal">My Journal</a></li>
                         <li><a href="#social">Social</a></li>
                         <li><a href="#myaccount"><i class="fa-regular fa-circle-user"></i></a></li>
@@ -41,7 +41,7 @@
 
         <ul class="sidenav" id="mobile-nav">
             {% if session.user %}
-            <li><a href="#logout">Log Out</a></li>
+            <li><a href="{{ url_for('logout') }}">Log Out</a></li>
             <li><a href="#myjournal">My Journal</a></li>
             <li><a href="#social">Social</a></li>
             <li><a href="#myaccount">Manage Account</a></li>
@@ -57,7 +57,7 @@
         {% if messages %}
         {% for message in messages %}
         <div class="row flashes">
-            <h4 class="light-blue lighten-4 center-align">{{ message }}</h4>
+            <h4 class="indigo darken-1 center-align nogutter">{{ message }}</h4>
         </div>
         {% endfor %}
         {% endif %}
