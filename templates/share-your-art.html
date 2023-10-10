@@ -78,13 +78,16 @@ Share your Artwork
             href="{{ background.0.creator_backlink }}">{{ background.0.creator }}</a>
         <br>
         {% if background.0.source %}
-        Source:
-        {% if background.0.source_backlink %}
-        <a href="{{ background.0.source_backlink }}">{{ background.0.source }}</a>
-        {% else %}
-        <strong>{{ background.0.source }}</strong>
-        {% endif %}</span>
-    {% endif %}
+            Source:
+            {% if background.0.source_backlink %}
+                <a href="{{ background.0.source_backlink }}">{{ background.0.source }}</a>
+            {% else %}
+                <strong>{{ background.0.source }}</strong>
+            {% endif %}
+        {% endif %}
+        <br>
+        <a href="{ url_for('share_your_art')}">Share your own artwork</a>
+    </span>
 </div>
 
 
