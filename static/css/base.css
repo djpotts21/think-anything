@@ -105,6 +105,7 @@ h3 {
 .review-name {
   text-transform: capitalize;
 }
+
 .review-description {
   font-size: 12px;
   text-align: justify;
@@ -119,7 +120,7 @@ h3 {
   margin: 0, 10px, 0, 0
 }
 
-.in-line-btn{
+.in-line-btn {
   display: inline-block;
 }
 
@@ -185,7 +186,7 @@ h3 {
     width: 80vw;
     line-height: 37px;
     top: 25%;
-    margin:0;
+    margin: 0;
   }
 
   .hero-slogan {
@@ -224,5 +225,5 @@ h3 {
   /* Review/Tasks Card */
   .card .card-title {
     font-size: 21px;
-}
+  }
 }

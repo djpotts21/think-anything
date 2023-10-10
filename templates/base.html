@@ -1,60 +1,66 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" type="text/css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" type="text/css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"
+        type="text/css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+        integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" type="text/css">
     <link rel="stylesheet" href="{{ url_for ('static', filename='css/base.css')}}" type="text/css">
     {% block pagestyles %}
     {% endblock %}
     <title>Think Anything | {% block pagetitle %}{% endblock %}</title>
 </head>
+
 <body>
     <header>
         <nav>
             <div class="nav-wrapper indigo darken-1">
                 <div class="container">
-                <a href="{{ url_for('home') }}" class="brand-logo">Think Anything</a>
-                <a href="#" data-target="mobile-nav" class="sidenav-trigger right"><i class="fa-solid fa-bars"></i></a>
-                <ul class="right hide-on-med-and-down">
-                    <li><a href="{{ url_for('home') }}">Home</a></li>
-                    {% if session.user %}
+                    <a href="{{ url_for('home') }}" class="brand-logo">Think Anything</a>
+                    <a href="#" data-target="mobile-nav" class="sidenav-trigger right"><i
+                            class="fa-solid fa-bars"></i></a>
+                    <ul class="right hide-on-med-and-down">
+                        <li><a href="{{ url_for('home') }}">Home</a></li>
+                        {% if session.user %}
                         <li><a href="#logout">Log Out</a></li>
                         <li><a href="#myjournal">My Journal</a></li>
                         <li><a href="#social">Social</a></li>
                         <li><a href="#myaccount"><i class="fa-regular fa-circle-user"></i></a></li>
-                    {% else %}
+                        {% else %}
                         <li><a href="{{ url_for('login') }}">Log In</a></li>
                         <li><a href="#signup">Sign Up</a></li>
-                    {% endif %}
-                </ul>
+                        {% endif %}
+                    </ul>
                 </div>
             </div>
-          </nav>
-        
-          <ul class="sidenav" id="mobile-nav">
+        </nav>
+
+        <ul class="sidenav" id="mobile-nav">
             {% if session.user %}
-                    <li><a href="#logout">Log Out</a></li>
-                    <li><a href="#myjournal">My Journal</a></li>
-                    <li><a href="#social">Social</a></li>
-                    <li><a href="#myaccount">Manage Account</a></li>
-                {% else %}
-                    <li><a href="{{ url_for('login') }}">Log In</a></li>
-                    <li><a href="#signup">Sign Up</a></li>
-                {% endif %}
-          </ul>
+            <li><a href="#logout">Log Out</a></li>
+            <li><a href="#myjournal">My Journal</a></li>
+            <li><a href="#social">Social</a></li>
+            <li><a href="#myaccount">Manage Account</a></li>
+            {% else %}
+            <li><a href="{{ url_for('login') }}">Log In</a></li>
+            <li><a href="#signup">Sign Up</a></li>
+            {% endif %}
+        </ul>
     </header>
     <section>
         <!-- flash messages -->
         {% with messages = get_flashed_messages() %}
-            {% if messages %}
-                {% for message in messages %}
-                    <div class="row flashes">
-                        <h4 class="light-blue lighten-4 center-align">{{ message }}</h4>
-                    </div>
-                {% endfor %}
-            {% endif %}
+        {% if messages %}
+        {% for message in messages %}
+        <div class="row flashes">
+            <h4 class="light-blue lighten-4 center-align">{{ message }}</h4>
+        </div>
+        {% endfor %}
+        {% endif %}
         {% endwith %}
     </section>
     <main>
@@ -64,28 +70,22 @@
     <footer class="page-footer indigo darken-1">
 
         <div class="container">
-        © 2023 Think Anything
-        <a class="grey-text text-lighten-4 right" href="#!">About</a>
-        <span class="text-lighten-4 right">&nbsp;|&nbsp;</span>
-        <a class="grey-text text-lighten-4 right" href="#!">Report it!</a>
-        <span class="text-lighten-4 right">&nbsp;|&nbsp;</span>
-        <a class="grey-text text-lighten-4 right" href="#!">Contact</a>
+            © 2023 Think Anything
+            <a class="grey-text text-lighten-4 right" href="#!">About</a>
+            <span class="text-lighten-4 right">&nbsp;|&nbsp;</span>
+            <a class="grey-text text-lighten-4 right" href="#!">Report it!</a>
+            <span class="text-lighten-4 right">&nbsp;|&nbsp;</span>
+            <a class="grey-text text-lighten-4 right" href="#!">Contact</a>
         </div>
-      </footer>
-    <script 
-    src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" 
-    integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" 
-    crossorigin="anonymous" 
-    referrerpolicy="no-referrer"
-    ></script>
-    <script 
-    src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"
-    ></script>
+    </footer>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
+        integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <!-- local base jquery js file -->
-    <script 
-    src="{{ url_for('static', filename='js/base.js')}}"
-    ></script>
+    <script src="{{ url_for('static', filename='js/base.js')}}"></script>
     {% block pagescripts %}
     {% endblock %}
 </body>
+
 </html>
