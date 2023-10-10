@@ -30,7 +30,7 @@ tommorow_formated = tommorow.strftime("%d %B, %Y")
 @app.route("/")
 @app.route("/home", methods=["GET", "POST"])
 def home():
-
+    background = list(mongo.db.artwork.aggregate([{"$sample": {"size": 1}}]))
     reviews = list(mongo.db.reviews.find().sort("_id", -1).limit(3))
     # goals = list(mongo.db.goals.find(
     #     {"created_by": session["user"]},
@@ -40,7 +40,8 @@ def home():
     return render_template(
         "home.html",
         reviews=reviews,
-        goals=goals)
+        goals=goals,
+        background=background)
 
 
 @app.route("/goal-done/<goal_id>", methods=["POST"])
@@ -63,6 +64,7 @@ def goal_move_tomorrow(goal_id):
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
+    background = list(mongo.db.artwork.aggregate([{"$sample": {"size": 1}}]))
     if request.method == "POST":
         # check if username exists #
         existing_user = mongo.db.users.find_one(
@@ -78,14 +80,14 @@ def login():
                 return redirect(url_for("home"))
             else:
                 # invalid password #
-                flash("Incorrect Username and/or Password")
+                flash("Incorrect Username and/or Password!")
                 return redirect(url_for("login"))
         else:
             # username doesn't exist #
             flash("Incorrect Username and/or Password")
             return redirect(url_for("login"))
 
-    return render_template("login.html")
+    return render_template("login.html", background=background)
 
 
 if __name__ == "__main__":

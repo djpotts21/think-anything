@@ -79,7 +79,7 @@ h3 {
 
 .hero-title {
   position: absolute;
-  top: 40%;
+  top: 15%;
   left: 50%;
   transform: translate(-50%, -50%);
   color: white;
@@ -90,7 +90,7 @@ h3 {
 
 .hero-slogan {
   position: absolute;
-  top: 55%;
+  top: 35%;
   left: 50%;
   transform: translate(-50%, -50%);
   color: white;
@@ -121,19 +121,9 @@ h3 {
   display: inline-block;
 }
 
-/* Login Page */
-.login-author{
-    bottom: 3vh;
-  }
 
 /* Mobile view (600px and down) */
 @media only screen and (max-width: 600px) {
-
-  /* Mobile hide */
-  .mobile-hide {
-    display: none;
-    visibility: hidden;
-  }
 
   /* Navbar */
   nav .brand-logo {
@@ -179,7 +169,7 @@ h3 {
 }
 
 /* Tablet View (600px and up) */
-@media only screen and (min-width: 600px) {
+@media only screen and (max-width: 1024px) {
 
   /* Navbar */
   nav .brand-logo {

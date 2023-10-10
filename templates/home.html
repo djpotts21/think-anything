@@ -16,10 +16,10 @@ Home
 {% block content %}
 <!-- Home Hero -->
 <section class="row nogutter">
-  <div class="col s12 m12">
+  <div class="col s12 m12 nogutter">
     <div class="hero nogutter">
       <div class="hero-image nogutter">
-        <img src="https://miro.medium.com/v2/resize:fit:1000/1*esN2hDU1lrtZHhhAriQbNA.jpeg">
+        <img src="{{ background.0.image_url }}">
         <h1 class="hero-title">Welcome to Think Anything</h1>
         <h2 class="hero-slogan">Embrace the Journey, Empower Your Mind</h2>
         {% if session.user %}
@@ -28,8 +28,8 @@ Home
         <a class="btn indigo darken-1 hero-btn left small" href="#">Log in</a>
         <a class="btn indigo darken-1 hero-btn right small" href="#">Sign up</a>
         {% endif %}
-        <span class="author">Creator: <a href="http://rawpixel.com">rawpixel.com</a><br>Source: <a
-            href="https://www.google.co.uk/url?sa=i&url=https%3A%2F%2Fmedium.com%2F%40JGLove%2Fdoes-the-solution-to-our-mental-health-crisis-lie-in-a-collective-purpose-2617ef2552e3&psig=AOvVaw3PScSej9W09lDhw7cJi4m5&ust=1696886957445000&source=images&cd=vfe&opi=89978449&ved=0CBIQjhxqFwoTCJib59ey54EDFQAAAAAdAAAAABAD">Medium</a></span>
+        <span class="author">Creator: <a href="{{ background.0.creator_backlink }}">{{ background.0.creator }}</a><br>Source: <a
+            href="{{ background.0.source_backlink }}">{{ background.0.source }}</a></span>
       </div>
     </div>
   </div>
