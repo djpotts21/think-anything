@@ -1,0 +1,44 @@
+main {
+    background-size: cover;
+    background-position: right;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: center;
+}
+
+.login-author {
+    top: 10vh;
+    bottom: unset;
+}
+
+.align-inputs {
+    display: flex;
+    align-content: center;
+    align-items: center;
+    height: 2.5rem;
+}
+
+.input-field.col label {
+    left: 0rem;
+}
+.label-optional {
+    font-size: 9px;
+    margin-left: 5px;
+}
+
+/* Mobile view (600px and down) */
+@media only screen and (max-width: 600px) {
+    .login-author {
+        top: unset;
+        bottom: 4.75vh;
+    }
+}
+
+/* Tablet View (600px and up) */
+@media only screen and (max-width: 1024px) {
+    .login-author {
+        top: 16vh;
+        bottom: unset;
+    }
+}

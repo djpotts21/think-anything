@@ -90,6 +90,12 @@ def login():
     return render_template("login.html", background=background)
 
 
+@app.route("/share-your-art", methods=["GET", "POST"])
+def share_your_art():
+    background = list(mongo.db.artwork.aggregate([{"$sample": {"size": 1}}]))
+    return render_template("share-your-art.html", background=background)
+
+
 if __name__ == "__main__":
     app.run(
         host=os.environ.get("IP"),

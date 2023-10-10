@@ -15,12 +15,14 @@ h3 {
   font-size: 1.5rem;
 }
 
-
-/* Home Hero  */
+/* Generic CSS */
 .nogutter {
   margin: 0 !important;
   padding: 0 !important;
 }
+
+/* Home Hero  */
+
 
 .hero-image,
 .hero-image img {
@@ -74,7 +76,7 @@ h3 {
 
 .author a {
   color: white;
-  font-weight: bold;
+  font-weight: 500;
 }
 
 .hero-title {

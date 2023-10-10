@@ -1,5 +1,5 @@
 main {
-    background-size: contain;
+    background-size: cover;
     background-position: right;
     display: flex;
     flex-direction: column;

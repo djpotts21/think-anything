@@ -1,0 +1,98 @@
+{% extends "base.html" %}
+
+<!-- page specific stylesheets below -->
+{% block pagestyles %}
+<link rel="stylesheet" href="{{ url_for ('static', filename='css/share-art-work.css')}}" type="text/css">
+<style>
+    main {
+        background-image: url("{{ background.0.image_url }}");
+    }
+</style>
+{% endblock %}
+<!-- end section-->
+
+<!-- page title below **NO FORMATING** -->
+{% block pagetitle %}
+Share your Artwork
+{% endblock %}
+<!-- end section-->
+
+<!-- page content below -->
+{% block content %}
+
+<div class="row login-row">
+    <form class="" method="post" action="{{ url_for('login') }}">
+        <div class="card-panel">
+            <h3 class="center-align">Share your Artwork</h3>
+            <!-- file -->
+            <div class="row">
+                <div class="input-field col s12 align-inputs nogutter">
+                    <i class="fa-solid fa-upload prefix indigo-text text-darken-1"></i>
+                    <input id="file" name="file" type="file" class="validate" required>
+                </div>
+            </div>
+            <!-- creator name -->
+            <div class="row">
+                <div class="input-field col s12 align-inputs nogutter">
+                    <i class="fa-solid fa-users-viewfinder prefix indigo-text text-darken-1"></i>
+                    <input id="creator" name="creator" type="text" class="validate" minlength="5" maxlength="15"
+                        required>
+                    <label for="creator">Creator Name</label>
+                </div>
+            </div>
+            <!-- creator url -->
+            <div class="row">
+                <div class="input-field col s12 align-inputs nogutter">
+                    <i class="fa-solid fa-link prefix indigo-text text-darken-1"></i>
+                    <input id="creator_backlink" name="creator_backlink" type="text" class="validate" minlength="5"
+                        maxlength="15">
+                    <label for="creator_backlink">Creator URL<span class="label-optional">(optional)</span></label>
+                </div>
+            </div>
+            <!-- source name -->
+            <div class="row">
+                <div class="input-field col s12 align-inputs nogutter">
+                    <i class="fa-solid fa-location-dot prefix indigo-text text-darken-1"></i>
+                    <input id="source" name="source" type="text" class="validate" minlength="5" maxlength="15">
+                    <label for="source">Source Name<span class="label-optional">(optional)</span></label>
+                </div>
+            </div>
+            <!-- source url -->
+            <div class="row">
+                <div class="input-field col s12 align-inputs nogutter">
+                    <i class="fa-solid fa-link prefix indigo-text text-darken-1"></i>
+                    <input id="source_backlink" name="source_backlink" type="text" class="validate" minlength="5"
+                        maxlength="15">
+                    <label for="source_backlink">Source URL<span class="label-optional">(optional)</span></label>
+                </div>
+            </div>
+            <!-- Submit Button -->
+            <div class="row">
+                <button type="submit" class="col s12 btn-large indigo darken-1 text-shadow">
+                    Submit my artwork <i class="fa-solid fa-paper-plane"></i>
+                </button>
+            </div>
+        </div>
+    </form>
+    <span class="author login-author">Creator: <a
+            href="{{ background.0.creator_backlink }}">{{ background.0.creator }}</a>
+        <br>
+        {% if background.0.source %}
+            Source:
+        {% if background.0.source_backlink %}
+            <a href="{{ background.0.source_backlink }}">{{ background.0.source }}</a>
+        {% else %}
+            <strong>{{ background.0.source }}</strong>
+        {% endif %}</span>
+    {% endif %}
+</div>
+
+
+{% endblock%}
+<!-- end section-->
+
+<!-- page specific script files below -->
+{% block pagescripts %}
+
+{% endblock %}
+<!-- end section-->

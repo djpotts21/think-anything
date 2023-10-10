@@ -25,7 +25,7 @@
                         <li><a href="#social">Social</a></li>
                         <li><a href="#myaccount"><i class="fa-regular fa-circle-user"></i></a></li>
                     {% else %}
-                        <li><a href="#login">Log In</a></li>
+                        <li><a href="{{ url_for('login') }}">Log In</a></li>
                         <li><a href="#signup">Sign Up</a></li>
                     {% endif %}
                 </ul>
@@ -40,7 +40,7 @@
                     <li><a href="#social">Social</a></li>
                     <li><a href="#myaccount">Manage Account</a></li>
                 {% else %}
-                    <li><a href="#login">Log In</a></li>
+                    <li><a href="{{ url_for('login') }}">Log In</a></li>
                     <li><a href="#signup">Sign Up</a></li>
                 {% endif %}
           </ul>
