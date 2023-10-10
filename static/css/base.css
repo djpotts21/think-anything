@@ -15,6 +15,7 @@ h3 {
   font-size: 1.5rem;
 }
 
+
 /* Home Hero  */
 .nogutter {
   margin: 0 !important;
@@ -120,8 +121,19 @@ h3 {
   display: inline-block;
 }
 
+/* Login Page */
+.login-author{
+    bottom: 3vh;
+  }
+
 /* Mobile view (600px and down) */
 @media only screen and (max-width: 600px) {
+
+  /* Mobile hide */
+  .mobile-hide {
+    display: none;
+    visibility: hidden;
+  }
 
   /* Navbar */
   nav .brand-logo {

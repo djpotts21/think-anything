@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+
+<!-- page specific stylesheets below -->
+{% block pagestyles %}
+
+{% endblock %}
+<!-- end section-->
+
+<!-- page title below **NO FORMATING** -->
+{% block pagetitle %}
+Home
+{% endblock %}
+<!-- end section-->
+
+<!-- page content below -->
+{% block content %}
+
+    <div class="row">
+        <form class="col s12 m6 offset-2" method="post" action="{{ url_for('login') }}">
+            <div class="card-panel">
+                <h3 class="center-align">Login</h3>
+                <!-- username -->
+                <div class="row">
+                    <div class="input-field col s6">
+                        <i class="fas fa-user-cog prefix indigo-text text-darken-1"></i>
+                        <input id="username" name="username" type="text" class="validate" minlength="5" maxlength="15"
+                            pattern="^[a-zA-Z0-9]{5,15}$" required>
+                        <label for="username">Username</label></div>
+                </div>
+                <!-- password -->
+                <div class="row">
+                    <div class="input-field col s12">
+                        <i class="fas fa-user-lock prefix indigo-text text-darken-1"></i>
+                        <input id="password" name="password" type="password" class="validate" minlength="5"
+                            maxlength="15" pattern="^[a-zA-Z0-9]{5,15}$" required>
+                        <label for="password">Password</label>
+                    </div>
+                </div>
+                <!-- register -->
+                <div class="row">
+                    <button type="submit" class="col s12 btn-large indigo darken-1 text-shadow">
+                        Login <i class="fa-solid fa-right-to-bracket"></i>
+                    </button>
+                </div>
+                <div class="row">
+                    <p class="center-align">New here? <a href="" class="indigo-text text-darken-1">Register Account</a></p>
+                </div>
+            </div>
+        </form>
+        <span class="author login-author">Creator: <a href="http://rawpixel.com">rawpixel.com</a><br>Source: <a
+                href="https://www.google.co.uk/url?sa=i&url=https%3A%2F%2Fmedium.com%2F%40JGLove%2Fdoes-the-solution-to-our-mental-health-crisis-lie-in-a-collective-purpose-2617ef2552e3&psig=AOvVaw3PScSej9W09lDhw7cJi4m5&ust=1696886957445000&source=images&cd=vfe&opi=89978449&ved=0CBIQjhxqFwoTCJib59ey54EDFQAAAAAdAAAAABAD">Medium</a></span>
+
+    </div>
+
+
+{% endblock%}
+<!-- end section-->
+
+<!-- page specific script files below -->
+{% block pagescripts %}
+
+{% endblock %}
+<!-- end section-->
