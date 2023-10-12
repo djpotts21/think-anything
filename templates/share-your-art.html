@@ -21,7 +21,7 @@ Share your Artwork
 {% block content %}
 
 <div class="row login-row">
-    <form class="" method="post" action="{{ url_for('login') }}">
+    <form class="" method="post" action="{{ url_for('share_your_art') }}" enctype = "multipart/form-data">
         <div class="card-panel">
             <h3 class="center-align">Share your Artwork</h3>
             <!-- file -->
@@ -35,8 +35,7 @@ Share your Artwork
             <div class="row">
                 <div class="input-field col s12 align-inputs nogutter">
                     <i class="fa-solid fa-users-viewfinder prefix indigo-text text-darken-1"></i>
-                    <input id="creator" name="creator" type="text" class="validate" minlength="5" maxlength="15"
-                        required>
+                    <input id="creator" name="creator" type="text" class="validate" required>
                     <label for="creator">Creator Name</label>
                 </div>
             </div>
@@ -44,8 +43,7 @@ Share your Artwork
             <div class="row">
                 <div class="input-field col s12 align-inputs nogutter">
                     <i class="fa-solid fa-link prefix indigo-text text-darken-1"></i>
-                    <input id="creator_backlink" name="creator_backlink" type="text" class="validate" minlength="5"
-                        maxlength="15">
+                    <input id="creator_backlink" name="creator_backlink" type="text" class="validate">
                     <label for="creator_backlink">Creator URL<span class="label-optional">(optional)</span></label>
                 </div>
             </div>
@@ -53,7 +51,7 @@ Share your Artwork
             <div class="row">
                 <div class="input-field col s12 align-inputs nogutter">
                     <i class="fa-solid fa-location-dot prefix indigo-text text-darken-1"></i>
-                    <input id="source" name="source" type="text" class="validate" minlength="5" maxlength="15">
+                    <input id="source" name="source" type="text" class="validate">
                     <label for="source">Source Name<span class="label-optional">(optional)</span></label>
                 </div>
             </div>
@@ -61,8 +59,7 @@ Share your Artwork
             <div class="row">
                 <div class="input-field col s12 align-inputs nogutter">
                     <i class="fa-solid fa-link prefix indigo-text text-darken-1"></i>
-                    <input id="source_backlink" name="source_backlink" type="text" class="validate" minlength="5"
-                        maxlength="15">
+                    <input id="source_backlink" name="source_backlink" type="text" class="validate">
                     <label for="source_backlink">Source URL<span class="label-optional">(optional)</span></label>
                 </div>
             </div>

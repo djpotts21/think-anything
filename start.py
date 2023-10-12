@@ -10,7 +10,10 @@ from flask import (
 from flask_pymongo import PyMongo
 from bson.objectid import ObjectId
 from datetime import date, datetime, timedelta
-from werkzeug.security import generate_password_hash, check_password_hash
+from werkzeug.security import (
+    generate_password_hash,
+    check_password_hash)
+from werkzeug.utils import secure_filename
 if os.path.exists("env.py"):
     import env
 
@@ -18,6 +21,7 @@ app = Flask(__name__)
 
 app.config["MONGO_DBNAME"] = os.environ.get("MONGO_DBNAME")
 app.config["MONGO_URI"] = os.environ.get("MONGO_URI")
+app.config["UPLOAD_FILE_FOLDER"] = os.environ.get("UPLOAD_FILE_FOLDER")
 app.secret_key = os.environ.get("SECRET_KEY")
 
 mongo = PyMongo(app)
@@ -32,16 +36,24 @@ tommorow_formated = tommorow.strftime("%d %B, %Y")
 def home():
     background = list(mongo.db.artwork.aggregate([{"$sample": {"size": 1}}]))
     reviews = list(mongo.db.reviews.find().sort("_id", -1).limit(3))
+    if session:
+        goals = list(mongo.db.goals.find(
+                {"created_by": session["user"],
+                 "date": today,
+                 "done": False}).limit(3))
+        return render_template(
+         "home.html",
+         reviews=reviews,
+         goals=goals,
+         background=background)
+
+    else:
+        return render_template(
+         "home.html",
+         reviews=reviews,
+         background=background)
     # goals = list(mongo.db.goals.find(
-    #     {"created_by": session["user"]},
-    #     {"date": today.strftime("%d %B, %Y")}).limit(3))
-    goals = list(mongo.db.goals.find(
-        {"created_by": "daniel", "date": today, "done": False}).limit(3))
-    return render_template(
-        "home.html",
-        reviews=reviews,
-        goals=goals,
-        background=background)
+    #     {"created_by": "daniel", "date": today, "done": False}).limit(3))
 
 
 @app.route("/goal-done/<goal_id>", methods=["POST"])
@@ -100,6 +112,23 @@ def logout():
 
 @app.route("/share-your-art", methods=["GET", "POST"])
 def share_your_art():
+    if request.method == "POST":
+        uploaded_file = request.files['file']
+        filename = secure_filename(uploaded_file.filename)
+        if uploaded_file.filename != '':
+            uploaded_file.save(
+                os.path.join(app.config['UPLOAD_FILE_FOLDER'], filename))
+        artwork = {
+            "image_url": os.path.join(
+                app.config['UPLOAD_FILE_FOLDER'], filename),
+            "creator": request.form.get("creator"),
+            "creator_backlink": request.form.get("creator_backlink"),
+            "source": request.form.get("source"),
+            "source_backlink": request.form.get("source_backlink"),
+        }
+        mongo.db.artwork.insert_one(artwork)
+        flash("Artwork Successfully Shared!")
+        return redirect(url_for("home"))
     background = list(mongo.db.artwork.aggregate([{"$sample": {"size": 1}}]))
     return render_template("share-your-art.html", background=background)
 
