@@ -3,11 +3,19 @@
 <!-- page specific stylesheets below -->
 {% block pagestyles %}
 <link rel="stylesheet" href="{{ url_for ('static', filename='css/share-art-work.css')}}" type="text/css">
-<style>
-    main {
-        background-image: url("{{ background.0.image_url }}");
-    }
-</style>
+    {% if "http" is not in background.image_url %}
+    <style>
+        main {
+            background-image: url("{{ background.0.image_url }}");
+        }
+    </style>
+    {% else %}
+        <style>
+            main {
+                background-image: url("{{ url_for ('static', filename='uploaded_art_store/')}}{{ background.0.image_url }}");
+            }
+        </style>
+    {% endif %}
 {% endblock %}
 <!-- end section-->
 

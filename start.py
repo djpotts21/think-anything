@@ -34,9 +34,10 @@ tommorow_formated = tommorow.strftime("%d %B, %Y")
 @app.route("/")
 @app.route("/home", methods=["GET", "POST"])
 def home():
+    """Home page"""
     background = list(mongo.db.artwork.aggregate([{"$sample": {"size": 1}}]))
     reviews = list(mongo.db.reviews.find().sort("_id", -1).limit(3))
-    if session:
+    if session.get("user") is True:
         goals = list(mongo.db.goals.find(
                 {"created_by": session["user"],
                  "date": today,
@@ -52,12 +53,11 @@ def home():
          "home.html",
          reviews=reviews,
          background=background)
-    # goals = list(mongo.db.goals.find(
-    #     {"created_by": "daniel", "date": today, "done": False}).limit(3))
 
 
 @app.route("/goal-done/<goal_id>", methods=["POST"])
 def goal_done(goal_id):
+    """Mark goal as done"""
     mongo.db.goals.update_one(
         {"_id": ObjectId(goal_id)},
         {'$set': {"done": True}})
@@ -67,6 +67,7 @@ def goal_done(goal_id):
 
 @app.route("/goal-move-tomorrow/<goal_id>", methods=["POST"])
 def goal_move_tomorrow(goal_id):
+    """Move goal to tommorow"""
     mongo.db.goals.update_one(
         {"_id": ObjectId(goal_id)},
         {'$set': {"date": tommorow_formated}})
@@ -76,6 +77,7 @@ def goal_move_tomorrow(goal_id):
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
+    """Login user"""
     background = list(mongo.db.artwork.aggregate([{"$sample": {"size": 1}}]))
     if request.method == "POST":
         # check if username exists #
@@ -104,6 +106,7 @@ def login():
 
 @app.route("/logout")
 def logout():
+    """Logout user"""
     # remove session cookie for user
     flash("You have been logged out!")
     session.pop("user")
@@ -112,6 +115,7 @@ def logout():
 
 @app.route("/share-your-art", methods=["GET", "POST"])
 def share_your_art():
+    """Share your art"""
     if request.method == "POST":
         uploaded_file = request.files['file']
         filename = secure_filename(uploaded_file.filename)
@@ -134,6 +138,7 @@ def share_your_art():
 
 
 if __name__ == "__main__":
+
     app.run(
         host=os.environ.get("IP"),
         port=int(os.environ.get("PORT")),

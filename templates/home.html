@@ -19,7 +19,11 @@ Home
   <div class="col s12 m12 nogutter">
     <div class="hero nogutter">
       <div class="hero-image nogutter">
+        {% if "http" is not in background.image_url %}
+        <img src="{{ url_for ('static', filename='uploaded_art_store/')}}{{ background.0.image_url }}">
+        {% else %}
         <img src="{{ background.0.image_url }}">
+        {% endif %}
         <h1 class="hero-title">Welcome to Think Anything</h1>
         <h2 class="hero-slogan">Embrace the Journey, Empower Your Mind</h2>
         {% if session.user %}
