@@ -117,10 +117,13 @@ def share_your_art():
     """Share your art"""
     if request.method == "POST":
         uploaded_file = request.files['file']
-        file = open(uploaded_file, 'r')
-        
+        if uploaded_file.filename != '':
+            uploaded_file.save(
+                os.path.join(app.config['UPLOAD_FILE_FOLDER'],
+                             uploaded_file.filename))
         artwork = {
-            "image_url": file,
+            "image_url": os.path.join(
+                app.config['UPLOAD_FILE_FOLDER'], uploaded_file.filename),
             "creator": request.form.get("creator"),
             "creator_backlink": request.form.get("creator_backlink"),
             "source": request.form.get("source"),
