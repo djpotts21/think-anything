@@ -51,6 +51,10 @@ Home
   <!-- User Logged In-->
   <h3 class="center-align">Quick View - Tasks for Today</h3>
   <div class="row">
+    {% if goals|length == 0 %}
+    <h3 class="center-align">You don't have any tasks today? <a href="#profile">Add a task in your profile</a></h3>
+    {% else %}
+    
     {% for goal in goals %}
     <div class="col s12 m6 l4">
       <div class="card indigo darken-1">
@@ -67,6 +71,7 @@ Home
       </div>
     </div>
     {% endfor %}
+    {% endif %}
   </div>
   {% else %}
   <!-- No User Logged In-->
