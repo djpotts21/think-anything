@@ -35,7 +35,6 @@ tommorow_formated = tommorow.strftime("%d %B, %Y")
 def home():
     """Home page"""
     background = list(mongo.db.artwork.aggregate([{"$sample": {"size": 1}}]))
-    reviews = list(mongo.db.reviews.find().sort("_id", -1).limit(3))
     if session.get("logged-in") == "yes":
         goals = list(mongo.db.goals.find(
             {"created_by": session["user"],
@@ -43,10 +42,10 @@ def home():
              "done": "no"}).limit(3))
         return render_template(
             "home.html",
-            reviews=reviews,
             background=background,
             goals=goals)
     else:
+        reviews = list(mongo.db.reviews.find().sort("_id", -1).limit(3))
         return render_template(
             "home.html",
             reviews=reviews,
