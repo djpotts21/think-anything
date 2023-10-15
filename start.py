@@ -37,22 +37,17 @@ def home():
     """Home page"""
     background = list(mongo.db.artwork.aggregate([{"$sample": {"size": 1}}]))
     reviews = list(mongo.db.reviews.find().sort("_id", -1).limit(3))
-    if session.get('user') is True:
+    if session.get("logged-in") == "yes":
         goals = list(mongo.db.goals.find(
-                {"created_by": session["user"],
+                {"creator": "daniel",
                  "date": today,
-                 "done": False}).limit(3))
-        return render_template(
-         "home.html",
-         reviews=reviews,
-         goals=goals,
-         background=background, today=today)
-
+                 "done": "no"}).limit(3))
     else:
-        return render_template(
-         "home.html",
-         reviews=reviews,
-         background=background)
+        goals = ["Please login to see your goals"]
+    return render_template(
+     "home.html",
+     reviews=reviews,
+     background=background, today=today, goals=goals)
 
 
 @app.route("/goal-done/<goal_id>", methods=["POST"])
@@ -60,7 +55,7 @@ def goal_done(goal_id):
     """Mark goal as done"""
     mongo.db.goals.update_one(
         {"_id": ObjectId(goal_id)},
-        {'$set': {"done": True}})
+        {'$set': {"done": "yes"}})
     flash("Goal marked as done")
     return redirect(url_for("home"))
 
@@ -89,6 +84,7 @@ def login():
             if check_password_hash(
                     existing_user["password"], request.form.get("password")):
                 session["user"] = request.form.get("username").lower()
+                session["logged-in"] = "yes"
                 flash("Hi, {}".format(existing_user["full_name"].title()))
                 # return redirect(url_for("profile", username=session["user"]))
                 return redirect(url_for("home"))
@@ -109,7 +105,7 @@ def logout():
     """Logout user"""
     # remove session cookie for user
     flash("You have been logged out!")
-    session.pop("user")
+    session.clear()
     return redirect(url_for("login"))
 
 
