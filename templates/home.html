@@ -19,7 +19,7 @@ Home
   <div class="col s12 m12 nogutter">
     <div class="hero nogutter">
       <div class="hero-image nogutter">
-          <img src="{{ url_for ('static', filename='uploaded_art_store/')}}{{ background.0.image_url }}">
+        <img src="{{ url_for ('static', filename='uploaded_art_store/')}}{{ background.0.image_url }}">
         <h1 class="hero-title">Welcome to Think Anything</h1>
         <h2 class="hero-slogan">Embrace the Journey, Empower Your Mind</h2>
         {% if session.user %}
@@ -29,47 +29,52 @@ Home
         <a class="btn indigo darken-1 hero-btn right small" href="#">Sign up</a>
         {% endif %}
         <span class="author login-author">Creator: <a
-          href="{{ background.0.creator_backlink }}">{{ background.0.creator }}</a>
-      <br>
-      {% if background.0.source %}
+            href="{{ background.0.creator_backlink }}">{{ background.0.creator }}</a>
+          <br>
+          {% if background.0.source %}
           Source:
           {% if background.0.source_backlink %}
-              <a href="{{ background.0.source_backlink }}">{{ background.0.source }}</a>
+          <a href="{{ background.0.source_backlink }}">{{ background.0.source }}</a>
           {% else %}
-              <strong>{{ background.0.source }}</strong>
+          <strong>{{ background.0.source }}</strong>
           {% endif %}
-      {% endif %}
-      <br><br>
-      <a href="{{ url_for('share_your_art')}}">Share your own artwork</a>
-  </span>
+          {% endif %}
+          <br><br>
+          <a href="{{ url_for('share_your_art')}}">Share your own artwork</a>
+        </span>
       </div>
     </div>
   </div>
 </section>
 <section class="container">
-  {{ today }} HERE
-  {{ goals }}
-  {{ session.user}}
   {% if session.user %}
   <!-- User Logged In-->
   <h3 class="center-align">Quick View - Tasks for Today</h3>
   <div class="row">
-    {% for goal in goals %}
-    <div class="col s12 m6 l4">
-      <div class="card indigo darken-1">
-        <div class="card-content white-text">
-          <span class="card-title review-name">{{ goal.title }}</span><span>
-          </span>
-          <p class="review-description">{{ goal.description }}</p>
-          <br>
-          <form action="{{ url_for('goal_done', goal_id=goal._id )}}" class="in-line-btn" method="POST">
-            <button class="btn indigo green in-line-btn" type="submit">Done</button> </form>
-          <form action="{{ url_for('goal_move_tomorrow', goal_id=goal._id )}}" class="in-line-btn" method="POST">
-            <button class="btn indigo white black-text" type="submit">Tomorrow</button> </form>
+    <div class="flexbox">
+      {% if goals|length > 0 %}
+      {% for goal in goals %}
+      <div class="s12 m6 l4">
+        <div class="card indigo darken-1">
+          <div class="card-content white-text">
+            <span class="card-title review-name">{{ goal.title }}</span><span>
+            </span>
+            <p class="review-description">{{ goal.description }}</p>
+            <br>
+            <form action="{{ url_for('goal_done', goal_id=goal._id )}}" class="in-line-btn" method="POST">
+              <button class="btn indigo green in-line-btn" type="submit">Done</button> </form>
+            <form action="{{ url_for('goal_move_tomorrow', goal_id=goal._id )}}" class="in-line-btn" method="POST">
+              <button class="btn indigo white black-text" type="submit">Tomorrow</button> </form>
+          </div>
         </div>
       </div>
+      {% endfor %}
+
+      {% else %}
+      <h3 class="center-align">You don't have any tasks today? <a href="#profile">Add a task in your profile</a></h3>
+
+      {% endif %}
     </div>
-    {% endfor %}
   </div>
   {% else %}
   <!-- No User Logged In-->
@@ -125,6 +130,7 @@ Home
         </div>
       </div>
     </div>
+
     {% endfor %}
   </div>
   {% endif %}

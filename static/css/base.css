@@ -139,6 +139,13 @@ h3 {
   display: inline-block;
 }
 
+.flexbox {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+
 
 /* Mobile view (600px and down) */
 @media only screen and (max-width: 600px) {

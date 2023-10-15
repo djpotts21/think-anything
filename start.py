@@ -13,7 +13,6 @@ from datetime import date, datetime, timedelta
 from werkzeug.security import (
     generate_password_hash,
     check_password_hash)
-from werkzeug.utils import secure_filename
 if os.path.exists("env.py"):
     import env
 
@@ -39,19 +38,19 @@ def home():
     reviews = list(mongo.db.reviews.find().sort("_id", -1).limit(3))
     if session.get("logged-in") == "yes":
         goals = list(mongo.db.goals.find(
-                {"created_by": session["user"],
-                 "date": today,
-                 "done": "no"}).limit(3))
+            {"created_by": session["user"],
+             "date": today,
+             "done": "no"}).limit(3))
         return render_template(
-         "home.html",
-         reviews=reviews,
-         background=background,
-         goals=goals)
+            "home.html",
+            reviews=reviews,
+            background=background,
+            goals=goals)
     else:
         return render_template(
-         "home.html",
-         reviews=reviews,
-         background=background)
+            "home.html",
+            reviews=reviews,
+            background=background)
 
 
 @app.route("/goal-done/<goal_id>", methods=["POST"])
@@ -118,13 +117,10 @@ def share_your_art():
     """Share your art"""
     if request.method == "POST":
         uploaded_file = request.files['file']
-        filename = secure_filename(uploaded_file.filename)
-        if uploaded_file.filename != '':
-            uploaded_file.save(
-                os.path.join(app.config['UPLOAD_FILE_FOLDER'], filename))
+        file = open(uploaded_file, 'r')
+        
         artwork = {
-            "image_url": os.path.join(
-                app.config['UPLOAD_FILE_FOLDER'], filename),
+            "image_url": file,
             "creator": request.form.get("creator"),
             "creator_backlink": request.form.get("creator_backlink"),
             "source": request.form.get("source"),
