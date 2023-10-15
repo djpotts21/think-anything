@@ -106,8 +106,8 @@ def login():
 def logout():
     """Logout user"""
     # remove session cookie for user
-    flash("You have been logged out!")
     session.clear()
+    flash("You have been logged out!")
     return redirect(url_for("login"))
 
 
