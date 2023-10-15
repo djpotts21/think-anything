@@ -37,7 +37,7 @@ def home():
     """Home page"""
     background = list(mongo.db.artwork.aggregate([{"$sample": {"size": 1}}]))
     reviews = list(mongo.db.reviews.find().sort("_id", -1).limit(3))
-    if session.get("user") is True:
+    if session.get('user') is True:
         goals = list(mongo.db.goals.find(
                 {"created_by": session["user"],
                  "date": today,
@@ -46,7 +46,7 @@ def home():
          "home.html",
          reviews=reviews,
          goals=goals,
-         background=background)
+         background=background, today=today)
 
     else:
         return render_template(
