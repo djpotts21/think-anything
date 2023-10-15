@@ -3,19 +3,11 @@
 <!-- page specific stylesheets below -->
 {% block pagestyles %}
 <link rel="stylesheet" href="{{ url_for ('static', filename='css/share-art-work.css')}}" type="text/css">
-    {% if "http" is not in background.image_url %}
-    <style>
-        main {
-            background-image: url("{{ background.0.image_url }}");
-        }
-    </style>
-    {% else %}
-        <style>
-            main {
-                background-image: url("{{ url_for ('static', filename='uploaded_art_store/')}}{{ background.0.image_url }}");
-            }
-        </style>
-    {% endif %}
+<style>
+    main {
+        background-image: url("{{ url_for ('static', filename='uploaded_art_store/')}}{{ background.0.image_url }}");
+    }
+</style>
 {% endblock %}
 <!-- end section-->
 
@@ -29,66 +21,64 @@ Share your Artwork
 {% block content %}
 
 <div class="row login-row">
-    <form class="" method="post" action="{{ url_for('share_your_art') }}" enctype = "multipart/form-data">
-        <div class="card-panel">
-            <h3 class="center-align">Share your Artwork</h3>
-            <!-- file -->
-            <div class="row">
-                <div class="input-field col s12 align-inputs nogutter">
-                    <i class="fa-solid fa-upload prefix indigo-text text-darken-1"></i>
-                    <input id="file" name="file" type="file" class="validate" required>
-                </div>
+    <form class="card-panel" method="post" action="{{ url_for('share_your_art') }}" enctype="multipart/form-data">
+        <h3 class="center-align">Share your Artwork</h3>
+        <!-- file -->
+        <div class="row">
+            <div class="input-field col s12 align-inputs nogutter">
+                <i class="fa-solid fa-upload prefix indigo-text text-darken-1"></i>
+                <input id="file" name="file" type="file" class="validate" required>
             </div>
-            <!-- creator name -->
-            <div class="row">
-                <div class="input-field col s12 align-inputs nogutter">
-                    <i class="fa-solid fa-users-viewfinder prefix indigo-text text-darken-1"></i>
-                    <input id="creator" name="creator" type="text" class="validate" required>
-                    <label for="creator">Creator Name</label>
-                </div>
+        </div>
+        <!-- creator name -->
+        <div class="row">
+            <div class="input-field col s12 align-inputs nogutter">
+                <i class="fa-solid fa-users-viewfinder prefix indigo-text text-darken-1"></i>
+                <input id="creator" name="creator" type="text" class="validate" required>
+                <label for="creator">Creator Name</label>
             </div>
-            <!-- creator url -->
-            <div class="row">
-                <div class="input-field col s12 align-inputs nogutter">
-                    <i class="fa-solid fa-link prefix indigo-text text-darken-1"></i>
-                    <input id="creator_backlink" name="creator_backlink" type="text" class="validate">
-                    <label for="creator_backlink">Creator URL<span class="label-optional">(optional)</span></label>
-                </div>
+        </div>
+        <!-- creator url -->
+        <div class="row">
+            <div class="input-field col s12 align-inputs nogutter">
+                <i class="fa-solid fa-link prefix indigo-text text-darken-1"></i>
+                <input id="creator_backlink" name="creator_backlink" type="text" class="validate">
+                <label for="creator_backlink">Creator URL<span class="label-optional">(optional)</span></label>
             </div>
-            <!-- source name -->
-            <div class="row">
-                <div class="input-field col s12 align-inputs nogutter">
-                    <i class="fa-solid fa-location-dot prefix indigo-text text-darken-1"></i>
-                    <input id="source" name="source" type="text" class="validate">
-                    <label for="source">Source Name<span class="label-optional">(optional)</span></label>
-                </div>
+        </div>
+        <!-- source name -->
+        <div class="row">
+            <div class="input-field col s12 align-inputs nogutter">
+                <i class="fa-solid fa-location-dot prefix indigo-text text-darken-1"></i>
+                <input id="source" name="source" type="text" class="validate">
+                <label for="source">Source Name<span class="label-optional">(optional)</span></label>
             </div>
-            <!-- source url -->
-            <div class="row">
-                <div class="input-field col s12 align-inputs nogutter">
-                    <i class="fa-solid fa-link prefix indigo-text text-darken-1"></i>
-                    <input id="source_backlink" name="source_backlink" type="text" class="validate">
-                    <label for="source_backlink">Source URL<span class="label-optional">(optional)</span></label>
-                </div>
+        </div>
+        <!-- source url -->
+        <div class="row">
+            <div class="input-field col s12 align-inputs nogutter">
+                <i class="fa-solid fa-link prefix indigo-text text-darken-1"></i>
+                <input id="source_backlink" name="source_backlink" type="text" class="validate">
+                <label for="source_backlink">Source URL<span class="label-optional">(optional)</span></label>
             </div>
-            <!-- Submit Button -->
-            <div class="row">
-                <button type="submit" class="col s12 btn-large indigo darken-1 text-shadow">
-                    Submit my artwork <i class="fa-solid fa-paper-plane"></i>
-                </button>
-            </div>
+        </div>
+        <!-- Submit Button -->
+        <div class="row">
+            <button type="submit" class="col s12 btn-large indigo darken-1 text-shadow">
+                Submit my artwork <i class="fa-solid fa-paper-plane"></i>
+            </button>
         </div>
     </form>
     <span class="author login-author">Creator: <a
             href="{{ background.0.creator_backlink }}">{{ background.0.creator }}</a>
         <br>
         {% if background.0.source %}
-            Source:
-            {% if background.0.source_backlink %}
-                <a href="{{ background.0.source_backlink }}">{{ background.0.source }}</a>
-            {% else %}
-                <strong>{{ background.0.source }}</strong>
-            {% endif %}
+        Source:
+        {% if background.0.source_backlink %}
+        <a href="{{ background.0.source_backlink }}">{{ background.0.source }}</a>
+        {% else %}
+        <strong>{{ background.0.source }}</strong>
+        {% endif %}
         {% endif %}
         <br><br>
         <a href="{{ url_for('share_your_art')}}">Share your own artwork</a>

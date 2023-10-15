@@ -3,19 +3,11 @@
 <!-- page specific stylesheets below -->
 {% block pagestyles %}
 <link rel="stylesheet" href="{{ url_for ('static', filename='css/login.css')}}" type="text/css">
-{% if "http" is not in background.image_url %}
 <style>
     main {
-        background-image: url("{{ background.0.image_url }}");
+        background-image: url("{{ url_for ('static', filename='uploaded_art_store/')}}{{ background.0.image_url }}");
     }
 </style>
-{% else %}
-    <style>
-        main {
-            background-image: url("{{ url_for ('static', filename='uploaded_art_store/')}}{{ background.0.image_url }}");
-        }
-    </style>
-{% endif %}
 {% endblock %}
 <!-- end section-->
 
@@ -29,40 +21,41 @@ Login
 {% block content %}
 
 <div class="row login-row">
-    <form class="" method="post" action="{{ url_for('login') }}">
-        <div class="card-panel">
-            <h3 class="center-align">Login</h3>
-            <!-- username -->
-            <div class="row">
-                <div class="input-field col s12">
-                    <i class="fas fa-user-cog prefix indigo-text text-darken-1"></i>
-                    <input id="username" name="username" type="text" class="validate" minlength="5" maxlength="15"
-                        pattern="^[a-zA-Z0-9]{5,15}$" required>
-                    <label for="username">Username</label></div>
+    <form class="card-panel" method="post" action="{{ url_for('login') }}">
+        <h3 class="center-align">Login</h3>
+        <!-- username -->
+        <div class="row">
+            <div class="input-field col s12">
+                <i class="fas fa-user-cog prefix indigo-text text-darken-1"></i>
+                <input id="username" name="username" type="text" class="validate" minlength="5" maxlength="15"
+                    pattern="^[a-zA-Z0-9]{5,15}$" required>
+                <label for="username">Username</label></div>
+        </div>
+        <!-- password -->
+        <div class="row">
+            <div class="input-field col s12">
+                <i class="fas fa-user-lock prefix indigo-text text-darken-1"></i>
+                <input id="password" name="password" type="password" class="validate" minlength="5" maxlength="15"
+                    pattern="^[a-zA-Z0-9]{5,15}$" required>
+                <label for="password">Password</label>
             </div>
-            <!-- password -->
-            <div class="row">
-                <div class="input-field col s12">
-                    <i class="fas fa-user-lock prefix indigo-text text-darken-1"></i>
-                    <input id="password" name="password" type="password" class="validate" minlength="5" maxlength="15"
-                        pattern="^[a-zA-Z0-9]{5,15}$" required>
-                    <label for="password">Password</label>
-                </div>
-            </div>
-            <!-- register -->
-            <div class="row">
-                <button type="submit" class="col s12 btn-large indigo darken-1 text-shadow">
-                    Login <i class="fa-solid fa-right-to-bracket"></i>
-                </button>
-            </div>
-            <div class="row">
-                <p class="center-align">New here? <a href="" class="indigo-text text-darken-1">Register Account</a></p>
-            </div>
+        </div>
+        <!-- register -->
+        <div class="row">
+            <button type="submit" class="col s12 btn-large indigo darken-1 text-shadow">
+                Login <i class="fa-solid fa-right-to-bracket"></i>
+            </button>
+        </div>
+        <div class="row">
+            <p class="center-align">New here? <a href="" class="indigo-text text-darken-1">Register Account</a></p>
         </div>
     </form>
     <span class="author login-author">Creator: <a
             href="{{ background.0.creator_backlink }}">{{ background.0.creator }}</a><br>Source: <a
-            href="{{ background.0.source_backlink }}">{{ background.0.source }}</a></span>
+            href="{{ background.0.source_backlink }}">{{ background.0.source }}</a>
+        <br><br>
+        <a href="{{ url_for('share_your_art')}}">Share your own artwork</a></span>
+
 </div>
 
 
