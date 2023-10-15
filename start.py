@@ -39,15 +39,19 @@ def home():
     reviews = list(mongo.db.reviews.find().sort("_id", -1).limit(3))
     if session.get("logged-in") == "yes":
         goals = list(mongo.db.goals.find(
-                {"creator": "daniel",
+                {"created_by": session["user"],
                  "date": today,
                  "done": "no"}).limit(3))
+        return render_template(
+         "home.html",
+         reviews=reviews,
+         background=background,
+         goals=goals)
     else:
-        goals = ["Please login to see your goals"]
-    return render_template(
-     "home.html",
-     reviews=reviews,
-     background=background, today=today, goals=goals)
+        return render_template(
+         "home.html",
+         reviews=reviews,
+         background=background)
 
 
 @app.route("/goal-done/<goal_id>", methods=["POST"])
