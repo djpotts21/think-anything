@@ -127,7 +127,6 @@ def share_your_art():
                 }
         res = requests.post(url, payload)
         responsejson = res.json()
-
         artwork = {
             "image_url": responsejson["data"]["url"],
             "creator": request.form.get("creator"),
