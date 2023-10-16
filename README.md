@@ -58,4 +58,6 @@ This project is build as a student of Code Institute Full Stack Developer Progra
 
  - [Materialize Framework](https://materializecss.com/)
  - [Home Hereo Image (Multi-coloured illustration of a head and patterns) is from Medium and created by rawpixel.com](https://miro.medium.com/v2/resize:fit:1000/1*esN2hDU1lrtZHhhAriQbNA.jpeg)
+ - [ImgBB API Documentatation](https://api.imgbb.com/)
+ - [Stackoverflow Jim Brissom - Base64 Encoding Image](https://stackoverflow.com/questions/3715493/encoding-an-image-file-with-base64)
 

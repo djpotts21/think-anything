@@ -1,4 +1,6 @@
 import os
+import base64
+import requests
 from flask import (
     Flask,
     flash,
@@ -117,11 +119,17 @@ def share_your_art():
     if request.method == "POST":
         uploaded_file = request.files['file']
         if uploaded_file.filename != '':
-            uploaded_file.save(
-                os.path.join(app.config['UPLOAD_FILE_FOLDER'],
-                             uploaded_file.filename))
+            with open(uploaded_file, "rb") as image_file:
+                url = "https://api.imgbb.com/1/upload"
+                payload = {
+                    "key": os.environ.get("IMGBB_API_KEY"),
+                    "image": base64.b64encode(image_file.read()),
+                }
+        res = requests.post(url, payload)
+        responsejson = res.json()
+
         artwork = {
-            "image_url": uploaded_file.filename,
+            "image_url": responsejson["data"]["url"],
             "creator": request.form.get("creator"),
             "creator_backlink": request.form.get("creator_backlink"),
             "source": request.form.get("source"),
