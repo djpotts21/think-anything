@@ -119,7 +119,7 @@ def share_your_art():
     if request.method == "POST":
         uploaded_file = request.files['file']
         if uploaded_file.filename != '':
-            with open(uploaded_file, "rb") as image_file:
+            with uploaded_file.stream as image_file:
                 url = "https://api.imgbb.com/1/upload"
                 payload = {
                     "key": os.environ.get("IMGBB_API_KEY"),
