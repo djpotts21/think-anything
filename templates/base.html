@@ -30,8 +30,8 @@
                         <li><a href="#myjournal">My Journal</a></li>
                         <li><a href="#social">Social</a></li>
                         <li><a href="{{ url_for('profile') }}">
-                            {% if session.user.profile_picture %}
-                            <i class="red-text fa-regular fa-circle-user"></i>
+                            {% if profilepictureurl != "No Photo" %}
+                            <img src="{{ session.profile_image_url }}" alt="Profile Picture" class="profile-picture-mini">
                             {% else %}
                             <i class="fa-regular fa-circle-user"></i>
                             {% endif %}

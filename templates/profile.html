@@ -18,32 +18,66 @@ Profile
 {% if session.user %}
 <!-- User Logged In-->
 <div class="container row">
-    <h1 class="welcome-message">{{ welcomemessage[0].welcome_message }}<strong>{{ displayname }}</strong></h1>
-    <span class="lastlogin">Last logged in: {{ lastlogindate }}</span><br>
-    <hr class="indigo darken-1 title-short">
+  <h1 class="welcome-message">{{ welcomemessage[0].welcome_message }}<strong>{{ displayname }}</strong></h1>
+  <span class="lastlogin">Last logged in: {{ lastlogindate }}</span><br>
+  <hr class="indigo darken-1 title-short">
 </div>
 <div class="container row">
-    <div class="col s12 m6 margin-left-remove">
-      <div class="card indigo darken-1">
-        <div class="card-content white-text">
-            <span class="card-title">Profile Picture</span>
-            <p>Upload a profile picture to be displayed on your profile.</p>
-            <img src="{{ profilepicture }}" alt="Profile Picture" class="profile-picture">
+  <div class="col s12 m6 margin-left-remove">
+    <div class="card indigo darken-1">
+      <div class="card-content white-text">
+        <div class="col m8">
+          <span class="card-title">Profile Picture</span>
+          <p>Upload a profile picture to be displayed on your profile.</p>
         </div>
-        <div class="card-action">
-          <a href="#">This is a link</a>
-          <a href="#">This is a link</a>
-        </div>
+        <div class="col m4"></div>
+        {% if session.profile_image_url != "No Photo"%}
+        <img src="{{ session.profile_image_url }}" alt="Profile Picture" class="profile-picture">
+        {% else %}
+        <i class="fa-regular fa-circle-user profile-picture"></i>
+        {% endif %}
+      </div>
+      <div class="card-action">
+        <a class="btn black white-text modal-trigger" data-target="upload-prompt" href="#">Upload Profile Photo</a>
+        <a class="btn black white-text modal-trigger" data-target="delete-prompt" href="#">Delete Photo</a>
       </div>
     </div>
   </div>
+</div>
 {% else %}
 <!-- No User Logged In-->
 <div class="row">
-    <h3 class="center-align">You must be logged in to manage your profile! <a href="{{ url_for('login') }}">Login
-            Here</a></h3>
+  <h3 class="center-align">You must be logged in to manage your profile! <a href="{{ url_for('login') }}">Login
+      Here</a></h3>
 </div>
 {% endif %}
+<!-- Modals -->
+<!-- Delete Photo Modal -->
+<div id="delete-prompt" class="modal">
+  <div class="modal-content indigo darken-1 white-text">
+    <h4>Are you sure you want to delete your photo?</h4>
+  </div>
+  <div class="modal-footer indigo darken-1 white-text ">
+    <a href="#!" class="modal-close black white-text btn">Cancel</a>
+    <form action="{{ url_for('delete_profile_photo') }}" method="post" class="inline-button-form">
+      <button type="submit" class="modal-close red white-text btn">Delete Photo</button>
+    </form>
+  </div>
+</div>
+</section>
+<!-- Upload Photo Modal -->
+<div id="upload-prompt" class="modal">
+  <div class="modal-content indigo darken-1 white-text">
+    <h4>Upload your new photo</h4>
+  </div>
+  <div class="modal-footer indigo darken-1 white-text">
+    <form action="{{ url_for('upload_profile_photo') }}" method="post" class="inline-button-form" enctype="multipart/form-data">
+      <input type="file" name="file" id="file" class="white-text">
+      <button type="submit" class="green white-text btn">Upload Photo</button>
+    </form>
+    <a href="#!" class="modal-close black white-text btn">Cancel</a>
+  </div>
+</div>
 </section>
 {% endblock%}
 <!-- end section-->

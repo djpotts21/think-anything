@@ -12,3 +12,14 @@
 .margin-left-remove{
     margin-left: -0.75rem !important
 }
+.profile-picture {
+    width: 100px;
+    border-radius: 50%;
+    font-size: 100px;
+}
+.modal-footer {
+    text-align: center !important;
+}
+.inline-button-form {
+    display:inline
+}

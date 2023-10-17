@@ -13,6 +13,11 @@ main {
 header {
   margin-bottom: -3px;
 }
+.profile-picture-mini {
+  width: 40px;
+  border-radius: 50%;
+  vertical-align: middle;
+}
 
 /* Flash Messages */
 

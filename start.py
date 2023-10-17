@@ -88,6 +88,8 @@ def login():
                     existing_user["password"], request.form.get("password")):
                 session["user"] = request.form.get("username").lower()
                 session["logged-in"] = "yes"
+                session["profile_image_url"] = existing_user[
+                    "profile_image_url"]
                 mongo.db.users.update_one(
                  {"username": request.form.get("username").lower()},
                  {'$set': {"lldate": today}})
@@ -152,7 +154,7 @@ def profile():
         mongo.db.welcome_messages.aggregate([{"$sample": {"size": 1}}]))
     lastlogindate = mongo.db.users.find_one(
         {"username": session["user"]})["lldate"]
-    profilepicture = mongo.db.users.find_one(
+    session["profile_image_url"] = mongo.db.users.find_one(
         {"username": session["user"]})["profile_image_url"]
     if request.method == "POST":
         print("Profile")
@@ -161,8 +163,39 @@ def profile():
         "profile.html",
         displayname=displayname,
         welcomemessage=welcomemessage,
-        lastlogindate=lastlogindate,
-        profilepicture=profilepicture)
+        lastlogindate=lastlogindate)
+
+
+@app.route("/delete_profile_photo", methods=["POST"])
+def delete_profile_photo():
+    """Delete user profile photo"""
+    mongo.db.users.update_one(
+        {"username": session["user"]},
+        {'$set': {"profile_image_url": "No Photo"}})
+    session.pop("profile_image_url", None)
+    flash("Profile photo deleted")
+    return redirect(url_for("profile"))
+
+
+@app.route("/upload_profile_photo", methods=["POST"])
+def upload_profile_photo():
+    """Upload Profile user profile photo"""
+    uploaded_file = request.files['file']
+    if uploaded_file.filename != '':
+        with uploaded_file.stream as image_file:
+            url = "https://api.imgbb.com/1/upload"
+            payload = {
+                "key": os.environ.get("IMGBB_API_KEY"),
+                "image": base64.b64encode(image_file.read()),
+            }
+        res = requests.post(url, payload)
+        responsejson = res.json()
+    mongo.db.users.update_one(
+        {"username": session["user"]},
+        {'$set': {"profile_image_url": responsejson["data"]["url"]}})
+    flash("Profile photo deleted")
+    session.pop("profile_image_url", None)
+    return redirect(url_for("profile"))
 
 
 if __name__ == "__main__":
