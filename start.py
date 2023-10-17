@@ -193,7 +193,7 @@ def upload_profile_photo():
     mongo.db.users.update_one(
         {"username": session["user"]},
         {'$set': {"profile_image_url": responsejson["data"]["url"]}})
-    flash("Profile photo deleted")
+    flash("Profile photo updated")
     session.pop("profile_image_url", None)
     return redirect(url_for("profile"))
 

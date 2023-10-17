@@ -23,11 +23,12 @@ Share your Artwork
 <div class="row login-row">
     <form class="card-panel" method="post" action="{{ url_for('share_your_art') }}" enctype="multipart/form-data">
         <h3 class="center-align">Share your Artwork</h3>
+        <p>File size must not exceed 30MB. Images must be PNG, JPG or JPEG</p>
         <!-- file -->
         <div class="row">
             <div class="input-field col s12 align-inputs nogutter">
                 <i class="fa-solid fa-upload prefix indigo-text text-darken-1"></i>
-                <input id="file" name="file" type="file" class="validate" required>
+                <input id="file" name="file" type="file" class="validate" required accept="image/png, image/jpeg">
             </div>
         </div>
         <!-- creator name -->

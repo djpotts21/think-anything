@@ -69,10 +69,11 @@ Profile
 <div id="upload-prompt" class="modal">
   <div class="modal-content indigo darken-1 white-text">
     <h4>Upload your new photo</h4>
+    <p>File size must not exceed 30MB. Images must be PNG, JPG or JPEG</p>
   </div>
   <div class="modal-footer indigo darken-1 white-text">
     <form action="{{ url_for('upload_profile_photo') }}" method="post" class="inline-button-form" enctype="multipart/form-data">
-      <input type="file" name="file" id="file" class="white-text">
+      <input type="file" name="file" id="file" class="white-text" accept="image/png, image/jpeg">
       <button type="submit" class="green white-text btn">Upload Photo</button>
     </form>
     <a href="#!" class="modal-close black white-text btn">Cancel</a>
