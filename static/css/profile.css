@@ -1,0 +1,14 @@
+.title-short {
+    width: 7%;
+    float: left;
+    border-width: 5px;
+    border-color: #3949ab !important;
+}
+.welcome-message {
+    font-size: 2rem;
+    line-height: 100%;
+    margin-bottom: 0;
+}
+.margin-left-remove{
+    margin-left: -0.75rem !important
+}

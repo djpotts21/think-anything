@@ -88,6 +88,9 @@ def login():
                     existing_user["password"], request.form.get("password")):
                 session["user"] = request.form.get("username").lower()
                 session["logged-in"] = "yes"
+                mongo.db.users.update_one(
+                 {"username": request.form.get("username").lower()},
+                 {'$set': {"lldate": today}})
                 flash("Hi, {}".format(existing_user["full_name"].title()))
                 # return redirect(url_for("profile", username=session["user"]))
                 return redirect(url_for("home"))
@@ -138,6 +141,28 @@ def share_your_art():
         return redirect(url_for("home"))
     background = list(mongo.db.artwork.aggregate([{"$sample": {"size": 1}}]))
     return render_template("share-your-art.html", background=background)
+
+
+@app.route("/profile", methods=["GET", "POST"])
+def profile():
+    ''''Profile page'''
+    displayname = mongo.db.users.find_one(
+        {"username": session["user"]})["full_name"].title()
+    welcomemessage = list(
+        mongo.db.welcome_messages.aggregate([{"$sample": {"size": 1}}]))
+    lastlogindate = mongo.db.users.find_one(
+        {"username": session["user"]})["lldate"]
+    profilepicture = mongo.db.users.find_one(
+        {"username": session["user"]})["profile_image_url"]
+    if request.method == "POST":
+        print("Profile")
+
+    return render_template(
+        "profile.html",
+        displayname=displayname,
+        welcomemessage=welcomemessage,
+        lastlogindate=lastlogindate,
+        profilepicture=profilepicture)
 
 
 if __name__ == "__main__":

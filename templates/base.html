@@ -29,7 +29,13 @@
                         <li><a href="{{ url_for('logout') }}">Log Out</a></li>
                         <li><a href="#myjournal">My Journal</a></li>
                         <li><a href="#social">Social</a></li>
-                        <li><a href="#myaccount"><i class="fa-regular fa-circle-user"></i></a></li>
+                        <li><a href="{{ url_for('profile') }}">
+                            {% if session.user.profile_picture %}
+                            <i class="red-text fa-regular fa-circle-user"></i>
+                            {% else %}
+                            <i class="fa-regular fa-circle-user"></i>
+                            {% endif %}
+                        </a></li>
                         {% else %}
                         <li><a href="{{ url_for('login') }}">Log In</a></li>
                         <li><a href="#signup">Sign Up</a></li>
@@ -44,7 +50,7 @@
             <li><a href="{{ url_for('logout') }}">Log Out</a></li>
             <li><a href="#myjournal">My Journal</a></li>
             <li><a href="#social">Social</a></li>
-            <li><a href="#myaccount">Manage Account</a></li>
+            <li><a href="{{ url_for('profile') }}">Manage Account</a></li>
             {% else %}
             <li><a href="{{ url_for('login') }}">Log In</a></li>
             <li><a href="#signup">Sign Up</a></li>

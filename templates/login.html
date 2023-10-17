@@ -53,8 +53,10 @@ Login
     <span class="author login-author">Creator: <a
             href="{{ background.0.creator_backlink }}">{{ background.0.creator }}</a><br>Source: <a
             href="{{ background.0.source_backlink }}">{{ background.0.source }}</a>
-        <br><br>
-        <a href="{{ url_for('share_your_art')}}">Share your own artwork</a></span>
+            {% if session.user %}
+            <br><br>
+            <a href="{{ url_for('share_your_art')}}">Share your own artwork</a>
+            {% endif %}
 
 </div>
 

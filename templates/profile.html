@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+
+<!-- page specific stylesheets below -->
+{% block pagestyles %}
+<link rel="stylesheet" href="{{ url_for ('static', filename='css/profile.css')}}" type="text/css">
+{% endblock %}
+<!-- end section-->
+
+<!-- page title below **NO FORMATING** -->
+{% block pagetitle %}
+Profile
+{% endblock %}
+<!-- end section-->
+
+<!-- page content below -->
+{% block content %}
+<!-- Home Hero -->
+{% if session.user %}
+<!-- User Logged In-->
+<div class="container row">
+    <h1 class="welcome-message">{{ welcomemessage[0].welcome_message }}<strong>{{ displayname }}</strong></h1>
+    <span class="lastlogin">Last logged in: {{ lastlogindate }}</span><br>
+    <hr class="indigo darken-1 title-short">
+</div>
+<div class="container row">
+    <div class="col s12 m6 margin-left-remove">
+      <div class="card indigo darken-1">
+        <div class="card-content white-text">
+            <span class="card-title">Profile Picture</span>
+            <p>Upload a profile picture to be displayed on your profile.</p>
+            <img src="{{ profilepicture }}" alt="Profile Picture" class="profile-picture">
+        </div>
+        <div class="card-action">
+          <a href="#">This is a link</a>
+          <a href="#">This is a link</a>
+        </div>
+      </div>
+    </div>
+  </div>
+{% else %}
+<!-- No User Logged In-->
+<div class="row">
+    <h3 class="center-align">You must be logged in to manage your profile! <a href="{{ url_for('login') }}">Login
+            Here</a></h3>
+</div>
+{% endif %}
+</section>
+{% endblock%}
+<!-- end section-->
+
+<!-- page specific script files below -->
+{% block pagescripts %}
+
+{% endblock %}
+<!-- end section-->
