@@ -229,6 +229,9 @@ def update_privacy(user_id):
 @app.route("/delete_account/<user_id>", methods=["POST"])
 def delete_account(user_id):
     mongo.db.users.delete_one({"_id": ObjectId(user_id)})
+    session.clear()
+    flash("Account deleted")
+    return redirect(url_for("home"))
 
 
 if __name__ == "__main__":
