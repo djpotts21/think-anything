@@ -5,6 +5,15 @@ $(document).ready(function () {
         draggable: true
     });
     $('.modal').modal();
+    $('.tooltipped').tooltip();
+    $("#ConfirmPassword").on('keyup', function(){
+      var password = $("#Password").val();
+      var confirmPassword = $("#ConfirmPassword").val();
+      if (password != confirmPassword)
+          $("#CheckPasswordMatch").html("Password does not match !").css("color","white");
+      else
+          $("#CheckPasswordMatch").html("");
+     });
 });
 // Hide flash messages after 5 seconds
 $('#flash-selector').delay(5000).fadeOut('slow');

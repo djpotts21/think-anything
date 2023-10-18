@@ -145,40 +145,33 @@ def share_your_art():
     return render_template("share-your-art.html", background=background)
 
 
-@app.route("/profile", methods=["GET", "POST"])
+@app.route("/profile", methods=["GET"])
 def profile():
     ''''Profile page'''
-    displayname = mongo.db.users.find_one(
-        {"username": session["user"]})["full_name"].title()
     welcomemessage = list(
         mongo.db.welcome_messages.aggregate([{"$sample": {"size": 1}}]))
-    lastlogindate = mongo.db.users.find_one(
-        {"username": session["user"]})["lldate"]
+    user_data = mongo.db.users.find_one({"username": session["user"]})
     session["profile_image_url"] = mongo.db.users.find_one(
         {"username": session["user"]})["profile_image_url"]
-    if request.method == "POST":
-        print("Profile")
 
     return render_template(
         "profile.html",
-        displayname=displayname,
-        welcomemessage=welcomemessage,
-        lastlogindate=lastlogindate)
+        welcomemessage=welcomemessage, user_data=user_data)
 
 
-@app.route("/delete_profile_photo", methods=["POST"])
-def delete_profile_photo():
+@app.route("/delete_profile_photo/<user_id>", methods=["POST"])
+def delete_profile_photo(user_id):
     """Delete user profile photo"""
     mongo.db.users.update_one(
-        {"username": session["user"]},
+        {"_id": ObjectId(user_id)},
         {'$set': {"profile_image_url": "No Photo"}})
     session.pop("profile_image_url", None)
     flash("Profile photo deleted")
     return redirect(url_for("profile"))
 
 
-@app.route("/upload_profile_photo", methods=["POST"])
-def upload_profile_photo():
+@app.route("/upload_profile_photo/<user_id>", methods=["POST"])
+def upload_profile_photo(user_id):
     """Upload Profile user profile photo"""
     uploaded_file = request.files['file']
     if uploaded_file.filename != '':
@@ -191,11 +184,51 @@ def upload_profile_photo():
         res = requests.post(url, payload)
         responsejson = res.json()
     mongo.db.users.update_one(
-        {"username": session["user"]},
+        {"_id": ObjectId(user_id)},
         {'$set': {"profile_image_url": responsejson["data"]["url"]}})
     flash("Profile photo updated")
     session.pop("profile_image_url", None)
     return redirect(url_for("profile"))
+
+
+@app.route("/update_email/<user_id>", methods=["POST"])
+def update_email(user_id):
+    """change user email"""
+    mongo.db.users.update_one(
+        {"_id": ObjectId(user_id)},
+        {'$set': {"email": request.form.get("email")}})
+    flash("Email address updated")
+    return redirect(url_for("profile"))
+
+
+@app.route("/update_password/<user_id>", methods=["POST"])
+def update_password(user_id):
+    """change user password"""
+    mongo.db.users.update_one(
+        {"_id": ObjectId(user_id)},
+        {'$set': {"password": generate_password_hash(
+            request.form.get("confpassword"))}})
+    flash("Password updated")
+    return redirect(url_for("profile"))
+
+
+@app.route("/update_privacy/<user_id>", methods=["POST"])
+def update_privacy(user_id):
+    """change user privacy"""
+    mongo.db.users.update_one(
+        {"_id": ObjectId(user_id)},
+        {'$set': {
+            "makefriends": request.form.get("makefriends"),
+            "publicreview": request.form.get("publicreview"),
+            "showprofilephoto": request.form.get("showprofilephoto"),
+            }})
+    flash("Privacy updated")
+    return redirect(url_for("profile"))
+
+
+@app.route("/delete_account/<user_id>", methods=["POST"])
+def delete_account(user_id):
+    print("delete account")
 
 
 if __name__ == "__main__":

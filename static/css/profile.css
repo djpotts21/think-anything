@@ -23,3 +23,32 @@
 .inline-button-form {
     display:inline
 }
+.no-margins {
+    margin: 0 !important
+}
+.card-action {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+}
+.card {
+    height: 35vh;
+}
+.fullfitbtn {
+    width: 10vw;
+    height: 8vh;
+}
+.fullfitbtn-dbl {
+    width: 10vw;
+    height: 16vh;
+}
+.switch label .lever {
+    margin: 0px;
+}
+a.tooltipped.white-text {
+    margin-left: -0.75vw;
+    width: 10vw;
+    display: inline-block;
+}
+.padding-between {
+    min-height: 5vh !important;
+}
