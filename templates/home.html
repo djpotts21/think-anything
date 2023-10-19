@@ -26,7 +26,7 @@ Home
         <a class="btn indigo darken-1 hero-btn large" href="#">Go to your Journal</a>
         {% else %}
         <a class="btn indigo darken-1 hero-btn left small" href="{{ url_for('login') }}">Log in</a>
-        <a class="btn indigo darken-1 hero-btn right small" href="#">Sign up</a>
+        <a class="btn indigo darken-1 hero-btn right small" href="{{ url_for('register') }}">Sign up</a>
         {% endif %}
         <span class="author login-author">Creator: <a
             href="{{ background.0.creator_backlink }}">{{ background.0.creator }}</a>
