@@ -1,0 +1,35 @@
+main {
+    background-size: cover;
+    background-position: right;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: center;
+}
+
+.login-author {
+    top: 10vh;
+    bottom: unset;
+  }
+
+  
+.reduce-spacing-if {
+  margin: 0;
+  height: 6vh;
+}
+
+  /* Mobile view (600px and down) */
+@media only screen and (max-width: 600px) {
+  .login-author {
+    top: unset;
+    bottom: 4.75vh;
+  }
+  }
+
+  /* Tablet View (600px and up) */
+@media only screen and (max-width: 1024px) {
+  .login-author {
+    top: 16vh;
+    bottom: unset;
+  }
+  }

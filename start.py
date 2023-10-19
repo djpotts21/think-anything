@@ -108,6 +108,41 @@ def login():
     return render_template("login.html", background=background)
 
 
+@app.route("/register", methods=["GET", "POST"])
+def register():
+    """Register user"""
+    background = list(mongo.db.artwork.aggregate([{"$sample": {"size": 1}}]))
+    if request.method == "POST":
+        # check if username exists #
+        existing_user = mongo.db.users.find_one(
+            {"username": request.form.get("username").lower()})
+
+        if existing_user:
+            flash("Username already exists! Try a diffrent one.")
+            return redirect(url_for("register"))
+
+        register = {
+            "username": request.form.get("username").lower(),
+            "full_name": request.form.get("full_name"),
+            "password": generate_password_hash(request.form.get("password")),
+            "lldate": today,
+            "profile_image_url": "No Photo",
+            "email": request.form.get("email"),
+            "makefriends": "on",
+            "publicreview": "on",
+            "showprofilephoto": "on"
+        }
+
+        mongo.db.users.insert_one(register)
+
+        # put the new user into 'session cookie
+        session["user"] = request.form.get("username").lower()
+        flash("Registration Successful")
+        return redirect(url_for("profile"))
+
+    return render_template("register.html", background=background)
+
+
 @app.route("/logout")
 def logout():
     """Logout user"""
