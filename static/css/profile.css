@@ -9,46 +9,45 @@
     line-height: 100%;
     margin-bottom: 0;
 }
-.margin-left-remove{
-    margin-left: -0.75rem !important
-}
 .profile-picture {
     width: 100px;
     border-radius: 50%;
     font-size: 100px;
+    float: right;
 }
 .modal-footer {
     text-align: center !important;
 }
-.inline-button-form {
+.inline-button-form{
     display:inline
 }
-.no-margins {
-    margin: 0 !important
+.w100{
+    width: 100% !important;
 }
-.card-action {
-    padding-left: 0 !important;
-    padding-right: 0 !important;
+.switch {
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
 }
 .card {
-    height: 35vh;
+        min-height: 260px;
+
 }
-.fullfitbtn {
-    width: 10vw;
-    height: 8vh;
+.double-btn-spacer {
+    margin-bottom:5px;
 }
-.fullfitbtn-dbl {
-    width: 10vw;
-    height: 16vh;
+
+/* Mobile view (600px and down) */
+@media only screen and (max-width: 600px) {
+.switch {
+    font-size: smaller;
+    margin-bottom: 5px
 }
-.switch label .lever {
-    margin: 0px;
+
 }
-a.tooltipped.white-text {
-    margin-left: -0.75vw;
-    width: 10vw;
-    display: inline-block;
+/* Tablet View (600px and up) */
+@media only screen and (min-width: 600px) and (max-width: 1024px) {
+.card {
+    max-height: 260px;
 }
-.padding-between {
-    min-height: 5vh !important;
 }
