@@ -165,7 +165,7 @@ h3 {
 
   /* Home Hero  */
   .hero-title {
-    font-size: 37px;
+    font-size: 30px;
     width: 80vw;
     line-height: 37px;
     top: 25%;
@@ -214,10 +214,10 @@ h3 {
   }
 
   .hero-title {
-    font-size: 37px;
+    font-size: 30px;
     width: 80vw;
     line-height: 37px;
-    top: 25%;
+    top: 20%;
     margin: 0;
   }
 
