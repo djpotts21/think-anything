@@ -44,10 +44,10 @@ Profile
             {% if objective[0].done == "no" %}
               <a class="green white-text btn double-btn-spacer edit-tom-done-buttons" href="mark as done in db from objectid"><i class="fa-solid fa-check"></i></a>
               <a class="blue white-text btn edit-tom-done-buttons" href="change to tommorow date in db from objectid"><i class="fa-solid fa-forward"></i></a>
-              <a class="orange white-text btn edit-tom-done-buttons modal-trigger" data-target="add-edit-objective"><i class="fa-solid fa-pencil"></i></a>
+              <a class="orange white-text btn edit-tom-done-buttons" href="change to add edit goal page"><i class="fa-solid fa-pencil"></i></a>
             {% endif %}
           {% else %}
-            <a class="green white-text btn double-btn-spacer edit-tom-done-buttons modal-trigger" data-target="add-edit-objective"><i class="fa-solid fa-plus"></i></a>
+            <a class="green white-text btn double-btn-spacer edit-tom-done-buttons" href="change to add edit goal page"><i class="fa-solid fa-plus"></i></a>
           {% endif %}
           </div>
         <div class="card-content white-text">
@@ -76,10 +76,10 @@ Profile
             {% if goals[0].done == "no" %}
               <a class="green white-text btn double-btn-spacer edit-tom-done-buttons" href="mark as done in db from objectid"><i class="fa-solid fa-check"></i></a>
               <a class="blue white-text btn edit-tom-done-buttons" href="change to tommorow date in db from objectid"><i class="fa-solid fa-forward"></i></a>
-              <a class="orange white-text btn edit-tom-done-buttons modal-trigger" data-target="add-edit-goal"><i class="fa-solid fa-pencil"></i></a>
+              <a class="orange white-text btn edit-tom-done-buttons" href="change to add edit goal page"><i class="fa-solid fa-pencil"></i></a>
             {% endif %}
           {% else %}
-            <a class="green white-text btn double-btn-spacer edit-tom-done-buttons modal-trigger" data-target="add-edit-goal"><i class="fa-solid fa-plus"></i></a>
+            <a class="green white-text btn double-btn-spacer edit-tom-done-buttons" href="change to add edit goal page"><i class="fa-solid fa-plus"></i></a>
           {% endif %}
           {% if goals[0] %}
           <span class="card-title">{{ goals[0].title }}</span>
@@ -105,10 +105,10 @@ Profile
             {% if goals[1].done == "no" %}
               <a class="green white-text btn double-btn-spacer edit-tom-done-buttons" href="mark as done in db from objectid"><i class="fa-solid fa-check"></i></a>
               <a class="blue white-text btn edit-tom-done-buttons" href="change to tommorow date in db from objectid"><i class="fa-solid fa-forward"></i></a>
-              <a class="orange white-text btn edit-tom-done-buttons modal-trigger" data-target="add-edit-goal"><i class="fa-solid fa-pencil"></i></a>
+              <a class="orange white-text btn edit-tom-done-buttons" href="change to add edit goal page"><i class="fa-solid fa-pencil"></i></a>
             {% endif %}
           {% else %}
-            <a class="green white-text btn double-btn-spacer edit-tom-done-buttons modal-trigger" data-target="add-edit-goal"><i class="fa-solid fa-plus"></i></a>
+            <a class="green white-text btn double-btn-spacer edit-tom-done-buttons" href="change to add edit goal page"><i class="fa-solid fa-plus"></i></a>
           {% endif %}
           {% if goals[1] %}
           <span class="card-title">{{ goals[1].title }}</span>
@@ -134,10 +134,10 @@ Profile
             {% if goals[2].done == "no" %}
               <a class="green white-text btn double-btn-spacer edit-tom-done-buttons" href="mark as done in db from objectid"><i class="fa-solid fa-check"></i></a>
               <a class="blue white-text btn edit-tom-done-buttons" href="change to tommorow date in db from objectid"><i class="fa-solid fa-forward"></i></a>
-              <a class="orange white-text btn edit-tom-done-buttons modal-trigger" data-target="add-edit-goal"><i class="fa-solid fa-pencil"></i></a>
+              <a class="orange white-text btn edit-tom-done-buttons" href="change to add edit goal page"><i class="fa-solid fa-pencil"></i></a>
             {% endif %}
           {% else %}
-            <a class="green white-text btn double-btn-spacer edit-tom-done-buttons modal-trigger" data-target="add-edit-goal"><i class="fa-solid fa-plus"></i></a>
+            <a class="green white-text btn double-btn-spacer edit-tom-done-buttons" href="change to add edit goal page"><i class="fa-solid fa-plus"></i></a>
           {% endif %}
           {% if goals[2] %}
           <span class="card-title">{{ goals[2].title }}</span>
@@ -157,61 +157,6 @@ Profile
       Here</a></h3>
 </div>
 {% endif %}
-<!-- Modals -->
-<!-- Update Add Objective Modal -->
-<div id="add-edit-objective" class="modal">
-  <div class="modal-content indigo darken-1 white-text">
-    <form action="{{ url_for('add_edit_goal') }}" method="post"
-    class="inline-button-form">
-    {% if objective|length == 0 %}
-      <h4>Add your daily objective for {{ selected_date }}</h4>
-      <input type="text" class="white-text" name="title" id="title">
-      <input type="hidden" name="url_date" id="url_date" value="{{ selected_date }}" />
-      <input type="hidden" name="objective" id="objective" value="yes" />
-      <input type="hidden" name="date" id="date" value="{{ selected_date }}" />
-      <button type="submit" class="modal-close red white-text btn">Add</button>
-    {% else %}
-      <h5>Edit your daily objective</h5>
-      <input type="text" class="white-text"name="title" id="title" value="{{ objective[0].title }}">
-      <input type="hidden" name="url_date" id="url_date" value="{{ selected_date }}" />
-      <input type="hidden" name="_id" id="_id" value="{{ objective[0]._id }}" />
-      <button type="submit" class="modal-close red white-text btn">Update Goal</button>
-    {% endif %}
-
-  </form>
-
-  <a href="#!" class="modal-close black white-text btn">Cancel</a>
-  </div>
-</div>
-</section>
-<!-- Upload Photo Modal -->
-<div id="upload-prompt" class="modal">
-  <div class="modal-content indigo darken-1 white-text">
-    <h4>Upload your new photo</h4>
-    <p>File size must not exceed 30MB. Images must be PNG, JPG or JPEG</p>
-  </div>
-  <div class="modal-footer indigo darken-1 white-text">
-    <form action="{{ url_for('upload_profile_photo', user_id=user_data._id ) }}" method="post" class="inline-button-form" enctype="multipart/form-data">
-      <input type="file" name="file" id="file" class="white-text" accept="image/png, image/jpeg">
-      <button type="submit" class="green white-text btn">Upload Photo</button>
-    </form>
-    <a href="#!" class="modal-close black white-text btn">Cancel</a>
-  </div>
-</div>
-<!-- Delete Profile Modal -->
-<div id="delete-profile-prompt" class="modal">
-  <div class="modal-content indigo darken-1 white-text">
-    <h4>Are you sure you want to delete your account?</h4>
-    <p>This action cannot be undone!</p>
-  </div>
-  <div class="modal-footer indigo darken-1 white-text ">
-    <a href="#!" class="modal-close black white-text btn">No - Cancel</a>
-    <form action="{{ url_for('delete_account', user_id=user_data._id ) }}" method="post" class="inline-button-form">
-      <button type="submit" class="modal-close red white-text btn">Delete Account</button>
-    </form>
-  </div>
-</div>
-</section>
 {% endblock %}
 <!-- end section-->
 
