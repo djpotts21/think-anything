@@ -27,7 +27,7 @@
                         <li><a href="{{ url_for('home') }}">Home</a></li>
                         {% if session.user %}
                         <li><a href="{{ url_for('logout') }}">Log Out</a></li>
-                        <li><a href="#myjournal">My Journal</a></li>
+                        <li><a href="{{ url_for('journal') }}">My Journal</a></li>
                         <li><a href="#social">Social</a></li>
                         <li><a href="{{ url_for('profile') }}">
                             {% if session.profile_image_url != "No Photo"%}
@@ -48,12 +48,12 @@
         <ul class="sidenav" id="mobile-nav">
             {% if session.user %}
             <li><a href="{{ url_for('logout') }}">Log Out</a></li>
-            <li><a href="#myjournal">My Journal</a></li>
+            <li><a href="{{ url_for('journal') }}">My Journal</a></li>
             <li><a href="#social">Social</a></li>
             <li><a href="{{ url_for('profile') }}">Manage Account</a></li>
             {% else %}
             <li><a href="{{ url_for('login') }}">Log In</a></li>
-            <li><a href="#signup">Sign Up</a></li>
+            <li><a href="{{ url_for('register') }}">Sign Up</a></li>
             {% endif %}
         </ul>
     </header>

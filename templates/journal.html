@@ -1,0 +1,224 @@
+{% extends "base.html" %}
+
+<!-- page specific stylesheets below -->
+{% block pagestyles %}
+<link rel="stylesheet" href="{{ url_for ('static', filename='css/journal.css')}}" type="text/css">
+{% endblock %}
+<!-- end section-->
+
+<!-- page title below **NO FORMATING** -->
+{% block pagetitle %}
+Profile
+{% endblock %}
+<!-- end section-->
+
+<!-- page content below -->
+{% block content %}
+<!-- Home Hero -->
+{% if session.user %}
+<!-- User Logged In-->
+
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <h1 class="welcome-message">
+        <strong>{{ user_data.full_name.title() }}'s</strong> Journal
+      </h1>
+      <span class="lastlogin">You are viewing the date: <strong>{{ selected_date }}</strong> <br> <a href="?date={{ previous_day_formated }}"> <i class="fa-solid fa-circle-chevron-left"></i> Previous Day</a> ||  <a href="?date={{ next_day_formated }}">Next Day <i class="fa-solid fa-circle-chevron-right"></i></a></span><br>
+      
+      <hr class="indigo darken-1 title-short"><br>
+    </div>
+  </div>
+  <div class="row">
+    <!-- Row One-->
+    <!-- Card One-->
+    <div class="col l12 m12 s12">
+      <div class="card indigo darken-1">
+        <div class="card-content white-text">
+          {% if session.profile_image_url != "No Photo"%}
+          <img src="{{ session.profile_image_url }}" alt="Profile Picture" class="profile-picture">
+          {% else %}
+          <i class="fa-regular fa-circle-user profile-picture"></i>
+          {% endif %}
+          <span class="card-title">Profile Picture</span>
+          <p>Upload a profile picture to be displayed on your profile.</p>
+
+        </div>
+        <div class="card-action">
+          <a class="black white-text btn modal-trigger double-btn-spacer" data-target="upload-prompt" href="#">Upload Profile Photo</a>
+          <a class="black white-text btn modal-trigger" data-target="delete-prompt" href="#">Delete Photo</a>
+        </div>
+      </div>
+    </div>
+    <!-- Row Two-->
+    <!-- Card Three-->
+    <div class="col s12 m6">
+      <div class="card indigo darken-1">
+        <div class="card-content white-text">
+          <span class="card-title">Change password</span>
+          <p>Change your password to a new one</p>
+          <form action="{{ url_for('update_password', user_id=user_data._id ) }}" method="post">
+            <input type="password" class="form-control validate white-text" id="Password"
+              placeholder="Enter a new password" name="password">
+            <input type="password" class="form-control validate white-text" id="ConfirmPassword"
+              placeholder="Confirm Password" name="confpassword">
+            <button class="black white-text btn w100" type="submit">Save Password</button>
+          </form>
+        </div>
+      </div>
+    </div>
+    <!-- Card Four-->
+    <div class="col s12 m6">
+      <div class="card indigo darken-1">
+        <div class="card-content white-text">
+          <span class="card-title">Privacy</span>
+          <p>Update your privacy settings</p><br>
+          <form action="{{ url_for('update_privacy', user_id=user_data._id) }}" method="post">
+            {% if user_data.makefriends == "on" %}
+            <div class="switch">
+              <span class="white-text"><a class="tooltipped white-text" data-position="bottom"
+                  data-tooltip="Show your profile on the social zone. Choosing no will hide your profile from other users sending friend requests, you continue to message any existing friends.">Show
+                  me on Social</a></span>
+              <label class="white-text">
+                No
+                <input type="checkbox" checked="checked" id="makefriends" name="makefriends">
+                <span class="lever white"></span>
+                Yes
+              </label>
+            </div>
+            {% else %}
+            <div class="switch">
+              <span class="white-text"><a class="tooltipped white-text" data-position="bottom"
+                  data-tooltip="Show your profile on the social zone. Choosing no will hide your profile from other users sending friend requests, you continue to message any existing friends.">Show
+                  me on Social</a></span>
+              <label class="white-text">
+                No
+                <input type="checkbox" id="makefriends" name="makefriends">
+                <span class="lever white"></span>
+                Yes
+              </label>
+            </div>
+            {% endif %}
+            <!-- Review-->
+            {% if user_data.publicreview == "on" %}
+            <div class="switch">
+              <span class="white-text"><a class="tooltipped white-text" data-position="bottom"
+                  data-tooltip="Show your review of the platform publically. Choosing no will hide your review to the public, but it will remain stored.">Public
+                  review</a></span>
+              <label class="white-text">
+                No
+                <input type="checkbox" id="publicreview" name="publicreview" checked="checked">
+                <span class="lever white"></span>
+                Yes
+              </label>
+            </div>
+            {% else %}
+            <div class="switch">
+              <span class="white-text"><a class="tooltipped white-text" data-position="bottom"
+                  data-tooltip="Show your review of the platform publically. Choosing no will hide your review to the public, but it will remain stored.">Public
+                  review</a></span>
+              <label class="white-text">
+                No
+                <input type="checkbox" id="publicreview" name="publicreview">
+                <span class="lever white"></span>
+                Yes
+              </label>
+            </div>
+            {% endif %}
+            {% if user_data.showprofilephoto == "on" %}
+            <div class="switch">
+              <span class="white-text"><a class="tooltipped white-text" data-position="bottom"
+                  data-tooltip="Hide your profile photo to others. Choosing no will hide profile photo, but it will remain stored and shown to you.">Show
+                  profile photo</a></span>
+              <label class="white-text">
+                No
+                <input type="checkbox" checked="checked" id="showprofilephoto" name="showprofilephoto">
+                <span class="lever white"></span>
+                Yes
+              </label>
+            </div>
+            {% else %}
+            <div class="switch">
+              <span class="white-text"><a class="tooltipped white-text" data-position="bottom"
+                  data-tooltip="Hide your profile photo to others. Choosing no will hide profile photo, but it will remain stored and shown to you.">Show
+                  profile photo</a></span>
+              <label class="white-text">
+                No
+                <input type="checkbox" id="showprofilephoto" name="showprofilephoto">
+                <span class="lever white"></span>
+                Yes
+              </label>
+            </div>
+            {% endif %}
+            <br>
+            <button class="black white-text btn w100" type="submit">Save Privacy</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+<div class="center-align">
+  <a class="modal-trigger center-align text-indigo text-darken-1" data-target="delete-profile-prompt" href="#">Delete
+    Account</a>
+</div>
+</div>
+{% else %}
+<!-- No User Logged In-->
+<div class="row">
+  <h3 class="center-align">You must be logged in to manage your profile! <a href="{{ url_for('login') }}">Login
+      Here</a></h3>
+</div>
+{% endif %}
+<!-- Modals -->
+<!-- Delete Photo Modal -->
+<div id="delete-prompt" class="modal">
+  <div class="modal-content indigo darken-1 white-text">
+    <h4>Are you sure you want to delete your photo?</h4>
+  </div>
+  <div class="modal-footer indigo darken-1 white-text ">
+    <a href="#!" class="modal-close black white-text btn">Cancel</a>
+    <form action="{{ url_for('delete_profile_photo', user_id=user_data._id ) }}" method="post"
+      class="inline-button-form">
+      <button type="submit" class="modal-close red white-text btn">Delete Photo</button>
+    </form>
+  </div>
+</div>
+</section>
+<!-- Upload Photo Modal -->
+<div id="upload-prompt" class="modal">
+  <div class="modal-content indigo darken-1 white-text">
+    <h4>Upload your new photo</h4>
+    <p>File size must not exceed 30MB. Images must be PNG, JPG or JPEG</p>
+  </div>
+  <div class="modal-footer indigo darken-1 white-text">
+    <form action="{{ url_for('upload_profile_photo', user_id=user_data._id ) }}" method="post" class="inline-button-form" enctype="multipart/form-data">
+      <input type="file" name="file" id="file" class="white-text" accept="image/png, image/jpeg">
+      <button type="submit" class="green white-text btn">Upload Photo</button>
+    </form>
+    <a href="#!" class="modal-close black white-text btn">Cancel</a>
+  </div>
+</div>
+<!-- Delete Profile Modal -->
+<div id="delete-profile-prompt" class="modal">
+  <div class="modal-content indigo darken-1 white-text">
+    <h4>Are you sure you want to delete your account?</h4>
+    <p>This action cannot be undone!</p>
+  </div>
+  <div class="modal-footer indigo darken-1 white-text ">
+    <a href="#!" class="modal-close black white-text btn">No - Cancel</a>
+    <form action="{{ url_for('delete_account', user_id=user_data._id ) }}" method="post" class="inline-button-form">
+      <button type="submit" class="modal-close red white-text btn">Delete Account</button>
+    </form>
+  </div>
+</div>
+</section>
+{% endblock%}
+<!-- end section-->
+
+<!-- page specific script files below -->
+{% block pagescripts %}
+
+{% endblock %}
+<!-- end section-->

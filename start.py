@@ -269,6 +269,39 @@ def delete_account(user_id):
     return redirect(url_for("home"))
 
 
+tommorow = datetime.now() + timedelta(1)
+tommorow_formated = tommorow.strftime("%d %B, %Y")
+
+
+@app.route("/journal", methods=["GET", "POST"])
+def journal():
+    welcomemessage = list(
+        mongo.db.welcome_messages.aggregate([{"$sample": {"size": 1}}]))
+    user_data = mongo.db.users.find_one({"username": session["user"]})
+    session["profile_image_url"] = mongo.db.users.find_one(
+        {"username": session["user"]})["profile_image_url"]
+
+    selected_date = today
+    if request.args.get("date"):
+        selected_date = request.args.get("date")
+    else:
+        selected_date = today
+
+    previous_day = datetime.strptime(selected_date, "%d %B, %Y") - timedelta(1)
+    previous_day_formated = previous_day.strftime("%d %B, %Y")
+
+    next_day = datetime.strptime(selected_date, "%d %B, %Y") + timedelta(1)
+    next_day_formated = next_day.strftime("%d %B, %Y")
+
+    return render_template("journal.html",
+                           welcomemessage=welcomemessage,
+                           user_data=user_data,
+                           today=today,
+                           selected_date=selected_date,
+                           previous_day_formated=previous_day_formated,
+                           next_day_formated=next_day_formated)
+
+
 if __name__ == "__main__":
 
     app.run(

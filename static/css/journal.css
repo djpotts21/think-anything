@@ -1,0 +1,53 @@
+.title-short {
+    width: 7%;
+    float: left;
+    border-width: 5px;
+    border-color: #3949ab !important;
+}
+.welcome-message {
+    font-size: 2rem;
+    line-height: 100%;
+    margin-bottom: 0;
+}
+.profile-picture {
+    width: 100px;
+    border-radius: 50%;
+    font-size: 100px;
+    float: right;
+}
+.modal-footer {
+    text-align: center !important;
+}
+.inline-button-form{
+    display:inline
+}
+.w100{
+    width: 100% !important;
+}
+.switch {
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+}
+.card {
+        min-height: 260px;
+
+}
+.double-btn-spacer {
+    margin-bottom:5px;
+}
+
+/* Mobile view (600px and down) */
+@media only screen and (max-width: 600px) {
+.switch {
+    font-size: smaller;
+    margin-bottom: 5px
+}
+
+}
+/* Tablet View (600px and up) */
+@media only screen and (min-width: 600px) and (max-width: 1024px) {
+.card {
+    max-height: 260px;
+}
+}
