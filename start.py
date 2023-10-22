@@ -293,13 +293,48 @@ def journal():
     next_day = datetime.strptime(selected_date, "%d %B, %Y") + timedelta(1)
     next_day_formated = next_day.strftime("%d %B, %Y")
 
+    objective = list(mongo.db.goals.find(
+        {"created_by": session["user"],
+         "date": selected_date,
+         "objective": "yes"}))
+
+    goals = list(mongo.db.goals.find(
+        {"created_by": session["user"],
+         "date": selected_date,
+         "objective": "no"}))
+
     return render_template("journal.html",
                            welcomemessage=welcomemessage,
                            user_data=user_data,
                            today=today,
                            selected_date=selected_date,
                            previous_day_formated=previous_day_formated,
-                           next_day_formated=next_day_formated)
+                           next_day_formated=next_day_formated,
+                           goals=goals,
+                           objective=objective)
+
+
+@app.route("/add-edit-goal", methods=["POST"])
+def add_edit_goal():
+    """add or edit goal"""
+    if request.form.get("_id"):
+        mongo.db.goals.update_one(
+            {"_id": ObjectId(request.form.get("_id"))},
+            {'$set': {"description": request.form.get("description"),
+                      "title": request.form.get("title")}})
+        flash("Goal Updated")
+    else:
+        goal = {
+            "title": request.form.get("title"),
+            "date": request.form.get("date"),
+            "created_by": session["user"],
+            "done": "no",
+            "objective": request.form.get("objective")
+        }
+        mongo.db.goals.insert_one(goal)
+        flash("Goal Set")
+
+    return redirect(url_for("journal", date=request.form.get("url_date")))
 
 
 if __name__ == "__main__":

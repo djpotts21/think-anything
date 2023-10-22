@@ -29,14 +29,42 @@
     display: flex;
     justify-content: space-between;
 }
-.card {
-        min-height: 260px;
 
-}
 .double-btn-spacer {
     margin-bottom:5px;
 }
-
+.edit-tom-done-buttons, .edit-tom-done-buttons i {
+    float: right;
+    width: 2.1vw;
+    height: 2.1vw;
+    border-radius: 50%;
+    margin-left: 2px;
+    margin-right: 2px;
+    padding: 0px;
+    font-size: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.done-tick-top-left {
+    float: left;
+    z-index: 1;
+    position: relative;
+    background: white;
+    border-radius: 50%;
+    margin-left: -10px;
+    font-size: 20px;
+}
+.pending-tick-top-left {
+    float: left;
+    z-index: 1;
+    position: relative;
+    background: white;
+    border-radius: 50%;
+    margin-left: -10px;
+    font-size: 17px;
+    padding: 3px;
+}
 /* Mobile view (600px and down) */
 @media only screen and (max-width: 600px) {
 .switch {
