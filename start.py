@@ -293,7 +293,7 @@ def journal():
     next_day = datetime.strptime(selected_date, "%d %B, %Y") + timedelta(1)
     next_day_formated = next_day.strftime("%d %B, %Y")
 
-    objective = list(mongo.db.goals.find(
+    objectives = list(mongo.db.goals.find(
         {"created_by": session["user"],
          "date": selected_date,
          "objective": "yes"}))
@@ -311,7 +311,7 @@ def journal():
                            previous_day_formated=previous_day_formated,
                            next_day_formated=next_day_formated,
                            goals=goals,
-                           objective=objective)
+                           objectives=objectives)
 
 
 @app.route("/add-edit-goal", methods=["POST"])
@@ -329,7 +329,8 @@ def add_edit_goal():
             "date": request.form.get("date"),
             "created_by": session["user"],
             "done": "no",
-            "objective": request.form.get("objective")
+            "objective": request.form.get("objective"),
+            "description": request.form.get("description")
         }
         mongo.db.goals.insert_one(goal)
         flash("Goal Set")

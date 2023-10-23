@@ -30,126 +30,306 @@ Profile
   <div class="row">
     <!-- Row One-->
     <!-- Card One-->
-    <div class="col l12 m12 s12">
-      {% if objective|length != 0 %}
-        {% if objective[0].done == "yes" %}
-          <i class="fa-solid fa-circle-check green-text done-tick-top-left"></i>
+    {% if objectives|length != 0 %}
+      {% for objective in objectives %}
+        <div class="col l12 m12 s12">
+          {% if objective.done == "yes" %}
+            <i class="fa-solid fa-circle-check green-text done-tick-top-left"></i>
           {% else %}
-          <i class="fa-solid fa-spinner indigo lighten-4 black-text pending-tick-top-left"></i>
-        {% endif %}
+            <i class="fa-solid fa-spinner indigo lighten-4 black-text pending-tick-top-left"></i>
+          {% endif %}
+            <div class="card indigo darken-1">
+              <div class="card-action right">
+                  <a class="green white-text btn double-btn-spacer edit-tom-done-buttons" href="mark as done in db from objectid"><i class="fa-solid fa-check"></i></a>
+                  <a class="blue white-text btn edit-tom-done-buttons" href="change to tommorow date in db from objectid"><i class="fa-solid fa-forward"></i></a>
+                  <a class="orange white-text btn edit-tom-done-buttons modal-trigger" data-target="{{ objective._id }}"><i class="fa-solid fa-pencil"></i></a>
+              </div>
+            <div class="card-content white-text">
+              <span class="card-title">Today you wanted to...</span>
+                  <p>{{objective.title}}</p>
+            </div>
+          </div>
+        </div>
+        <!-- MODAL-->
+        <div id="{{ objective._id }}" class="modal">
+          <div class="modal-content indigo darken-1 white-text">
+            <form action="{{ url_for('add_edit_goal') }}" method="post"
+            class="inline-button-form">
+              <h4>Edit your daily objective</h4>
+              <input type="text" class="white-text" name="title" id="title" value="{{ objective.title }}">
+              <input type="hidden" name="url_date" id="url_date" value="{{ selected_date }}" />
+              <input type="hidden" name="objective" id="objective" value="yes" />
+              <input type="hidden" name="_id" id="_id" value="{{ objective._id }}" />
+              <input type="hidden" name="date" id="date" value="{{ selected_date }}" />
+              <button type="submit" class="modal-close red white-text btn">Save</button>        
+          </form>
+          <a href="#!" class="modal-close black white-text btn">Cancel</a>
+          </div>
+        </div>
+      {% endfor %}
+    {% else %}
+      <div class="col l12 m12 s12">
+        <div class="card indigo darken-1">
+          <div class="card-content white-text">
+            <a class="green white-text btn double-btn-spacer edit-tom-done-buttons modal-trigger" data-target="new-objective"><i class="fa-solid fa-plus"></i></a>
+            <span class="card-title">No Objective Set <a class="modal-trigger" data-target="new-objective" href="!#">Add a new objective!</a></span>
+          </div>
+        </div>
+      </div>
+      <!-- MODAL-->
+      <div id="new-objective" class="modal">
+        <div class="modal-content indigo darken-1 white-text">
+          <form action="{{ url_for('add_edit_goal') }}" method="post"
+          class="inline-button-form">
+            <h4>Add your daily objective for</h4><h5> {{ selected_date }}</h5>
+            <input type="text" class="white-text" name="title" id="title" placeholder="Type your objective here">
+            <input type="hidden" name="url_date" id="url_date" value="{{ selected_date }}" />
+            <input type="hidden" name="objective" id="objective" value="yes" />
+            <input type="hidden" name="date" id="date" value="{{ selected_date }}" />
+            <button type="submit" class="modal-close red white-text btn">Add</button>        
+        </form>
+        <a href="#!" class="modal-close black white-text btn">Cancel</a>
+        </div>
+      </div>      
+    {% endif %}
+    <!-- Row Two-->
+    {% if goals|length == 0 %}
+        <!--No Goal 1 Container-->
+        <div class="col l4 m12 s12">
+          <div class="card indigo darken-1">
+            <div class="card-content white-text">
+              <a class="green white-text btn double-btn-spacer edit-tom-done-buttons modal-trigger"
+                data-target="new-goal"><i class="fa-solid fa-plus"></i></a>
+              <span class="card-title">No Goal Set <a class="modal-trigger" data-target="new-goal" href="!#">Add a new
+                  goal!</a></span>
+            </div>
+          </div>
+        </div>
+        <!--No Goal 2 Container-->
+        <div class="col l4 m12 s12">
+          <div class="card indigo darken-1">
+            <div class="card-content white-text">
+              <a class="green white-text btn double-btn-spacer edit-tom-done-buttons modal-trigger"
+                data-target="new-goal"><i class="fa-solid fa-plus"></i></a>
+              <span class="card-title">No Goal Set <a class="modal-trigger" data-target="new-goal" href="!#">Add a new
+                  goal!</a></span>
+            </div>
+          </div>
+        </div>
+        <!--No Goal 3 Container-->
+        <div class="col l4 m12 s12">
+          <div class="card indigo darken-1">
+            <div class="card-content white-text">
+              <a class="green white-text btn double-btn-spacer edit-tom-done-buttons modal-trigger"
+                data-target="new-goal"><i class="fa-solid fa-plus"></i></a>
+              <span class="card-title">No Goal Set <a class="modal-trigger" data-target="new-goal" href="!#">Add a new
+                  goal!</a></span>
+            </div>
+          </div>
+        </div>
+        <!-- New Goal Modal -->
+        <div id="new-goal" class="modal">
+          <div class="modal-content indigo darken-1 white-text">
+            <form action="{{ url_for('add_edit_goal') }}" method="post" class="inline-button-form">
+              <h4>Add a goal for</h4>
+              <h5> {{ selected_date }}</h5>
+              <input type="text" class="white-text" name="title" id="title" placeholder="Goal Title">
+              <input type="text" class="white-text" name="description" id="description" placeholder="Goal Description">
+              <input type="hidden" name="url_date" id="url_date" value="{{ selected_date }}" />
+              <input type="hidden" name="objective" id="objective" value="no" />
+              <input type="hidden" name="date" id="date" value="{{ selected_date }}" />
+              <button type="submit" class="modal-close red white-text btn">Add</button>
+            </form>
+            <a href="#!" class="modal-close black white-text btn">Cancel</a>
+          </div>
+        </div>
+    {% elif goals|length == 1 %}
+    <!-- Goal One Container-->
+    {% for goal in goals %}
+    <div class="col l4 m12 s12">
+      {% if goal.done == "yes" %}
+      <i class="fa-solid fa-circle-check green-text done-tick-top-left"></i>
+      {% else %}
+      <i class="fa-solid fa-spinner indigo lighten-4 black-text pending-tick-top-left"></i>
       {% endif %}
       <div class="card indigo darken-1">
         <div class="card-action right">
-          {% if objective|length != 0 %}
-            {% if objective[0].done == "no" %}
-              <a class="green white-text btn double-btn-spacer edit-tom-done-buttons" href="mark as done in db from objectid"><i class="fa-solid fa-check"></i></a>
-              <a class="blue white-text btn edit-tom-done-buttons" href="change to tommorow date in db from objectid"><i class="fa-solid fa-forward"></i></a>
-              <a class="orange white-text btn edit-tom-done-buttons" href="change to add edit goal page"><i class="fa-solid fa-pencil"></i></a>
-            {% endif %}
-          {% else %}
-            <a class="green white-text btn double-btn-spacer edit-tom-done-buttons" href="change to add edit goal page"><i class="fa-solid fa-plus"></i></a>
-          {% endif %}
-          </div>
-        <div class="card-content white-text">
-          <span class="card-title">Today you wanted to...</span>
-            {% if objective|length == 0 %}
-              <p>Nothing! You have no objective set for today.</p>
-            {% else %}
-              <p>{{objective[0].title}}</p>
-            {% endif %}
+          <a class="green white-text btn double-btn-spacer edit-tom-done-buttons"
+            href="mark as done in db from objectid"><i class="fa-solid fa-check"></i></a>
+          <a class="blue white-text btn edit-tom-done-buttons" href="change to tommorow date in db from objectid"><i
+              class="fa-solid fa-forward"></i></a>
+          <a class="orange white-text btn edit-tom-done-buttons modal-trigger" data-target="{{ goal._id }}"><i
+              class="fa-solid fa-pencil"></i></a>
         </div>
-      </div>
-      </div>
-    <!-- Row Two-->
-    <!-- Card Two-->
-    <div class="col s12 m4">
-      {% if goals[0] %}
-      {% if goals[0].done == "yes" %}
-        <i class="fa-solid fa-circle-check green-text done-tick-top-left"></i>
-        {% else %}
-        <i class="fa-solid fa-spinner indigo lighten-4 black-text pending-tick-top-left"></i>
-      {% endif %}
-    {% endif %}
-      <div class="card indigo darken-1">
         <div class="card-content white-text">
-          {% if goals[0] %}
-            {% if goals[0].done == "no" %}
-              <a class="green white-text btn double-btn-spacer edit-tom-done-buttons" href="mark as done in db from objectid"><i class="fa-solid fa-check"></i></a>
-              <a class="blue white-text btn edit-tom-done-buttons" href="change to tommorow date in db from objectid"><i class="fa-solid fa-forward"></i></a>
-              <a class="orange white-text btn edit-tom-done-buttons" href="change to add edit goal page"><i class="fa-solid fa-pencil"></i></a>
-            {% endif %}
-          {% else %}
-            <a class="green white-text btn double-btn-spacer edit-tom-done-buttons" href="change to add edit goal page"><i class="fa-solid fa-plus"></i></a>
-          {% endif %}
-          {% if goals[0] %}
-          <span class="card-title">{{ goals[0].title }}</span>
-          <p>{{ goals[0].description }}</p>
-          {% else %}
-          <span class="card-title">No Goal Set</span>
-          {% endif %}
+          <span class="card-title">{{goal.title}}</span>
+          <p>{{goal.description}}</p>
         </div>
       </div>
     </div>
-    <!-- Card Three-->
-    <div class="col s12 m4">
-      {% if goals[1] %}
-      {% if goals[1].done == "yes" %}
-        <i class="fa-solid fa-circle-check green-text done-tick-top-left"></i>
-        {% else %}
-        <i class="fa-solid fa-spinner indigo lighten-4 black-text pending-tick-top-left"></i>
-      {% endif %}
-    {% endif %}
+    <!-- MODAL-->
+    <div id="{{ goal._id }}" class="modal">
+      <div class="modal-content indigo darken-1 white-text">
+        <form action="{{ url_for('add_edit_goal') }}" method="post" class="inline-button-form">
+          <h4>Edit your goal</h4>
+          <input type="text" class="white-text" name="title" id="title" value="{{ goal.title }}">
+          <input type="text" class="white-text" name="description" id="description" value="{{ goal.description }}">
+          <input type="hidden" name="url_date" id="url_date" value="{{ selected_date }}" />
+          <input type="hidden" name="objective" id="objective" value="no" />
+          <input type="hidden" name="_id" id="_id" value="{{ goal._id }}" />
+          <input type="hidden" name="date" id="date" value="{{ selected_date }}" />
+          <button type="submit" class="modal-close red white-text btn">Save</button>
+        </form>
+        <a href="#!" class="modal-close black white-text btn">Cancel</a>
+      </div>
+    </div>
+    {% endfor %}
+    <!--No Goal 1 Container-->
+    <div class="col l4 m12 s12">
       <div class="card indigo darken-1">
         <div class="card-content white-text">
-          {% if goals[1] %}
-            {% if goals[1].done == "no" %}
-              <a class="green white-text btn double-btn-spacer edit-tom-done-buttons" href="mark as done in db from objectid"><i class="fa-solid fa-check"></i></a>
-              <a class="blue white-text btn edit-tom-done-buttons" href="change to tommorow date in db from objectid"><i class="fa-solid fa-forward"></i></a>
-              <a class="orange white-text btn edit-tom-done-buttons" href="change to add edit goal page"><i class="fa-solid fa-pencil"></i></a>
-            {% endif %}
-          {% else %}
-            <a class="green white-text btn double-btn-spacer edit-tom-done-buttons" href="change to add edit goal page"><i class="fa-solid fa-plus"></i></a>
-          {% endif %}
-          {% if goals[1] %}
-          <span class="card-title">{{ goals[1].title }}</span>
-          <p>{{ goals[1].description }}</p>
-          {% else %}
-          <span class="card-title">No Goal Set</span>
-          {% endif %}
+          <a class="green white-text btn double-btn-spacer edit-tom-done-buttons modal-trigger"
+            data-target="new-goal"><i class="fa-solid fa-plus"></i></a>
+          <span class="card-title">No Goal Set <a class="modal-trigger" data-target="new-goal" href="!#">Add a new
+              goal!</a></span>
         </div>
       </div>
     </div>
-     <!-- Card Four-->
-     <div class="col s12 m4">
-      {% if goals[2] %}
-      {% if goals[2].done == "yes" %}
-        <i class="fa-solid fa-circle-check green-text done-tick-top-left"></i>
-        {% else %}
-        <i class="fa-solid fa-spinner indigo lighten-4 black-text pending-tick-top-left"></i>
-      {% endif %}
-    {% endif %}
+    <!--No Goal 2 Container-->
+    <div class="col l4 m12 s12">
       <div class="card indigo darken-1">
         <div class="card-content white-text">
-          {% if goals[2] %}
-            {% if goals[2].done == "no" %}
-              <a class="green white-text btn double-btn-spacer edit-tom-done-buttons" href="mark as done in db from objectid"><i class="fa-solid fa-check"></i></a>
-              <a class="blue white-text btn edit-tom-done-buttons" href="change to tommorow date in db from objectid"><i class="fa-solid fa-forward"></i></a>
-              <a class="orange white-text btn edit-tom-done-buttons" href="change to add edit goal page"><i class="fa-solid fa-pencil"></i></a>
-            {% endif %}
-          {% else %}
-            <a class="green white-text btn double-btn-spacer edit-tom-done-buttons" href="change to add edit goal page"><i class="fa-solid fa-plus"></i></a>
-          {% endif %}
-          {% if goals[2] %}
-          <span class="card-title">{{ goals[2].title }}</span>
-          <p>{{ goals[2].description }}</p>
-          {% else %}
-          <span class="card-title">No Goal Set</span>
-          {% endif %}
+          <a class="green white-text btn double-btn-spacer edit-tom-done-buttons modal-trigger"
+            data-target="new-goal"><i class="fa-solid fa-plus"></i></a>
+          <span class="card-title">No Goal Set <a class="modal-trigger" data-target="new-goal" href="!#">Add a new
+              goal!</a></span>
         </div>
       </div>
     </div>
-</div>
-</div>
+    <!-- New Goal Modal -->
+    <div id="new-goal" class="modal">
+      <div class="modal-content indigo darken-1 white-text">
+        <form action="{{ url_for('add_edit_goal') }}" method="post" class="inline-button-form">
+          <h4>Add a goal for</h4>
+          <h5> {{ selected_date }}</h5>
+          <input type="text" class="white-text" name="title" id="title" placeholder="Goal Title">
+          <input type="text" class="white-text" name="description" id="description" placeholder="Goal Description">
+          <input type="hidden" name="url_date" id="url_date" value="{{ selected_date }}" />
+          <input type="hidden" name="objective" id="objective" value="no" />
+          <input type="hidden" name="date" id="date" value="{{ selected_date }}" />
+          <button type="submit" class="modal-close red white-text btn">Add</button>
+        </form>
+        <a href="#!" class="modal-close black white-text btn">Cancel</a>
+      </div>
+    </div>
+    {% elif goals|length == 2 %}
+    {% for goal in goals %}
+    <div class="col l4 m12 s12">
+      {% if goal.done == "yes" %}
+      <i class="fa-solid fa-circle-check green-text done-tick-top-left"></i>
+      {% else %}
+      <i class="fa-solid fa-spinner indigo lighten-4 black-text pending-tick-top-left"></i>
+      {% endif %}
+      <div class="card indigo darken-1">
+        <div class="card-action right">
+          <a class="green white-text btn double-btn-spacer edit-tom-done-buttons"
+            href="mark as done in db from objectid"><i class="fa-solid fa-check"></i></a>
+          <a class="blue white-text btn edit-tom-done-buttons" href="change to tommorow date in db from objectid"><i
+              class="fa-solid fa-forward"></i></a>
+          <a class="orange white-text btn edit-tom-done-buttons modal-trigger" data-target="{{ goal._id }}"><i
+              class="fa-solid fa-pencil"></i></a>
+        </div>
+        <div class="card-content white-text">
+          <span class="card-title">{{goal.title}}</span>
+          <p>{{goal.description}}</p>
+        </div>
+      </div>
+    </div>
+    <!-- MODAL-->
+    <div id="{{ goal._id }}" class="modal">
+      <div class="modal-content indigo darken-1 white-text">
+        <form action="{{ url_for('add_edit_goal') }}" method="post" class="inline-button-form">
+          <h4>Edit your goal</h4>
+          <input type="text" class="white-text" name="title" id="title" value="{{ goal.title }}">
+          <input type="text" class="white-text" name="description" id="description" value="{{ goal.description }}">
+          <input type="hidden" name="url_date" id="url_date" value="{{ selected_date }}" />
+          <input type="hidden" name="objective" id="objective" value="no" />
+          <input type="hidden" name="_id" id="_id" value="{{ goal._id }}" />
+          <input type="hidden" name="date" id="date" value="{{ selected_date }}" />
+          <button type="submit" class="modal-close red white-text btn">Save</button>
+        </form>
+        <a href="#!" class="modal-close black white-text btn">Cancel</a>
+      </div>
+    </div>
+    {% endfor %}
+    <!--No Goal 1 Container-->
+    <div class="col l4 m12 s12">
+      <div class="card indigo darken-1">
+        <div class="card-content white-text">
+          <a class="green white-text btn double-btn-spacer edit-tom-done-buttons modal-trigger"
+            data-target="new-goal"><i class="fa-solid fa-plus"></i></a>
+          <span class="card-title">No Goal Set <a class="modal-trigger" data-target="new-goal" href="!#">Add a new
+              goal!</a></span>
+        </div>
+      </div>
+    </div>
+    <!-- New Goal Modal -->
+    <div id="new-goal" class="modal">
+      <div class="modal-content indigo darken-1 white-text">
+        <form action="{{ url_for('add_edit_goal') }}" method="post" class="inline-button-form">
+          <h4>Add a goal for</h4>
+          <h5> {{ selected_date }}</h5>
+          <input type="text" class="white-text" name="title" id="title" placeholder="Goal Title">
+          <input type="text" class="white-text" name="description" id="description" placeholder="Goal Description">
+          <input type="hidden" name="url_date" id="url_date" value="{{ selected_date }}" />
+          <input type="hidden" name="objective" id="objective" value="no" />
+          <input type="hidden" name="date" id="date" value="{{ selected_date }}" />
+          <button type="submit" class="modal-close red white-text btn">Add</button>
+        </form>
+        <a href="#!" class="modal-close black white-text btn">Cancel</a>
+      </div>
+    </div>
+  {% elif goals|length >= 3 %}
+    {% for goal in goals %}
+    <div class="col l4 m12 s12">
+      {% if goal.done == "yes" %}
+      <i class="fa-solid fa-circle-check green-text done-tick-top-left"></i>
+      {% else %}
+      <i class="fa-solid fa-spinner indigo lighten-4 black-text pending-tick-top-left"></i>
+      {% endif %}
+      <div class="card indigo darken-1">
+        <div class="card-action right">
+          <a class="green white-text btn double-btn-spacer edit-tom-done-buttons"
+            href="mark as done in db from objectid"><i class="fa-solid fa-check"></i></a>
+          <a class="blue white-text btn edit-tom-done-buttons" href="change to tommorow date in db from objectid"><i
+              class="fa-solid fa-forward"></i></a>
+          <a class="orange white-text btn edit-tom-done-buttons modal-trigger" data-target="{{ goal._id }}"><i
+              class="fa-solid fa-pencil"></i></a>
+        </div>
+        <div class="card-content white-text">
+          <span class="card-title">{{goal.title}}</span>
+          <p>{{goal.description}}</p>
+        </div>
+      </div>
+    </div>
+    <!-- MODAL-->
+    <div id="{{ goal._id }}" class="modal">
+      <div class="modal-content indigo darken-1 white-text">
+        <form action="{{ url_for('add_edit_goal') }}" method="post" class="inline-button-form">
+          <h4>Edit your goal</h4>
+          <input type="text" class="white-text" name="title" id="title" value="{{ goal.title }}">
+          <input type="text" class="white-text" name="description" id="description" value="{{ goal.description }}">
+          <input type="hidden" name="url_date" id="url_date" value="{{ selected_date }}" />
+          <input type="hidden" name="objective" id="objective" value="no" />
+          <input type="hidden" name="_id" id="_id" value="{{ goal._id }}" />
+          <input type="hidden" name="date" id="date" value="{{ selected_date }}" />
+          <button type="submit" class="modal-close red white-text btn">Save</button>
+        </form>
+        <a href="#!" class="modal-close black white-text btn">Cancel</a>
+      </div>
+    </div>
+    {% endfor %}
+  {% endif %}
 {% else %}
 <!-- No User Logged In-->
 <div class="row">
