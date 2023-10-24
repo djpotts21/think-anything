@@ -40,7 +40,8 @@ def home():
         goals = list(mongo.db.goals.find(
             {"created_by": session["user"],
              "date": today,
-             "done": "no"}).limit(3))
+             "done": "no",
+             "objective": "no"}).limit(3))
         return render_template(
             "home.html",
             background=background,
@@ -55,22 +56,37 @@ def home():
 
 @app.route("/goal-done/<goal_id>", methods=["POST"])
 def goal_done(goal_id):
+    dateurl = request.args.get("dateurl")
+    if dateurl:
+        selected_date = dateurl
+    else:
+        selected_date = today
     """Mark goal as done"""
     mongo.db.goals.update_one(
         {"_id": ObjectId(goal_id)},
         {'$set': {"done": "yes"}})
     flash("Goal marked as done")
-    return redirect(url_for("home"))
+    return redirect(url_for("journal", date=selected_date))
 
 
 @app.route("/goal-move-tomorrow/<goal_id>", methods=["POST"])
 def goal_move_tomorrow(goal_id):
     """Move goal to tommorow"""
+    dateurl = request.args.get("dateurl")
+
+    if dateurl:
+        selected_date = dateurl
+    else:
+        selected_date = today
+
+    next_day = datetime.strptime(selected_date, "%d %B, %Y") + timedelta(1)
+    next_day_formated = next_day.strftime("%d %B, %Y")
+
     mongo.db.goals.update_one(
         {"_id": ObjectId(goal_id)},
-        {'$set': {"date": tommorow_formated}})
+        {'$set': {"date": next_day_formated}})
     flash("Goal moved to tommorow")
-    return redirect(url_for("home"))
+    return redirect(url_for("journal", date=next_day_formated))
 
 
 @app.route("/login", methods=["GET", "POST"])
@@ -267,10 +283,6 @@ def delete_account(user_id):
     session.clear()
     flash("Account deleted")
     return redirect(url_for("home"))
-
-
-tommorow = datetime.now() + timedelta(1)
-tommorow_formated = tommorow.strftime("%d %B, %Y")
 
 
 @app.route("/journal", methods=["GET", "POST"])

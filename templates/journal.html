@@ -39,11 +39,19 @@ Profile
             <i class="fa-solid fa-spinner indigo lighten-4 black-text pending-tick-top-left"></i>
           {% endif %}
             <div class="card indigo darken-1">
+              {% if objective.done == "no" %}
               <div class="card-action right">
-                  <a class="green white-text btn double-btn-spacer edit-tom-done-buttons" href="mark as done in db from objectid"><i class="fa-solid fa-check"></i></a>
-                  <a class="blue white-text btn edit-tom-done-buttons" href="change to tommorow date in db from objectid"><i class="fa-solid fa-forward"></i></a>
-                  <a class="orange white-text btn edit-tom-done-buttons modal-trigger" data-target="{{ objective._id }}"><i class="fa-solid fa-pencil"></i></a>
+                <form action="{{ url_for('goal_move_tomorrow', goal_id=objective._id, dateurl=selected_date )}}" class="in-line-btn edit-tom-done-buttons" method="POST">
+                <button class="blue white-text btn edit-tom-done-buttons" type="submit"><i class="fa-solid fa-forward"></i></button>
+                </form>
+                <a class="orange white-text btn edit-tom-done-buttons modal-trigger" data-target="{{ objective._id }}"><i
+                    class="fa-solid fa-pencil"></i></a>
+                <form action="{{ url_for('goal_done', goal_id=objective._id, dateurl=selected_date )}}" class="in-line-btn edit-tom-done-buttons" method="POST">
+                  <button class="green white-text btn edit-tom-done-buttons" type="submit"><i class="fa-solid fa-check"></i></button>
+                </form>
               </div>
+            {% endif %}
+    
             <div class="card-content white-text">
               <span class="card-title">Today you wanted to...</span>
                   <p>{{objective.title}}</p>
@@ -153,14 +161,18 @@ Profile
       <i class="fa-solid fa-spinner indigo lighten-4 black-text pending-tick-top-left"></i>
       {% endif %}
       <div class="card indigo darken-1">
-        <div class="card-action right">
-          <a class="green white-text btn double-btn-spacer edit-tom-done-buttons"
-            href="mark as done in db from objectid"><i class="fa-solid fa-check"></i></a>
-          <a class="blue white-text btn edit-tom-done-buttons" href="change to tommorow date in db from objectid"><i
-              class="fa-solid fa-forward"></i></a>
-          <a class="orange white-text btn edit-tom-done-buttons modal-trigger" data-target="{{ goal._id }}"><i
-              class="fa-solid fa-pencil"></i></a>
-        </div>
+        {% if goal.done == "no" %}
+          <div class="card-action right">
+            <form action="{{ url_for('goal_move_tomorrow', goal_id=goal._id, dateurl=selected_date )}}" class="in-line-btn edit-tom-done-buttons" method="POST">
+            <button class="blue white-text btn edit-tom-done-buttons" type="submit"><i class="fa-solid fa-forward"></i></button>
+            </form>
+            <a class="orange white-text btn edit-tom-done-buttons modal-trigger" data-target="{{ goal._id }}"><i
+                class="fa-solid fa-pencil"></i></a>
+            <form action="{{ url_for('goal_done', goal_id=goal._id, dateurl=selected_date )}}" class="in-line-btn edit-tom-done-buttons" method="POST">
+              <button class="green white-text btn edit-tom-done-buttons" type="submit"><i class="fa-solid fa-check"></i></button>
+            </form>
+          </div>
+        {% endif %}
         <div class="card-content white-text">
           <span class="card-title">{{goal.title}}</span>
           <p>{{goal.description}}</p>
@@ -231,14 +243,18 @@ Profile
       <i class="fa-solid fa-spinner indigo lighten-4 black-text pending-tick-top-left"></i>
       {% endif %}
       <div class="card indigo darken-1">
-        <div class="card-action right">
-          <a class="green white-text btn double-btn-spacer edit-tom-done-buttons"
-            href="mark as done in db from objectid"><i class="fa-solid fa-check"></i></a>
-          <a class="blue white-text btn edit-tom-done-buttons" href="change to tommorow date in db from objectid"><i
-              class="fa-solid fa-forward"></i></a>
-          <a class="orange white-text btn edit-tom-done-buttons modal-trigger" data-target="{{ goal._id }}"><i
-              class="fa-solid fa-pencil"></i></a>
-        </div>
+        {% if goal.done == "no" %}
+          <div class="card-action right">
+            <form action="{{ url_for('goal_move_tomorrow', goal_id=goal._id, dateurl=selected_date )}}" class="in-line-btn edit-tom-done-buttons" method="POST">
+            <button class="blue white-text btn edit-tom-done-buttons" type="submit"><i class="fa-solid fa-forward"></i></button>
+            </form>
+            <a class="orange white-text btn edit-tom-done-buttons modal-trigger" data-target="{{ goal._id }}"><i
+                class="fa-solid fa-pencil"></i></a>
+            <form action="{{ url_for('goal_done', goal_id=goal._id, dateurl=selected_date )}}" class="in-line-btn edit-tom-done-buttons" method="POST">
+              <button class="green white-text btn edit-tom-done-buttons" type="submit"><i class="fa-solid fa-check"></i></button>
+            </form>
+          </div>
+        {% endif %}
         <div class="card-content white-text">
           <span class="card-title">{{goal.title}}</span>
           <p>{{goal.description}}</p>
@@ -298,14 +314,18 @@ Profile
       <i class="fa-solid fa-spinner indigo lighten-4 black-text pending-tick-top-left"></i>
       {% endif %}
       <div class="card indigo darken-1">
-        <div class="card-action right">
-          <a class="green white-text btn double-btn-spacer edit-tom-done-buttons"
-            href="mark as done in db from objectid"><i class="fa-solid fa-check"></i></a>
-          <a class="blue white-text btn edit-tom-done-buttons" href="change to tommorow date in db from objectid"><i
-              class="fa-solid fa-forward"></i></a>
-          <a class="orange white-text btn edit-tom-done-buttons modal-trigger" data-target="{{ goal._id }}"><i
-              class="fa-solid fa-pencil"></i></a>
-        </div>
+        {% if goal.done == "no" %}
+          <div class="card-action right">
+            <form action="{{ url_for('goal_move_tomorrow', goal_id=goal._id, dateurl=selected_date )}}" class="in-line-btn edit-tom-done-buttons" method="POST">
+            <button class="blue white-text btn edit-tom-done-buttons" type="submit"><i class="fa-solid fa-forward"></i></button>
+            </form>
+            <a class="orange white-text btn edit-tom-done-buttons modal-trigger" data-target="{{ goal._id }}"><i
+                class="fa-solid fa-pencil"></i></a>
+            <form action="{{ url_for('goal_done', goal_id=goal._id, dateurl=selected_date )}}" class="in-line-btn edit-tom-done-buttons" method="POST">
+              <button class="green white-text btn edit-tom-done-buttons" type="submit"><i class="fa-solid fa-check"></i></button>
+            </form>
+          </div>
+        {% endif %}
         <div class="card-content white-text">
           <span class="card-title">{{goal.title}}</span>
           <p>{{goal.description}}</p>
