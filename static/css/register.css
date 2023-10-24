@@ -8,7 +8,7 @@ main {
 }
 
 .login-author {
-    top: 10vh;
+    top: 64px;
     bottom: unset;
   }
 
@@ -18,18 +18,19 @@ main {
   height: 6vh;
 }
 
-  /* Mobile view (600px and down) */
-@media only screen and (max-width: 600px) {
+
+
+  /* Tablet View (600px and up) */
+@media only screen and (max-width: 1024px) and (min-width: 600px) {
   .login-author {
-    top: unset;
-    bottom: 4.75vh;
+    top: 64px;
+    bottom: unset;
   }
   }
 
-  /* Tablet View (600px and up) */
-@media only screen and (max-width: 1024px) {
+    /* Mobile view (600px and down) */
+@media only screen and (max-width: 600px) {
   .login-author {
-    top: 16vh;
-    bottom: unset;
+    top: 56px;
   }
   }
