@@ -355,8 +355,12 @@ Profile
   <!-- Row Three-->
   <!-- Water Log-->
   <div class="col l4 m12 s12">
-    {% if user_data.water >= 8 %}
-    <i class="fa-solid fa-circle-check green-text done-tick-top-left"></i>
+    {% if water_log[0]|length != 0 %}
+      {% if water_log[0].water >= 8 %}
+      <i class="fa-solid fa-circle-check green-text done-tick-top-left"></i>
+      {% else %}
+      <i class="fa-solid fa-spinner indigo lighten-4 black-text pending-tick-top-left"></i>
+      {% endif %}
     {% else %}
     <i class="fa-solid fa-spinner indigo lighten-4 black-text pending-tick-top-left"></i>
     {% endif %}
@@ -369,7 +373,11 @@ Profile
             <button type="button" class="no-btn-formatting" data-quantity="minus" data-field="water_log">
               <i class="fa fa-minus" aria-hidden="true"></i>
             </button>
-            <input class="input-group-field" type="number" name="water_log" value="{{ user_data.water }}" id="water_log">
+            {% if water_log[0]|length != 0 %}
+            <input class="input-group-field" type="number" name="water_log" value="{{ water_log[0].water }}" id="water_log">
+            {% else %}
+            <input class="input-group-field" type="number" name="water_log" value="" id="water_log">
+            {% endif %}
             <button type="button" class="no-btn-formatting" data-quantity="plus" data-field="water_log">
               <i class="fa fa-plus" aria-hidden="true"></i>
             </button>

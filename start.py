@@ -316,6 +316,10 @@ def journal():
          "date": selected_date,
          "objective": "no"}))
 
+    water_log = mongo.db.water_log.find(
+        {"created_by": session["user"],
+         "date": selected_date})
+
     return render_template("journal.html",
                            welcomemessage=welcomemessage,
                            user_data=user_data,
@@ -324,7 +328,8 @@ def journal():
                            previous_day_formated=previous_day_formated,
                            next_day_formated=next_day_formated,
                            goals=goals,
-                           objectives=objectives)
+                           objectives=objectives,
+                           water_log=water_log)
 
 
 @app.route("/add-edit-goal", methods=["POST"])
@@ -332,7 +337,7 @@ def add_edit_goal():
     """add or edit goal"""
     if request.form.get("_id"):
         mongo.db.goals.update_one(
-            {"_id": ObjectId(request.form.get("_id"))},
+            {"created_by": session["user"]},
             {'$set': {"description": request.form.get("description"),
                       "title": request.form.get("title")}})
         flash("Goal Updated")
@@ -354,17 +359,29 @@ def add_edit_goal():
 @app.route("/water_log", methods=["POST"])
 def water_log_update():
     """Update water log"""
-    mongo.db.users.update_one(
-        {"_id": ObjectId(request.args.get("user"))},
-        {'$set': {"water": int(request.form.get("water_log"))}})
- 
+
     selected_date = today
-    if request.args.get("date"):
-        selected_date = request.args.get("date")
+    if request.args.get("dateurl"):
+        selected_date = request.args.get("dateurl")
     else:
         selected_date = today
 
-    return redirect(url_for("journal", selected_date=selected_date))
+    if mongo.db.water_log.find_one(
+            {"created_by": session["user"],
+             "date": selected_date}):
+        mongo.db.water_log.update_one(
+            {"created_by": session["user"],
+             "date": selected_date},
+            {'$set': {"water": int(request.form.get("water_log"))}})
+    else:
+        water_log = {
+            "water": int(request.form.get("water_log")),
+            "date": selected_date,
+            "created_by": session["user"]
+        }
+        mongo.db.water_log.insert_one(water_log)
+    flash("Water log updated")
+    return redirect(url_for("journal", date=selected_date))
 
 
 if __name__ == "__main__":
