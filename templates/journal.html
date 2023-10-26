@@ -350,6 +350,36 @@ Profile
     </div>
     {% endfor %}
   {% endif %}
+</div>
+<div class="row">
+  <!-- Row Three-->
+  <!-- Water Log-->
+  <div class="col l4 m12 s12">
+    {% if user_data.water >= 8 %}
+    <i class="fa-solid fa-circle-check green-text done-tick-top-left"></i>
+    {% else %}
+    <i class="fa-solid fa-spinner indigo lighten-4 black-text pending-tick-top-left"></i>
+    {% endif %}
+    <div class="card indigo darken-1">
+      <div class="card-content white-text">
+        <span class="card-title">Water Log</span>
+        <p>Aim for 8 glasses of water a day</p>
+        <form action="{{ url_for('water_log_update', user=user_data._id, dateurl=selected_date )}}" method="POST">
+          <div class="input-group plus-minus-input">
+            <button type="button" class="no-btn-formatting" data-quantity="minus" data-field="water_log">
+              <i class="fa fa-minus" aria-hidden="true"></i>
+            </button>
+            <input class="input-group-field" type="number" name="water_log" value="{{ user_data.water }}" id="water_log">
+            <button type="button" class="no-btn-formatting" data-quantity="plus" data-field="water_log">
+              <i class="fa fa-plus" aria-hidden="true"></i>
+            </button>
+          </div>
+          <button type="submit" class="btn full-width">Save</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
 {% else %}
 <!-- No User Logged In-->
 <div class="row">

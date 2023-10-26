@@ -146,7 +146,8 @@ def register():
             "email": request.form.get("email"),
             "makefriends": "on",
             "publicreview": "on",
-            "showprofilephoto": "on"
+            "showprofilephoto": "on",
+            "water": 0
         }
 
         mongo.db.users.insert_one(register)
@@ -348,6 +349,22 @@ def add_edit_goal():
         flash("Goal Set")
 
     return redirect(url_for("journal", date=request.form.get("url_date")))
+
+
+@app.route("/water_log", methods=["POST"])
+def water_log_update():
+    """Update water log"""
+    mongo.db.users.update_one(
+        {"_id": ObjectId(request.args.get("user"))},
+        {'$set': {"water": int(request.form.get("water_log"))}})
+ 
+    selected_date = today
+    if request.args.get("date"):
+        selected_date = request.args.get("date")
+    else:
+        selected_date = today
+
+    return redirect(url_for("journal", selected_date=selected_date))
 
 
 if __name__ == "__main__":

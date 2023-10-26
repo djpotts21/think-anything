@@ -60,4 +60,4 @@ This project is build as a student of Code Institute Full Stack Developer Progra
  - [ImgBB API Documentatation](https://api.imgbb.com/)
  - [Stackoverflow Jim Brissom - Base64 Encoding Image](https://stackoverflow.com/questions/3715493/encoding-an-image-file-with-base64)
  - [dev.to for password and confirm password validation](https://dev.to/techsolutionstuff/how-to-validate-password-and-confirm-password-using-jquery-364d)
-
+ - [Plus minus input box for Journal Water Log, thanks to http://get.foundation ](https://get.foundation/building-blocks/blocks/plus-minus-input.html)

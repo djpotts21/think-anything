@@ -65,6 +65,49 @@
     font-size: 17px;
     padding: 3px;
 }
+
+input#water_log {
+    color: white;
+}
+.no-btn-formatting, .no-btn-formatting i {
+    box-shadow: none;
+    border: none;
+    display: inline;
+    background: none;
+    color: white;
+}
+.input-group.plus-minus-input {
+    display: inline-flex;
+}
+.btn.full-width {
+    width: 100%;
+}
+
+.plus-minus-input {
+    -webkit-align-items: center;
+        -ms-flex-align: center;
+            align-items: center;
+  }
+  
+  .plus-minus-input .input-group-field {
+    text-align: center;
+    margin-left: 0.5rem;
+    margin-right: 0.5rem;
+    padding: 1rem;
+  }
+  
+  .plus-minus-input .input-group-field::-webkit-inner-spin-button,
+  .plus-minus-input .input-group-field ::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+            appearance: none;
+  }
+  
+  .plus-minus-input .input-group-button .circle {
+    border-radius: 50%;
+    padding: 0.25em 0.8em;
+  }
+  
+  
 /* Mobile view (600px and down) */
 @media only screen and (max-width: 600px) {
 .switch {
