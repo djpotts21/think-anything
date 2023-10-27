@@ -320,6 +320,26 @@ def journal():
         {"created_by": session["user"],
          "date": selected_date})
 
+    sleep_log = mongo.db.sleep_log.find(
+        {"created_by": session["user"],
+         "date": selected_date})
+
+    exercise_log = mongo.db.exercise_log.find(
+        {"created_by": session["user"],
+         "date": selected_date})
+
+    food_log = mongo.db.food_log.find(
+        {"created_by": session["user"],
+         "date": selected_date})
+
+    brain_train_log = mongo.db.brain_train_log.find(
+        {"created_by": session["user"],
+         "date": selected_date})
+
+    hygiene_log = mongo.db.hygiene_log.find(
+        {"created_by": session["user"],
+         "date": selected_date})
+
     return render_template("journal.html",
                            welcomemessage=welcomemessage,
                            user_data=user_data,
@@ -329,7 +349,12 @@ def journal():
                            next_day_formated=next_day_formated,
                            goals=goals,
                            objectives=objectives,
-                           water_log=water_log)
+                           water_log=water_log,
+                           sleep_log=sleep_log,
+                           exercise_log=exercise_log,
+                           food_log=food_log,
+                           brain_train_log=brain_train_log,
+                           hygiene_log=hygiene_log)
 
 
 @app.route("/add-edit-goal", methods=["POST"])
@@ -381,6 +406,146 @@ def water_log_update():
         }
         mongo.db.water_log.insert_one(water_log)
     flash("Water log updated")
+    return redirect(url_for("journal", date=selected_date))
+
+
+@app.route("/sleep_log", methods=["POST"])
+def sleep_log_update():
+    """Update sleep log"""
+
+    selected_date = today
+    if request.args.get("dateurl"):
+        selected_date = request.args.get("dateurl")
+    else:
+        selected_date = today
+
+    if mongo.db.sleep_log.find_one(
+            {"created_by": session["user"],
+             "date": selected_date}):
+        mongo.db.sleep_log.update_one(
+            {"created_by": session["user"],
+             "date": selected_date},
+            {'$set': {"sleep": int(request.form.get("sleep_log"))}})
+    else:
+        sleep_log = {
+            "sleep": int(request.form.get("sleep_log")),
+            "date": selected_date,
+            "created_by": session["user"]
+        }
+        mongo.db.sleep_log.insert_one(sleep_log)
+    flash("Sleep log updated")
+    return redirect(url_for("journal", date=selected_date))
+
+
+@app.route("/exercise_log", methods=["POST"])
+def exercise_log_update():
+    """Update Exercise log"""
+
+    selected_date = today
+    if request.args.get("dateurl"):
+        selected_date = request.args.get("dateurl")
+    else:
+        selected_date = today
+
+    if mongo.db.exercise_log.find_one(
+            {"created_by": session["user"],
+             "date": selected_date}):
+        mongo.db.exercise_log.update_one(
+            {"created_by": session["user"],
+             "date": selected_date},
+            {'$set': {"mins": int(request.form.get("exercise_log"))}})
+    else:
+        exercise_log = {
+            "mins": int(request.form.get("exercise_log")),
+            "date": selected_date,
+            "created_by": session["user"]
+        }
+        mongo.db.exercise_log.insert_one(exercise_log)
+    flash("Exercise log updated")
+    return redirect(url_for("journal", date=selected_date))
+
+
+@app.route("/food_log", methods=["POST"])
+def food_log_update():
+    """Update Food log"""
+
+    selected_date = today
+    if request.args.get("dateurl"):
+        selected_date = request.args.get("dateurl")
+    else:
+        selected_date = today
+
+    if mongo.db.food_log.find_one(
+            {"created_by": session["user"],
+             "date": selected_date}):
+        mongo.db.food_log.update_one(
+            {"created_by": session["user"],
+             "date": selected_date},
+            {'$set': {"meals": int(request.form.get("food_log"))}})
+    else:
+        food_log = {
+            "meals": int(request.form.get("food_log")),
+            "date": selected_date,
+            "created_by": session["user"]
+        }
+        mongo.db.food_log.insert_one(food_log)
+    flash("Food log updated")
+    return redirect(url_for("journal", date=selected_date))
+
+
+@app.route("/brain_train_log", methods=["POST"])
+def brain_train_log_update():
+    """Update mind exercises log"""
+
+    selected_date = today
+    if request.args.get("dateurl"):
+        selected_date = request.args.get("dateurl")
+    else:
+        selected_date = today
+
+    if mongo.db.brain_train_log.find_one(
+            {"created_by": session["user"],
+             "date": selected_date}):
+        mongo.db.brain_train_log.update_one(
+            {"created_by": session["user"],
+             "date": selected_date},
+            {'$set': {"mins": int(request.form.get("brain_train_log"))}})
+    else:
+        brain_train_log = {
+            "mins": int(request.form.get("brain_train_log")),
+            "date": selected_date,
+            "created_by": session["user"]
+        }
+        mongo.db.brain_train_log.insert_one(brain_train_log)
+    flash("Mind Exercises log updated")
+    return redirect(url_for("journal", date=selected_date))
+
+
+@app.route("/hygiene_log_log", methods=["POST"])
+def hygiene_log_update():
+    """Update mind exercises log"""
+
+    selected_date = today
+    if request.args.get("dateurl"):
+        selected_date = request.args.get("dateurl")
+    else:
+        selected_date = today
+
+    if mongo.db.hygiene_log.find_one(
+            {"created_by": session["user"],
+             "date": selected_date}):
+        mongo.db.hygiene_log.update_one(
+            {"created_by": session["user"],
+             "date": selected_date},
+            {'$set': {"done": request.form.get("hygiene")}})
+    else:
+        hygiene_log_log = {
+            "done": request.form.get("hygiene"),
+            "date": selected_date,
+            "created_by": session["user"]
+        }
+        mongo.db.hygiene_log.insert_one(hygiene_log_log)
+    flash("Hygiene log updated")
     return redirect(url_for("journal", date=selected_date))
 
 
