@@ -551,7 +551,12 @@ def hygiene_log_update():
 
 @app.route("/social", methods=["GET"])
 def social():
-    return render_template("social.html")
+    users = list(mongo.db.users.find())
+    current_user = mongo.db.friends.find_one(
+            {"user": session["user"]})
+    return render_template("social.html",
+                           users=users,
+                           current_user=current_user)
 
 
 if __name__ == "__main__":

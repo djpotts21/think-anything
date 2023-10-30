@@ -10,3 +10,50 @@
     margin-top: 10px;
     margin-bottom: 10px;
 }
+.boxed-style {
+    border: #dadada 10px solid;
+}
+.user-tile-profile-picture {
+    width: 40px;
+    border-radius: 50%;
+    vertical-align: middle;
+    margin: 5px;
+  }
+.action-btn-contai {
+    display: flex;
+    justify-content: space-between;
+}
+.user-tile-action-btn {
+    margin: 5px 0px 5px;
+    padding: unset;
+    width: 40%;
+}
+.user-tile-action-btn i {
+    font-size: 13px;
+    padding: 0;
+    margin: 0;
+    text-align: center;
+    line-height: 13px;
+}
+.user-tile {
+    border: 5px solid;
+}
+i.fa-regular.fa-circle-user.user-tile-profile-placeholder {
+    font-size: 40px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+.user-tile-container {
+    padding: 0px !important;
+}
+.text-capitalise{
+    text-transform: capitalize;
+}
+.one-line {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.px5-margin {
+    margin: 5px;
+}
