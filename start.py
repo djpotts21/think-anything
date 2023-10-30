@@ -549,6 +549,11 @@ def hygiene_log_update():
     return redirect(url_for("journal", date=selected_date))
 
 
+@app.route("/social", methods=["GET"])
+def social():
+    return render_template("social.html")
+
+
 if __name__ == "__main__":
 
     app.run(

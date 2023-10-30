@@ -1,0 +1,12 @@
+.title-short {
+    width: 7%;
+    float: left;
+    border-width: 5px;
+    border-color: #3949ab !important;
+}
+.title {
+    font-size: 30px;
+    line-height: 30px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}

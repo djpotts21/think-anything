@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+
+<!-- page specific stylesheets below -->
+{% block pagestyles %}
+<link rel="stylesheet" href="{{ url_for ('static', filename='css/social.css')}}" type="text/css">
+{% endblock %}
+<!-- end section-->
+
+<!-- page title below **NO FORMATING** -->
+{% block pagetitle %}
+Social
+{% endblock %}
+<!-- end section-->
+
+<!-- page content below -->
+{% block content %}
+{% if session.user %}
+<!-- User Logged In-->
+
+<div class="container">
+  <div class="row">
+    <h1 class="title">
+      Be <strong>Social</strong>!
+    </h1>
+    <span class="social-slogan">
+      Be social, make friends and journal together
+    </span>
+    <br>
+    <hr class="indigo darken-1 title-short">
+    <br>
+  </div>
+  <div class="row">
+    <div class="col s3 m6">
+      <!-- User Tiles-->
+    </div>
+    <div class="col s9 m6">
+      <!-- Messages-->
+    </div>
+  </div>
+</div>
+{% else %}
+<!-- No User Logged In-->
+<div class="row">
+  <h3 class="center-align">You must be logged in to use social! <a href="{{ url_for('login') }}">Login
+      Here</a></h3>
+</div>
+{% endif %}
+{% endblock%}
+<!-- end section-->
+
+<!-- page specific script files below -->
+{% block pagescripts %}
+
+{% endblock %}
+<!-- end section-->
