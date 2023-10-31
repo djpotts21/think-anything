@@ -25,17 +25,32 @@ Social
     <span class="social-slogan">
       Be social, make friends and journal together
     </span>
-    <br>
+    <p>
     <hr class="indigo darken-1 title-short">
     <br>
+    </p>
+    <p>
+    <button data-target="addnewfriend" class="btn indigo darken-1 modal-trigger">Add a new friend</button>
+    </p>
+    <!-- Modal Structure -->
+    <div id="addnewfriend" class="modal indigo darken-1">
+      <div class="modal-content">
+        <h1 class="title white-text">
+          Add a new friend
+        <form action="{{url_for('add_friend') }}" method="POST">
+          <input type="text" name="username" id="username" placeholder="@username" class="white-text">
+          <button type="submit" class="btn indigo lighten-2">Add Friend</button>
+        </form>
+      </div>
+    </div>
   </div>
   <div class="row">
     <div class="col s3 m6 boxed-style user-tile-container">
       <!-- User Tiles-->
-      {% for user in users %}
+      {% for user in users if user.username in current_user.friend_list %}
       <div class="col s12 m4 indigo darken-1 white-text user-tile">
         <div class="user-tile-profile-picture-container center-align">
-          {% if user.profile_image_url == "No Photo" %}
+          {% if user.profile_image_url == "No Photo" or user.showprofilephoto == "off" %}
           <i class="fa-regular fa-circle-user user-tile-profile-placeholder"></i>
           {% else %}
           <img src="{{ user.profile_image_url }}" alt="{{user.username}}'s profile picture" class="user-tile-profile-picture">
@@ -55,10 +70,46 @@ Social
       </div>
       {% endfor %}
     </div>
+    <!-- Messages-->
     <div class="col s9 m6 boxed-style">
-      <!-- Messages-->
+    
       DATA HERE IN MESSAGES
     </div>
+    <!-- Pending Friend Row-->
+    {% if current_user.pending_friends %}
+    <div class="row">
+      <div class="col s12 m12 boxed-style user-tile-container">
+        <!-- User Tiles-->
+        {% for user in users if user.username in current_user.pending_friends %}
+        <div class="col s12 m3 indigo darken-1 white-text user-tile">
+          <div class="user-tile-profile-picture-container center-align">
+            {% if user.profile_image_url == "No Photo" or user.showprofilephoto == "off" %}
+            <i class="fa-regular fa-circle-user user-tile-profile-placeholder"></i>
+            {% else %}
+            <img src="{{ user.profile_image_url }}" alt="{{user.username}}'s profile picture" class="user-tile-profile-picture">
+            {% endif %}
+          </div>
+          <p class="center-align px5-margin text-capitalise one-line tooltipped" data-position="top" data-tooltip="{{user.full_name}}">{{user.full_name}}</p>
+          <p class="center-align px5-margin one-line tooltipped" data-position="top" data-tooltip="@{{user.username}}">@{{user.username}}</p>
+          <div class="action-btn-contai">
+            {% if user.username in current_user.friend_list  %}
+            <a href="http://" class="btn user-tile-action-btn white black-text tooltipped" data-position="top" data-tooltip="Send @{{user.username}} a message"><i class="fa-solid fa-comments"></i></a>
+            <a href="http://" class="btn user-tile-action-btn red darken-4 white-text tooltipped" data-position="top" data-tooltip="Block @{{user.username}}"><i class="fa-solid fa-user-xmark"></i></a>
+            {% else %}
+            <a href="http://" class="btn user-tile-action-btn green darken-1 white-text tooltipped" data-position="top" data-tooltip="Add @{{user.username}} as a friend"><i class="fa-solid fa-user-plus"></i></a>
+            <a href="http://" class="btn user-tile-action-btn red darken-4 white-text tooltipped" data-position="top" data-tooltip="Block @{{user.username}}"><i class="fa-solid fa-user-xmark"></i></a>
+            {% endif %}
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+    {% else %}
+    <div class="row">
+      <div class="col s12 m12 boxed-style">
+        <h3 class="center-align">You have no pending friend requests</h3>
+      </div>
+    {% endif %}
   </div>
 </div>
 {% else %}

@@ -559,6 +559,72 @@ def social():
                            current_user=current_user)
 
 
+@app.route("/add-friend", methods=["POST"])
+def add_friend():
+    """Add friend"""
+
+    username = request.form.get("username")
+    if username.startswith("@"):
+        username = username.replace("@", "")
+    else:
+        username = username
+
+    sessionuser = session["user"]
+
+    usermatch = mongo.db.users.find_one(
+            {"username": username})
+
+    '''Check for own user request'''
+    if sessionuser == username:
+        flash("You can't add yourself as a friend")
+        return redirect(url_for("social"))
+
+    '''Check for duplicate friend request'''
+    if mongo.db.friends.find_one(
+                    {"user": sessionuser,
+                     "friend_list": [username]}):
+        flash("You are already friends")
+        return redirect(url_for("social"))
+
+    if usermatch is None:
+        flash("User doesn't exist " + username)
+        return redirect(url_for("social"))
+    else:
+        if username == usermatch["username"]:
+            '''Check if record exists and add friend to friend list'''
+            if mongo.db.friends.find_one(
+                    {"user": session["user"]}):
+                mongo.db.friends.update_one(
+                 {"user": session["user"]},
+                 {"$push": {"friend_list": username}})
+                flash("Update Record - Added friend" +
+                      username + "to user inserted in user " + session["user"])
+            else:
+                mongo.db.friends.insert_one(
+                    {"user": session["user"],
+                     "friend_list": [username]})
+                flash("New Record - Added friend" +
+                      username + "to user inserted in user " + session["user"])
+
+            '''Check if record exists and add friend
+                to friend's pending request list'''
+            if mongo.db.friends.find_one(
+                    {"user": username}):
+                mongo.db.friends.update_one(
+                 {"user": username},
+                 {"$push": {"pending_friends": sessionuser}})
+                flash("Update Record - Pending request inserted for user " +
+                      username)
+            else:
+                mongo.db.friends.insert_one(
+                    {"user": username,
+                     "pending_friends": [sessionuser]})
+                flash("New Record - Pending request inserted in user " +
+                      username)
+
+    return redirect(url_for("social"))
+
+
 if __name__ == "__main__":
 
     app.run(
