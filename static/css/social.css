@@ -62,13 +62,31 @@ i.fa-regular.fa-circle-user.user-tile-profile-placeholder {
     padding: 5px;
 }
 .message {
-    background: rgb(218, 218, 255);
     border-radius: 5px;
     padding: 5px;
     margin:0px;
 }
-p.timestamp {
+p.timestamp, p.sender {
     margin: 0;
     padding: 0;
     font-size: 8px;
+}
+.message-box {
+    width: 88% !important;
+    display: inline-block;
+}
+.message-btn {
+    width: 10% !important;
+    display: inline-block;
+    padding: 0 !important;
+    background: unset;
+    border: unset;
+    box-shadow: unset;
+}
+.message-btn:hover {
+    background-color: #f2f2f2;
+    box-shadow: unset;
+}
+i.fa-solid.fa-paper-plane {
+    font-size: 0.9rem !important;
 }

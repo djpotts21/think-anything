@@ -61,7 +61,7 @@ Social
           <p class="center-align px5-margin one-line tooltipped" data-position="top" data-tooltip="@{{user.username}}">@{{user.username}}</p>
           <div class="action-btn-contai">
             <a href="{{ url_for('social', selected_user=user.username)}}" class="btn user-tile-action-btn white black-text tooltipped" data-position="top" data-tooltip="Send @{{user.username}} a message"><i class="fa-solid fa-comments"></i></a>
-            <a href="http://" class="btn user-tile-action-btn red darken-4 white-text tooltipped" data-position="top" data-tooltip="Block @{{user.username}}"><i class="fa-solid fa-user-xmark"></i></a>
+            <a href="http://" class="btn user-tile-action-btn black darken-4 white-text tooltipped" data-position="top" data-tooltip="Block @{{user.username}}"><i class="fa-solid fa-user-xmark red-text"></i></a>
           </div>
         </div>
         {% endfor %}
@@ -73,22 +73,35 @@ Social
     </div>
     <!-- Messages-->
     <div class="col s9 m6 boxed-style">
-    {% if messages|length > 0 %}
-      {% for i in messages %}
-        {% if i.from == session["user"] %}
-        <div class="left message-container">
-          <p class="message">{{i.message}}</p>
-          <p class="timestamp">Sent: {{i.timestamp}}</p>
-        </div>
-      {% else %}
-          <div class="right message-container">
-            <p class="message">{{i.message}}</p>
+    {% if messages == "None" %}
+      <h3 class="center-align">Please select a user to message from your friend list on the left.</h3>
+    {% else %}
+      {% if messages|length > 0 %}
+        {% for i in messages %}
+          {% if i.from == session["user"] %}
+          <div class="left message-container">
+            <p class="sender">You</p>
+            <p class="message indigo lighten-4">{{i.message}}</p>
             <p class="timestamp">Sent: {{i.timestamp}}</p>
           </div>
-        {% endif %}
-      {% endfor %}
-    {% else %}
-      <h3 class="center-align">You have no messages</h3>
+        {% else %}
+            <div class="right message-container">
+              <p class="sender">@{{i.from}}</p>
+              <p class="message indigo darken-4 white-text">{{i.message}}</p>
+              <p class="timestamp">Sent: {{i.timestamp}}</p>
+            </div>
+          {% endif %}
+        {% endfor %}
+      {% else %}
+        <h3 class="center-align">You have no messages, Type one below to send a new message</h3>
+      {% endif %}
+      <div class="send-message-container">
+        <form action="{{ url_for('send_message' )}}" method="POST">
+          <input type="text" name="message" id="message" placeholder="Type a message" class="message-box">
+          <input type="hidden" name="to" id="to" value="{{selected_user}}">
+          <button type="submit" class="btn message-btn"><i class="fa-solid fa-paper-plane indigo-text text-darken-4"></i></button>
+        </form>
+      </div>
     {% endif %}
     </div>
     <!-- Pending Friend Row-->
@@ -109,13 +122,9 @@ Social
           <p class="center-align px5-margin text-capitalise one-line tooltipped" data-position="top" data-tooltip="{{user.full_name}}">{{user.full_name}}</p>
           <p class="center-align px5-margin one-line tooltipped" data-position="top" data-tooltip="@{{user.username}}">@{{user.username}}</p>
           <div class="action-btn-contai">
-            {% if user.username in current_user.friend_list  %}
-            <a href="http://" class="btn user-tile-action-btn white black-text tooltipped" data-position="top" data-tooltip="Send @{{user.username}} a message"><i class="fa-solid fa-comments"></i></a>
-            <a href="http://" class="btn user-tile-action-btn red darken-4 white-text tooltipped" data-position="top" data-tooltip="Block @{{user.username}}"><i class="fa-solid fa-user-xmark"></i></a>
-            {% else %}
-            <a href="http://" class="btn user-tile-action-btn green darken-1 white-text tooltipped" data-position="top" data-tooltip="Add @{{user.username}} as a friend"><i class="fa-solid fa-user-plus"></i></a>
-            <a href="http://" class="btn user-tile-action-btn red darken-4 white-text tooltipped" data-position="top" data-tooltip="Block @{{user.username}}"><i class="fa-solid fa-user-xmark"></i></a>
-            {% endif %}
+            <a href="{{ url_for('accept_friend', f_un=user.username)}}" class="btn user-tile-action-btn green black-text tooltipped" data-position="top" data-tooltip="Accept {{user.username}} as a friend"><i class="fa-solid fa-check"></i></a>
+            <a href="" class="btn user-tile-action-btn red darken-4 white-text tooltipped" data-position="top" data-tooltip="Reject @{{user.username}}"><i class="fa-solid fa-xmark"></i></a>
+            <a href="http://" class="btn user-tile-action-btn black darken-4 white-text tooltipped" data-position="top" data-tooltip="Block @{{user.username}}"><i class="fa-solid fa-user-xmark red-text"></i></a>
           </div>
         </div>
         {% endfor %}

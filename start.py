@@ -551,16 +551,19 @@ def hygiene_log_update():
 
 @app.route("/social", methods=["GET"])
 def social():
+    """Social page"""
+    messages = "None"
     users = list(mongo.db.users.find())
     current_user = mongo.db.friends.find_one(
         {"user": session["user"]})
     session_user = session["user"]
+    selected_user = None
     selected_user = request.args.get("selected_user")
     if selected_user:
         sent_messages = mongo.db.messages.find(
-            {"$or": [{"to": selected_user}, {"from": session_user}]})
+            {"$and": [{"to": selected_user}, {"from": session_user}]})
         received_messages = mongo.db.messages.find(
-            {"$or": [{"to": session_user}, {"from": selected_user}]})
+            {"$and": [{"to": session_user}, {"from": selected_user}]})
         messages = list(sent_messages) + list(received_messages)
         messages.sort(key=lambda x: x["timestamp"])
     else:
@@ -569,7 +572,40 @@ def social():
     return render_template("social.html",
                            users=users,
                            current_user=current_user,
-                           messages=messages)
+                           messages=messages,
+                           selected_user=selected_user)
+
+
+@app.route("/accept-friend", methods=["GET"])
+def accept_friend():
+    '''Accept friend request'''
+    username = request.args.get("f_un") # friend's username
+    sessionuser = session["user"]       # current user
+    # add friend to current user's friend list
+    mongo.db.friends.update_one(
+                 {"user": sessionuser},
+                 {"$push": {"friend_list": username}})
+    flash("Accepted friend request from " + username)
+    # remove from pending request list
+    mongo.db.friends.update_one(
+                 {"user": sessionuser},
+                 {"$pull": {"pending_friends": username}})
+    flash("Removed " + username + " from pending request list")
+    return redirect(url_for("social", selected_user=username))
+
+
+
+@app.route("/send-message", methods=["POST"])
+def send_message():
+    """Send message"""
+    message = {
+        "from": session["user"],
+        "to": request.form.get("to"),
+        "message": request.form.get("message"),
+        "timestamp": datetime.now()
+    }
+    mongo.db.messages.insert_one(message)
+    return redirect(url_for("social", selected_user=request.form.get("to")))
 
 
 @app.route("/add-friend", methods=["POST"])
