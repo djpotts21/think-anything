@@ -47,38 +47,55 @@ Social
   <div class="row">
     <div class="col s3 m6 boxed-style user-tile-container">
       <!-- User Tiles-->
-      {% for user in users if user.username in current_user.friend_list %}
-      <div class="col s12 m4 indigo darken-1 white-text user-tile">
-        <div class="user-tile-profile-picture-container center-align">
-          {% if user.profile_image_url == "No Photo" or user.showprofilephoto == "off" %}
-          <i class="fa-regular fa-circle-user user-tile-profile-placeholder"></i>
-          {% else %}
-          <img src="{{ user.profile_image_url }}" alt="{{user.username}}'s profile picture" class="user-tile-profile-picture">
-          {% endif %}
+      {% if current_user.friend_list|length > 0 %}
+        {% for user in users if user.username in current_user.friend_list %}
+        <div class="col s12 m4 indigo darken-1 white-text user-tile">
+          <div class="user-tile-profile-picture-container center-align">
+            {% if user.profile_image_url == "No Photo" or user.showprofilephoto == "off" %}
+            <i class="fa-regular fa-circle-user user-tile-profile-placeholder"></i>
+            {% else %}
+            <img src="{{ user.profile_image_url }}" alt="{{user.username}}'s profile picture" class="user-tile-profile-picture">
+            {% endif %}
+          </div>
+          <p class="center-align px5-margin text-capitalise one-line tooltipped" data-position="top" data-tooltip="{{user.full_name}}">{{user.full_name}}</p>
+          <p class="center-align px5-margin one-line tooltipped" data-position="top" data-tooltip="@{{user.username}}">@{{user.username}}</p>
+          <div class="action-btn-contai">
+            <a href="{{ url_for('social', selected_user=user.username)}}" class="btn user-tile-action-btn white black-text tooltipped" data-position="top" data-tooltip="Send @{{user.username}} a message"><i class="fa-solid fa-comments"></i></a>
+            <a href="http://" class="btn user-tile-action-btn red darken-4 white-text tooltipped" data-position="top" data-tooltip="Block @{{user.username}}"><i class="fa-solid fa-user-xmark"></i></a>
+          </div>
         </div>
-        <p class="center-align px5-margin text-capitalise one-line tooltipped" data-position="top" data-tooltip="{{user.full_name}}">{{user.full_name}}</p>
-        <p class="center-align px5-margin one-line tooltipped" data-position="top" data-tooltip="@{{user.username}}">@{{user.username}}</p>
-        <div class="action-btn-contai">
-          {% if user.username in current_user.friend_list  %}
-          <a href="http://" class="btn user-tile-action-btn white black-text tooltipped" data-position="top" data-tooltip="Send @{{user.username}} a message"><i class="fa-solid fa-comments"></i></a>
-          <a href="http://" class="btn user-tile-action-btn red darken-4 white-text tooltipped" data-position="top" data-tooltip="Block @{{user.username}}"><i class="fa-solid fa-user-xmark"></i></a>
-          {% else %}
-          <a href="http://" class="btn user-tile-action-btn green darken-1 white-text tooltipped" data-position="top" data-tooltip="Add @{{user.username}} as a friend"><i class="fa-solid fa-user-plus"></i></a>
-          <a href="http://" class="btn user-tile-action-btn red darken-4 white-text tooltipped" data-position="top" data-tooltip="Block @{{user.username}}"><i class="fa-solid fa-user-xmark"></i></a>
-          {% endif %}
-        </div>
+        {% endfor %}
+      {% else %}
+      <div class="col s12 m12 boxed-style">
+        <h3 class="center-align">You have Think Anything friends yet, why not add one with their username.</h3>
       </div>
-      {% endfor %}
+      {% endif %}
     </div>
     <!-- Messages-->
     <div class="col s9 m6 boxed-style">
-    
-      DATA HERE IN MESSAGES
+    {% if messages|length > 0 %}
+      {% for i in messages %}
+        {% if i.from == session["user"] %}
+        <div class="left message-container">
+          <p class="message">{{i.message}}</p>
+          <p class="timestamp">Sent: {{i.timestamp}}</p>
+        </div>
+      {% else %}
+          <div class="right message-container">
+            <p class="message">{{i.message}}</p>
+            <p class="timestamp">Sent: {{i.timestamp}}</p>
+          </div>
+        {% endif %}
+      {% endfor %}
+    {% else %}
+      <h3 class="center-align">You have no messages</h3>
+    {% endif %}
     </div>
     <!-- Pending Friend Row-->
-    {% if current_user.pending_friends %}
+    {% if current_user.pending_friends|length > 0 %}
     <div class="row">
       <div class="col s12 m12 boxed-style user-tile-container">
+        <h3 class="center-align">Your pending friend requests</h3>
         <!-- User Tiles-->
         {% for user in users if user.username in current_user.pending_friends %}
         <div class="col s12 m3 indigo darken-1 white-text user-tile">

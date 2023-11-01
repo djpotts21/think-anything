@@ -57,3 +57,18 @@ i.fa-regular.fa-circle-user.user-tile-profile-placeholder {
 .px5-margin {
     margin: 5px;
 }
+.message-container {
+    width: 75%;
+    padding: 5px;
+}
+.message {
+    background: rgb(218, 218, 255);
+    border-radius: 5px;
+    padding: 5px;
+    margin:0px;
+}
+p.timestamp {
+    margin: 0;
+    padding: 0;
+    font-size: 8px;
+}

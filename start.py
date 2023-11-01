@@ -553,10 +553,23 @@ def hygiene_log_update():
 def social():
     users = list(mongo.db.users.find())
     current_user = mongo.db.friends.find_one(
-            {"user": session["user"]})
+        {"user": session["user"]})
+    session_user = session["user"]
+    selected_user = request.args.get("selected_user")
+    if selected_user:
+        sent_messages = mongo.db.messages.find(
+            {"$or": [{"to": selected_user}, {"from": session_user}]})
+        received_messages = mongo.db.messages.find(
+            {"$or": [{"to": session_user}, {"from": selected_user}]})
+        messages = list(sent_messages) + list(received_messages)
+        messages.sort(key=lambda x: x["timestamp"])
+    else:
+        messages = "None"
+
     return render_template("social.html",
                            users=users,
-                           current_user=current_user)
+                           current_user=current_user,
+                           messages=messages)
 
 
 @app.route("/add-friend", methods=["POST"])
