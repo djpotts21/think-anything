@@ -559,6 +559,8 @@ def social():
     session_user = session["user"]
     selected_user = None
     selected_user = request.args.get("selected_user")
+    message_alert = list(mongo.db.messages.find(
+            {"$or": [{"to": session_user}, {"from": session_user}]}))
     if selected_user:
         sent_messages = mongo.db.messages.find(
             {"$and": [{"to": selected_user}, {"from": session_user}]})
@@ -577,7 +579,8 @@ def social():
                            users=users,
                            current_user=current_user,
                            messages=messages,
-                           selected_user=selected_user)
+                           selected_user=selected_user,
+                           message_alert=message_alert)
 
 
 @app.route("/accept-friend", methods=["GET"])
@@ -684,7 +687,7 @@ def add_friend():
     if mongo.db.friends.find_one(
                     {"user": username,
                      "blocked": [sessionuser]}):
-        flash("This user has blocked you")
+        flash("Sorry, you can not contact this user")
         return redirect(url_for("social"))
 
     '''Check for duplicate friend request'''

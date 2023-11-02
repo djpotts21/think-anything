@@ -44,6 +44,7 @@ Social
       </div>
     </div>
   </div>
+
   <div class="row">
     <div class="col s3 m6 boxed-style user-tile-container social-fixed-container">
       <!-- User Tiles-->
@@ -60,7 +61,13 @@ Social
           <p class="center-align px5-margin text-capitalise one-line tooltipped" data-position="top" data-tooltip="{{user.full_name}}">{{user.full_name}}</p>
           <p class="center-align px5-margin one-line tooltipped" data-position="top" data-tooltip="@{{user.username}}">@{{user.username}}</p>
           <div class="action-btn-contai">
+            {% for i in message_alert if (i.from == user.username) and (i.read == "no") %}
+            {% if i.length != 0  %}
+            <a href="{{ url_for('social', selected_user=user.username)}}" class="btn user-tile-action-btn white black-text tooltipped message-alert" data-position="top" data-tooltip="You have new messages"><i class="fa-solid fa-comments"></i></a>
+            {% endif %}
+            {% else %}
             <a href="{{ url_for('social', selected_user=user.username)}}" class="btn user-tile-action-btn white black-text tooltipped" data-position="top" data-tooltip="Send @{{user.username}} a message"><i class="fa-solid fa-comments"></i></a>
+            {% endfor %}
             <a href="{{ url_for('block_friend', f_un=user.username)}}" class="btn user-tile-action-btn black darken-4 white-text tooltipped" data-position="top" data-tooltip="Block @{{user.username}}"><i class="fa-solid fa-user-xmark red-text"></i></a>
           </div>
         </div>
