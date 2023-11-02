@@ -90,3 +90,8 @@ p.timestamp, p.sender {
 i.fa-solid.fa-paper-plane {
     font-size: 0.9rem !important;
 }
+.social-fixed-container {
+    height: 70vh;
+    overflow: scroll;
+    overflow-x: hidden;
+}

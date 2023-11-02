@@ -566,6 +566,10 @@ def social():
             {"$and": [{"to": session_user}, {"from": selected_user}]})
         messages = list(sent_messages) + list(received_messages)
         messages.sort(key=lambda x: x["timestamp"])
+        # mark message as read for session user
+        mongo.db.messages.update_many(
+            {"$and": [{"to": session_user}, {"from": selected_user}]},
+            {'$set': {"read": "yes"}})
     else:
         messages = "None"
 
@@ -592,6 +596,47 @@ def accept_friend():
                  {"$pull": {"pending_friends": username}})
     flash("Removed " + username + " from pending request list")
     return redirect(url_for("social", selected_user=username))
+
+
+@app.route("/decline-friend", methods=["GET"])
+def decline_friend(): 
+    '''Decline friend request'''
+    username = request.args.get("f_un") # friend's username
+    sessionuser = session["user"]       # current user
+    # remove from pending request list
+    mongo.db.friends.update_one(
+                 {"user": sessionuser},
+                 {"$pull": {"pending_friends": username}})
+    flash("Removed " + username + " from pending request list")
+
+    return redirect(url_for("social"))
+
+
+@app.route("/block-friend", methods=["GET"])
+def block_friend():
+    '''Block friend'''
+    username = request.args.get("f_un")
+    sessionuser = session["user"]
+    # remove from pending request list
+    mongo.db.friends.update_one(
+                 {"user": sessionuser},
+                 {"$pull": {"pending_friends": username}})
+    flash("Removed " + username + " from pending request list")
+    # remove from friend list
+    mongo.db.friends.update_one(
+                 {"user": sessionuser},
+                 {"$pull": {"friend_list": username}})
+    flash("Removed " + username + " from friend list")
+    # remove from friend's friend list
+    mongo.db.friends.update_one(
+                 {"user": username},
+                 {"$pull": {"friend_list": sessionuser}})
+    # add to blocked list
+    mongo.db.friends.update_one(
+                 {"user": sessionuser},
+                 {"$push": {"blocked": username}})
+    flash("Added " + username + " to blocked list")
+    return redirect(url_for("social"))
 
 
 
@@ -626,6 +671,20 @@ def add_friend():
     '''Check for own user request'''
     if sessionuser == username:
         flash("You can't add yourself as a friend")
+        return redirect(url_for("social"))
+    
+    '''Check for blocked user'''
+    if mongo.db.friends.find_one(
+                    {"user": sessionuser,
+                     "blocked": [username]}):
+        flash("You have blocked this user")
+        return redirect(url_for("social")) 
+    
+    '''Check not blocked by other user'''
+    if mongo.db.friends.find_one(
+                    {"user": username,
+                     "blocked": [sessionuser]}):
+        flash("This user has blocked you")
         return redirect(url_for("social"))
 
     '''Check for duplicate friend request'''

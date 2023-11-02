@@ -45,7 +45,7 @@ Social
     </div>
   </div>
   <div class="row">
-    <div class="col s3 m6 boxed-style user-tile-container">
+    <div class="col s3 m6 boxed-style user-tile-container social-fixed-container">
       <!-- User Tiles-->
       {% if current_user.friend_list|length > 0 %}
         {% for user in users if user.username in current_user.friend_list %}
@@ -61,7 +61,7 @@ Social
           <p class="center-align px5-margin one-line tooltipped" data-position="top" data-tooltip="@{{user.username}}">@{{user.username}}</p>
           <div class="action-btn-contai">
             <a href="{{ url_for('social', selected_user=user.username)}}" class="btn user-tile-action-btn white black-text tooltipped" data-position="top" data-tooltip="Send @{{user.username}} a message"><i class="fa-solid fa-comments"></i></a>
-            <a href="http://" class="btn user-tile-action-btn black darken-4 white-text tooltipped" data-position="top" data-tooltip="Block @{{user.username}}"><i class="fa-solid fa-user-xmark red-text"></i></a>
+            <a href="{{ url_for('block_friend', f_un=user.username)}}" class="btn user-tile-action-btn black darken-4 white-text tooltipped" data-position="top" data-tooltip="Block @{{user.username}}"><i class="fa-solid fa-user-xmark red-text"></i></a>
           </div>
         </div>
         {% endfor %}
@@ -72,7 +72,7 @@ Social
       {% endif %}
     </div>
     <!-- Messages-->
-    <div class="col s9 m6 boxed-style">
+    <div class="col s9 m6 boxed-style social-fixed-container" id="messages">
     {% if messages == "None" %}
       <h3 class="center-align">Please select a user to message from your friend list on the left.</h3>
     {% else %}
@@ -82,13 +82,13 @@ Social
           <div class="left message-container">
             <p class="sender">You</p>
             <p class="message indigo lighten-4">{{i.message}}</p>
-            <p class="timestamp">Sent: {{i.timestamp}}</p>
+            <p class="timestamp">Sent: {{i.timestamp}} {% if i.read == "yes" %} | Read {% else %} | Delivered {% endif %}</p>
           </div>
         {% else %}
             <div class="right message-container">
               <p class="sender">@{{i.from}}</p>
               <p class="message indigo darken-4 white-text">{{i.message}}</p>
-              <p class="timestamp">Sent: {{i.timestamp}}</p>
+              <p class="timestamp">Sent: {{i.timestamp}} {% if i.read == "yes" %} | Read {% else %} | Delivered {% endif %}</p>
             </div>
           {% endif %}
         {% endfor %}
@@ -123,8 +123,8 @@ Social
           <p class="center-align px5-margin one-line tooltipped" data-position="top" data-tooltip="@{{user.username}}">@{{user.username}}</p>
           <div class="action-btn-contai">
             <a href="{{ url_for('accept_friend', f_un=user.username)}}" class="btn user-tile-action-btn green black-text tooltipped" data-position="top" data-tooltip="Accept {{user.username}} as a friend"><i class="fa-solid fa-check"></i></a>
-            <a href="" class="btn user-tile-action-btn red darken-4 white-text tooltipped" data-position="top" data-tooltip="Reject @{{user.username}}"><i class="fa-solid fa-xmark"></i></a>
-            <a href="http://" class="btn user-tile-action-btn black darken-4 white-text tooltipped" data-position="top" data-tooltip="Block @{{user.username}}"><i class="fa-solid fa-user-xmark red-text"></i></a>
+            <a href="{{ url_for('decline_friend', f_un=user.username)}}" class="btn user-tile-action-btn red darken-4 white-text tooltipped" data-position="top" data-tooltip="Reject @{{user.username}}"><i class="fa-solid fa-xmark"></i></a>
+            <a href="{{ url_for('block_friend', f_un=user.username)}}" class="btn user-tile-action-btn black darken-4 white-text tooltipped" data-position="top" data-tooltip="Block @{{user.username}}"><i class="fa-solid fa-user-xmark red-text"></i></a>
           </div>
         </div>
         {% endfor %}
