@@ -95,15 +95,14 @@ i.fa-solid.fa-paper-plane {
     overflow: scroll;
     overflow-x: hidden;
 }
-.message-alert::before {
-    font-family: "Font Awesome 5 Free";
-    content: "\f111";
-    display: inline;
-    vertical-align: middle;
-    font-weight: 900;
-    position: relative;
-    color: red;
-    margin-left: -15px;
-    top: -20px;
+.message-alert {
+    animation-name: newmessage;
+    animation-duration: 2s;
+    animation-iteration-count:infinite;
 }
 
+@keyframes newmessage {
+    0% {color:black; background-color: white;}
+    50%   {color: red; background-color: white;}
+    100% {color:black; background-color: white;}
+  }
