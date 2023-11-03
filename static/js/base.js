@@ -60,7 +60,7 @@ jQuery(document).ready(function () {
 
 
 // Hide flash messages after 5 seconds
-$('#flash-selector').delay(5000).fadeOut('slow');
+  $('.row.flashes').delay(5000).fadeOut(2000, function() { $(this).remove(); });
 
 // Limit file upload to 32MB for IMGBB Limit
 
