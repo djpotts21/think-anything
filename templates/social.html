@@ -79,29 +79,31 @@ Social
       {% endif %}
     </div>
     <!-- Messages-->
-    <div class="col s8 m6 boxed-style social-fixed-container" id="messages">
-    {% if messages == "None" %}
-      <h3 class="center-align">Please select a user to message from your friend list on the left.</h3>
-    {% else %}
-      {% if messages|length > 0 %}
-        {% for i in messages %}
-          {% if i.from == session["user"] %}
-          <div class="left message-container">
-            <p class="sender">You</p>
-            <p class="message indigo lighten-4">{{i.message}}</p>
-            <p class="timestamp">Sent: {{i.timestamp}} {% if i.read == "yes" %} | Read {% else %} | Delivered {% endif %}</p>
-          </div>
-        {% else %}
-            <div class="right message-container">
-              <p class="sender">@{{i.from}}</p>
-              <p class="message indigo darken-4 white-text">{{i.message}}</p>
+    <div class="col s8 m6 boxed-style social-fixed-container flex-apart-messages" id="messages">
+      <div class="message-outer-container">
+      {% if messages == "None" %}
+        <h3 class="center-align">Please select a user to message from your friend list on the left.</h3>
+      {% else %}
+        {% if messages|length > 0 %}
+          {% for i in messages %}
+            {% if i.from == session["user"] %}
+            <div class="left message-container">
+              <p class="sender">You</p>
+              <p class="message indigo lighten-4">{{i.message}}</p>
               <p class="timestamp">Sent: {{i.timestamp}} {% if i.read == "yes" %} | Read {% else %} | Delivered {% endif %}</p>
             </div>
-          {% endif %}
-        {% endfor %}
-      {% else %}
-        <h3 class="center-align">You have no messages, Type one below to send a new message</h3>
-      {% endif %}
+          {% else %}
+              <div class="right message-container">
+                <p class="sender">@{{i.from}}</p>
+                <p class="message indigo darken-4 white-text">{{i.message}}</p>
+                <p class="timestamp">Sent: {{i.timestamp}} {% if i.read == "yes" %} | Read {% else %} | Delivered {% endif %}</p>
+              </div>
+            {% endif %}
+          {% endfor %}
+        {% else %}
+          <h3 class="center-align">You have no messages, Type one below to send a new message</h3>
+        {% endif %}
+        </div>
       <div class="send-message-container">
         <form action="{{ url_for('send_message' )}}" method="POST">
           <input type="text" name="message" id="message" placeholder="Type a message" class="message-box">

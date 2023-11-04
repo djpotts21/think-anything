@@ -95,11 +95,17 @@ i.fa-solid.fa-paper-plane {
     overflow: scroll;
     overflow-x: hidden;
 }
+.flex-apart-messages {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
 .message-alert {
     animation-name: newmessage;
     animation-duration: 2s;
     animation-iteration-count:infinite;
 }
+
 
 @keyframes newmessage {
     0% {color:black; background-color: white;}
