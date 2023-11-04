@@ -5,6 +5,7 @@ $(document).ready(function () {
     draggable: true
   });
   $('.modal').modal();
+  $('select').formSelect();
   $('.tooltipped').tooltip();
   $("#ConfirmPassword").on('keyup', function () {
     var password = $("#Password").val();
