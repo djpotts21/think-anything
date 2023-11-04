@@ -97,6 +97,7 @@ span.hygiene {
 
 .input-group.plus-minus-input {
     display: inline-flex;
+    width: 100%;
 }
 
 .btn.full-width {
@@ -154,6 +155,11 @@ hr.radio-bottom-border {
     width: 80%;
     opacity: 0.5;
     border-width: 0.1px;
+}
+.task-description {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
 }
 
 /* Mobile view (600px and down) */

@@ -386,7 +386,7 @@ Profile
       <div class="card indigo darken-1">
         <div class="card-content white-text">
           <span class="card-title"><i class="fa-solid fa-glass-water-droplet"></i> Water Log</span>
-          <p>Aim for 8 glasses of water a day</p>
+          <p class="task-description">Target = 8 glasses</p>
           <hr>
           <p class="center-align"><strong>Glasses (250ml Approx)</strong></p>
           <form action="{{ url_for('water_log_update', user=user_data._id, dateurl=selected_date )}}" method="POST">
@@ -423,7 +423,7 @@ Profile
       <div class="card indigo darken-1">
         <div class="card-content white-text">
           <span class="card-title"><i class="fa-solid fa-bed"></i> Sleep Log</span>
-          <p>Aim for 8 hours of sleep a day</p>
+          <p class="task-description">Target = 8 hours</p>
           <hr>
           <p class="center-align"><strong>Hours</strong></p>
           <form action="{{ url_for('sleep_log_update', user=user_data._id, dateurl=selected_date )}}" method="POST">
@@ -460,7 +460,7 @@ Profile
       <div class="card indigo darken-1">
         <div class="card-content white-text">
           <span class="card-title"><i class="fa-solid fa-person-walking"></i> Exercise Log</span>
-          <p>Aim for 25 minutes of exercise per day</p>
+          <p class="task-description">Target = 25 mins</p>
           <hr>
           <p class="center-align"><strong>Minutes </strong></p>
           <form action="{{ url_for('exercise_log_update', user=user_data._id, dateurl=selected_date )}}" method="POST">
@@ -501,7 +501,7 @@ Profile
       <div class="card indigo darken-1">
         <div class="card-content white-text">
           <span class="card-title"><i class="fa-solid fa-utensils"></i> Meal Log</span>
-          <p>Aim for at least three meals a day.</p>
+          <p class="task-description">Target = 3 meals.</p>
           <hr>
           <p class="center-align"><strong>Meals</strong></p>
           <form action="{{ url_for('food_log_update', user=user_data._id, dateurl=selected_date )}}" method="POST">
@@ -538,7 +538,7 @@ Profile
       <div class="card indigo darken-1">
         <div class="card-content white-text">
           <span class="card-title"><i class="fa-solid fa-brain"></i> Mind Exercises</span>
-          <p>Aim for 20 minutes of brain training</p>
+          <p class="task-description">Target = 20 mins</p>
           <hr>
           <p class="center-align"><strong>Minutes</strong></p>
           <form action="{{ url_for('brain_train_log_update', user=user_data._id, dateurl=selected_date )}}"
@@ -576,7 +576,7 @@ Profile
       <div class="card indigo darken-1">
         <div class="card-content white-text">
           <span class="card-title"><i class="fa-solid fa-shower"></i> Hygiene Log</span>
-          <p>Brush teeth, Take a Shower etc.</p>
+          <p class="task-description">Brush teeth, Shower etc.</p>
           <hr>
           <p class="center-align"><strong>Any routine hygiene tasks?</strong></p>
           <div class="radio-spacer"></div>
