@@ -167,6 +167,47 @@ Profile
         </div>
       </div>
     </div>
+        <!-- Row Three-->
+    <!-- Card Five-->
+    <div class="col s12 m6">
+      <div class="card indigo darken-1">
+        <div class="card-content white-text">
+          <span class="card-title">Blocked Users</span>
+          <p>Unblock users you have previously blocked</p>
+          <div class="input-field col s12 form-force-white-text">
+            <form action="{{ url_for('unblock_friend')}}" method="post" class="form-force-white-text">
+              <label for="blockeduser white-text">Blocked Users</label>
+              <select name="blockeduser" id="blockeduser" class="form-force-white-text">
+              {% if friends["blocked"] == [] %}
+              <option value="" disabled selected>No users blocked</option>
+              {% else %}
+              <option value="" disabled selected>Select a user to unblock</option>
+                {% for i in friends["blocked"] %}
+                <option value="{{ i }}"> {{ i }}</option>
+                {% endfor %}
+              {% endif %}
+            </select>
+            <button class="black white-text btn w100" type="submit">Unblock User</button>
+            </form>
+
+          </div>
+        </div>
+      </div>
+    </div>
+        <!-- Card Six-->
+        <div class="col s12 m6">
+          <div class="card indigo darken-1">
+            <div class="card-content white-text">
+              <span class="card-title">Leave us a review!</span>
+              <p>Give us your feedback of our platform and help others get involved</p>
+              <form action="{{ url_for('update_password', user_id=user_data._id ) }}" method="post">
+                <input type="text" class="form-control validate white-text" id="Password"
+                  placeholder="Enter a new password" name="password">
+                <button class="black white-text btn w100" type="submit">Save Review</button>
+              </form>
+            </div>
+          </div>
+        </div>    
   </div>
 
 </div>

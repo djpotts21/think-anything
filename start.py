@@ -238,13 +238,15 @@ def profile():
         mongo.db.welcome_messages.aggregate([{"$sample": {"size": 1}}]))
     # get user data
     user_data = mongo.db.users.find_one({"username": session["user"]})
+    # get friends / blocked users
+    friends = mongo.db.friends.find_one({"user": session["user"]})
     # set profile image url in session cookie
     session["profile_image_url"] = mongo.db.users.find_one(
         {"username": session["user"]})["profile_image_url"]
     # return profile page with parameters
     return render_template(
         "profile.html",
-        welcomemessage=welcomemessage, user_data=user_data)
+        welcomemessage=welcomemessage, user_data=user_data, friends=friends)
 
 
 @app.route("/delete_profile_photo/<user_id>", methods=["POST"])
@@ -848,6 +850,20 @@ def add_friend():
     # redirect to social page
     return redirect(url_for("social"))
 
+# unblock friend
+@app.route("/unblock-friend", methods=["POST"])
+def unblock_friend():
+    """Unblock friend"""
+    # get username from form
+    username = request.form.get("blockeduser")
+    # get session user
+    sessionuser = session["user"]
+    # remove from blocked list
+    mongo.db.friends.update_one(
+                 {"user": sessionuser},
+                 {"$pull": {"blocked": username}})
+    flash("Removed " + username + " from blocked list")
+    return redirect(url_for("social"))
 
 # Bootup App Params
 if __name__ == "__main__":

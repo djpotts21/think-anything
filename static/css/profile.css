@@ -36,6 +36,17 @@
 .double-btn-spacer {
     margin-bottom:5px;
 }
+.form-force-white-text, .form-force-white-text label, input.select-dropdown.dropdown-trigger{
+    color: white !important;
+
+}
+.select-wrapper .caret{
+    fill: rgb(255 255 255 / 100%) !important;
+}
+.dropdown-content li>a, .dropdown-content li>span{
+    color: black !important;
+
+}
 
 /* Mobile view (600px and down) */
 @media only screen and (max-width: 600px) {
