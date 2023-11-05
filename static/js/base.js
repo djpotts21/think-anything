@@ -19,8 +19,23 @@ $(document).ready(function () {
     return parseInt(val.replace('+', '').replace('-', ''));
   });
   $("#messages").scrollTop($("#messages").prop("scrollHeight"));
-
 });
+
+// rating stars -- https://codepen.io/nnoy01/pen/VwPdeNo
+document.querySelector('.rating-wrapper').addEventListener('click', updateStarRating, false);
+function updateStarRating(evt){
+    for(i=0; i < parseInt(evt.target.id); i++){
+        const stars = document.querySelectorAll('.rating-wrapper i');
+        for(s=0; s < 5; s++){
+            stars[s].classList.remove('rating-checked');
+        }
+        for(j=0; j < parseInt(evt.target.id); j++){
+            stars[j].classList.add('rating-checked');
+        }
+    }
+    document.querySelector('#stars').value = evt.target.id;
+}
+
 // Plus and minus buttons for quantity input 
 jQuery(document).ready(function () {
   // This button will increment the value

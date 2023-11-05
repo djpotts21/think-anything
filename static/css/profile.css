@@ -36,7 +36,7 @@
 .double-btn-spacer {
     margin-bottom:5px;
 }
-.form-force-white-text, .form-force-white-text label, input.select-dropdown.dropdown-trigger{
+.form-force-white-text, .form-force-white-text label, input.select-dropdown.dropdown-trigger, textarea#review{
     color: white !important;
 
 }
@@ -46,6 +46,10 @@
 .dropdown-content li>a, .dropdown-content li>span{
     color: black !important;
 
+}
+
+.rating-checked {
+    color: #ffca28 !important;
 }
 
 /* Mobile view (600px and down) */

@@ -42,7 +42,8 @@ Profile
 
         </div>
         <div class="card-action">
-          <a class="black white-text btn w100 modal-trigger double-btn-spacer" data-target="upload-prompt" href="#">Upload Profile Photo</a>
+          <a class="black white-text btn w100 modal-trigger double-btn-spacer" data-target="upload-prompt"
+            href="#">Upload Profile Photo</a>
           <a class="black white-text btn w100 modal-trigger" data-target="delete-prompt" href="#">Delete Photo</a>
         </div>
       </div>
@@ -167,7 +168,7 @@ Profile
         </div>
       </div>
     </div>
-        <!-- Row Three-->
+    <!-- Row Three-->
     <!-- Card Five-->
     <div class="col s12 m6">
       <div class="card indigo darken-1">
@@ -178,36 +179,104 @@ Profile
             <form action="{{ url_for('unblock_friend')}}" method="post" class="form-force-white-text">
               <label for="blockeduser white-text">Blocked Users</label>
               <select name="blockeduser" id="blockeduser" class="form-force-white-text">
-              {% if friends["blocked"] == [] %}
-              <option value="" disabled selected>No users blocked</option>
-              {% else %}
-              <option value="" disabled selected>Select a user to unblock</option>
+                {% if friends["blocked"] == [] %}
+                <option value="" disabled selected>No users blocked</option>
+                {% else %}
+                <option value="" disabled selected>Select a user to unblock</option>
                 {% for i in friends["blocked"] %}
                 <option value="{{ i }}"> {{ i }}</option>
                 {% endfor %}
-              {% endif %}
-            </select>
-            <button class="black white-text btn w100" type="submit">Unblock User</button>
+                {% endif %}
+              </select>
+              <button class="black white-text btn w100" type="submit">Unblock User</button>
             </form>
 
           </div>
         </div>
       </div>
     </div>
-        <!-- Card Six-->
-        <div class="col s12 m6">
-          <div class="card indigo darken-1">
-            <div class="card-content white-text">
-              <span class="card-title">Leave us a review!</span>
-              <p>Give us your feedback of our platform and help others get involved</p>
-              <form action="{{ url_for('update_password', user_id=user_data._id ) }}" method="post">
-                <input type="text" class="form-control validate white-text" id="Password"
-                  placeholder="Enter a new password" name="password">
-                <button class="black white-text btn w100" type="submit">Save Review</button>
-              </form>
+    <!-- Card Six-->
+    <div class="col s12 m6">
+      <div class="card indigo darken-1">
+        <div class="card-content white-text">
+          <span class="card-title">Leave us a review!</span>
+          <form action="{{ url_for('add_edit_review') }}" method="post">
+            <div class="rating-wrapper">
+              <p>Star Rating</p>
+              {% if review.stars == 1 %}
+              <i class="fas fa-star fa-2x rating-checked" id="1"></i>
+              <i class="fas fa-star fa-2x" id="2"></i>
+              <i class="fas fa-star fa-2x" id="3"></i>
+              <i class="fas fa-star fa-2x" id="4"></i>
+              <i class="fas fa-star fa-2x" id="5"></i>
+              <input type="hidden" value="1" id="stars" name="stars">
+
+              {% elif review.stars == 2 %}
+              <i class="fas fa-star fa-2x rating-checked" id="1"></i>
+              <i class="fas fa-star fa-2x rating-checked" id="2"></i>
+              <i class="fas fa-star fa-2x" id="3"></i>
+              <i class="fas fa-star fa-2x" id="4"></i>
+              <i class="fas fa-star fa-2x" id="5"></i>
+              <input type="hidden" value="2" id="stars" name="stars">
+
+              {% elif review.stars == 3 %}
+              <i class="fas fa-star fa-2x rating-checked" id="1"></i>
+              <i class="fas fa-star fa-2x rating-checked" id="2"></i>
+              <i class="fas fa-star fa-2x rating-checked" id="3"></i>
+              <i class="fas fa-star fa-2x" id="4"></i>
+              <i class="fas fa-star fa-2x" id="5"></i>
+              <input type="hidden" value="3" id="stars" name="stars">
+
+              {% elif review.stars == 4 %}
+              <i class="fas fa-star fa-2x rating-checked" id="1"></i>
+              <i class="fas fa-star fa-2x rating-checked" id="2"></i>
+              <i class="fas fa-star fa-2x rating-checked" id="3"></i>
+              <i class="fas fa-star fa-2x rating-checked" id="4"></i>
+              <i class="fas fa-star fa-2x" id="5"></i>
+              <input type="hidden" value="4" id="stars" name="stars">
+
+              {% elif review.stars == 5 %}
+              <i class="fas fa-star fa-2x rating-checked" id="1"></i>
+              <i class="fas fa-star fa-2x rating-checked" id="2"></i>
+              <i class="fas fa-star fa-2x rating-checked" id="3"></i>
+              <i class="fas fa-star fa-2x rating-checked" id="4"></i>
+              <i class="fas fa-star fa-2x rating-checked" id="5"></i>
+              <input type="hidden" value="5" id="stars" name="stars">
+
+              {% else %}
+              <i class="fas fa-star fa-2x" id="1"></i>
+              <i class="fas fa-star fa-2x" id="2"></i>
+              <i class="fas fa-star fa-2x" id="3"></i>
+              <i class="fas fa-star fa-2x" id="4"></i>
+              <i class="fas fa-star fa-2x" id="5"></i>
+              <input type="hidden" value="" id="stars" name="stars">
+
+              {% endif %}
+            
             </div>
-          </div>
-        </div>    
+            <div class="input-field white-text">
+              <textarea id="review" class="materialize-textarea white-text" name="review">{{ review.description }}</textarea>
+              <label for="review" class="form-force-white-text">Review</label>
+            </div>
+            <input type="hidden" value="{{ user_data.full_name }}" name="name">
+            {% if (session.profile_image_url == "No Photo") or (user_data.showprofilephoto == "off") %}
+            <input type="hidden" value="" name="user-photo">
+            {% else %}
+            <input type="hidden" value="{{ user_data.profile_image_url }}" name="user-photo">
+            {% endif %}
+            {% if user_data.publicreview == "on" %}
+            <input type="hidden" value="yes" name="publicreview">
+            {% else %}
+            <input type="hidden" value="no" name="publicreview">
+            {% endif %}
+            {% if review._id %}
+            <input type="hidden" value="{{ review._id }}" name="_id">
+            {% endif %}
+            <button class="black white-text btn w100" type="submit">Publish Review</button>
+          </form>
+        </div>
+      </div>
+    </div>
   </div>
 
 </div>
@@ -245,7 +314,8 @@ Profile
     <p>File size must not exceed 30MB. Images must be PNG, JPG or JPEG</p>
   </div>
   <div class="modal-footer indigo darken-1 white-text">
-    <form action="{{ url_for('upload_profile_photo', user_id=user_data._id ) }}" method="post" class="inline-button-form" enctype="multipart/form-data">
+    <form action="{{ url_for('upload_profile_photo', user_id=user_data._id ) }}" method="post"
+      class="inline-button-form" enctype="multipart/form-data">
       <input type="file" name="file" id="file" class="white-text" accept="image/png, image/jpeg">
       <button type="submit" class="green white-text btn">Upload Photo</button>
     </form>

@@ -56,7 +56,7 @@ def home():
             goals=goals)
     else:
         # get last 3 reviews
-        reviews = list(mongo.db.reviews.find().sort("_id", -1).limit(3))
+        reviews = list(mongo.db.reviews.find({"public": "yes"}).sort("_id", -1).limit(3))
         # return homepage with reviews and without goals
         return render_template(
             "home.html",
@@ -243,10 +243,15 @@ def profile():
     # set profile image url in session cookie
     session["profile_image_url"] = mongo.db.users.find_one(
         {"username": session["user"]})["profile_image_url"]
+    #get review data
+    review = mongo.db.reviews.find_one({"username": session["user"]})
     # return profile page with parameters
     return render_template(
         "profile.html",
-        welcomemessage=welcomemessage, user_data=user_data, friends=friends)
+        welcomemessage=welcomemessage,
+        user_data=user_data,
+        friends=friends,
+        review=review)
 
 
 @app.route("/delete_profile_photo/<user_id>", methods=["POST"])
@@ -328,6 +333,28 @@ def update_privacy(user_id):
             "publicreview": request.form.get("publicreview"),
             "showprofilephoto": request.form.get("showprofilephoto"),
             }})
+    if request.form.get("publicreview") != "on":
+        # make all reviews private
+        mongo.db.reviews.update_many(
+            {"username": session["user"]},
+            {'$set': {"public": "no"}})
+    else:
+        # make all reviews public
+        mongo.db.reviews.update_many(
+            {"username": session["user"]},
+            {'$set': {"public": "yes"}})
+        
+    if request.form.get("showprofilephoto") != "on":
+        # remove profile from public reviews
+        mongo.db.reviews.update_many(
+            {"username": session["user"]},
+            {'$set': {"user_photo": ""}})
+    else:
+        # add profile to public reviews
+        mongo.db.reviews.update_many(
+            {"username": session["user"]},
+            {'$set': {"user_photo": mongo.db.users.find_one(
+                {"username": session["user"]})["profile_image_url"]}})
     # flash message
     flash("Privacy updated")
     # return to profile page
@@ -864,6 +891,49 @@ def unblock_friend():
                  {"$pull": {"blocked": username}})
     flash("Removed " + username + " from blocked list")
     return redirect(url_for("social"))
+
+
+# new or update review 
+@app.route("/add-edit-review", methods=["POST"])
+def add_edit_review():
+    """add or edit review"""
+    # set stars value
+    if request.form.get("stars") == "":
+        stars = 0
+    else:
+        stars = int(request.form.get("stars"))
+
+    # check if review exists
+    if request.form.get("_id"):
+        # update review
+        mongo.db.reviews.update_one(
+            {"_id": ObjectId(request.form.get("_id"))},
+            {'$set': {"description": request.form.get("review"),
+                      "name": request.form.get("name").title(),
+                      "stars": stars,
+                      "user_photo" : request.form.get("user-photo"),
+                      "public" : request.form.get("publicreview"),
+                      "username" : session["user"],
+                      }})
+        # flash message
+        flash("Review Updated  - Thank you!")
+    else:
+        # build review
+        review = {
+            "description": request.form.get("review"),
+            "name": request.form.get("name").title(),
+            "stars": stars,
+            "user_photo" : request.form.get("user-photo"),
+            "public" : request.form.get("publicreview"),
+            "username" : session["user"],
+        }
+        # insert review
+        mongo.db.reviews.insert_one(review)
+        # flash message
+        flash("Review Added - Thank you!")
+    # return to home page
+    return redirect(url_for("profile"))
+
 
 # Bootup App Params
 if __name__ == "__main__":
