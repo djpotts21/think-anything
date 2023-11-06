@@ -365,8 +365,32 @@ def update_privacy(user_id):
 def delete_account(user_id):
     # delete user account
     mongo.db.users.delete_one({"_id": ObjectId(user_id)})
+    # delete user goals
+    mongo.db.goals.delete_many({"created_by": session["user"]})
+    # delete user water log
+    mongo.db.water_log.delete_many({"created_by": session["user"]})
+    # delete user sleep log
+    mongo.db.sleep_log.delete_many({"created_by": session["user"]})
+    # delete user exercise log
+    mongo.db.exercise_log.delete_many({"created_by": session["user"]})
+    # delete user food log
+    mongo.db.food_log.delete_many({"created_by": session["user"]})
+    # delete user mind exercises log
+    mongo.db.brain_train_log.delete_many({"created_by": session["user"]})
+    # delete user hygiene log
+    mongo.db.hygiene_log.delete_many({"created_by": session["user"]})
+    # delete user reviews
+    mongo.db.reviews.delete_many({"username": session["user"]})
+    # delete user messages
+    mongo.db.messages.delete_many({"$or": [{"to": session["user"]}, {"from": session["user"]} ]})
+    # delete user from friends list
+    mongo.db.friends.delete_many({"$or": [{"user": session["user"]}, {"friend_list": session["user"]}, {"pending_friends": session["user"]}, {"blocked": session["user"]} ]})
+    # delete user from friends list
+    mongo.db.friends.delete_one({"user": session["user"]})
+
     # clear session cookie
     session.clear()
+
     # flash message
     flash("Account deleted")
     # return to home page
