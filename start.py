@@ -959,6 +959,16 @@ def add_edit_review():
     return redirect(url_for("profile"))
 
 
+# about page
+@app.route("/about", methods=["GET"])
+def about():
+    """About page"""
+    # get random background image
+    image = list(mongo.db.artwork.aggregate([{"$sample": {"size": 1}}]))
+    # return about page
+    return render_template("about.html", image=image)
+
+
 # Bootup App Params
 if __name__ == "__main__":
 
