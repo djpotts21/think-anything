@@ -969,6 +969,42 @@ def about():
     return render_template("about.html", image=image)
 
 
+# contact page
+@app.route("/contact", methods=["GET", "POST"])
+def contact():
+    """Contact page"""
+    if request.method == "POST":
+        # build message data
+        message = {
+            "from": session["user"],
+            "message": request.form.get("message"),
+            "timestamp": datetime.now(),
+            "to": "admin"
+        }
+        # insert message
+        mongo.db.messages.insert_one(message)
+        # flash message
+        flash("Message Sent")
+        # return to contact page
+        return redirect(url_for("contact"))
+    
+    # get random background image
+    image = list(mongo.db.artwork.aggregate([{"$sample": {"size": 1}}]))
+    # check if user is logged in
+    if session.get("logged-in") == "yes":
+        # get user data
+        user_data = mongo.db.users.find_one({"username": session["user"]})
+        # get profile image url
+        session["profile_image_url"] = mongo.db.users.find_one(
+            {"username": session["user"]})["profile_image_url"]
+        # return contact page with parameters
+        return render_template("contact.html",
+                               image=image,
+                               user_data=user_data)
+    else:
+        # return contact page
+        return render_template("contact.html", image=image)
+
 # Bootup App Params
 if __name__ == "__main__":
 
