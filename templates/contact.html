@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+
+<!-- page specific stylesheets below -->
+{% block pagestyles %}
+<link rel="stylesheet" href="{{ url_for ('static', filename='css/contact.css')}}" type="text/css">
+<style>
+    main {
+        background-image: url("{{ background.0.image_url }}");
+    }
+</style>
+{% endblock %}
+<!-- end section-->
+
+<!-- page title below **NO FORMATING** -->
+{% block pagetitle %}
+Contact
+{% endblock %}
+<!-- end section-->
+
+<!-- page content below -->
+{% block content %}
+
+<div class="row">
+    <div class="card-panel contact-form">
+        <form method="post" action="{{ url_for('contact') }}">
+            <h3 class="center-align">Contact <strong>Think Anything</strong></h3>
+            <div class="row">
+            {% if session.user %}
+                <div class="input-field  col s12">
+                    <input id="user_contact" class="validate" name="user_contact" value="{{session['user']}}">
+                </div>    
+                <div class="input-field col s12">
+                    <textarea id="message" class="materialize-textarea" name="message" required></textarea>
+                    <label for="message">Message</label>
+                </div>
+                {% else %}
+                <div class="input-field col s12">
+                    <input id="user_contact" type="email" class="validate" name="user_contact" required>
+                    <label for="user_contact">Email</label>
+                </div>
+                <div class="input-field col s12">
+                    <textarea id="message" class="materialize-textarea" name="message" required></textarea>
+                    <label for="message">Message</label>
+                </div>
+                
+                {% endif %}
+                <button type="submit" class="btn indigo white-text full-width-btn">Submit</button>
+            </div>
+        </form>
+    </div>
+</div>
+    <span class="author login-author">Creator: <a
+            href="{{ background.0.creator_backlink }}">{{ background.0.creator }}</a>
+        <br>
+        {% if background.0.source %}
+        Source:
+        {% if background.0.source_backlink %}
+        <a href="{{ background.0.source_backlink }}">{{ background.0.source }}</a>
+        {% else %}
+        <strong>{{ background.0.source }}</strong>
+        {% endif %}
+        {% endif %}
+        {% if session.user %}
+        <br><br>
+        <a href="{{ url_for('share_your_art')}}">Share your own artwork</a>
+        {% endif %}
+    </span>
+</div>
+
+
+{% endblock%}
+<!-- end section-->
+
+<!-- page specific script files below -->
+{% block pagescripts %}
+
+{% endblock %}
+<!-- end section-->

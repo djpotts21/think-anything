@@ -976,20 +976,20 @@ def contact():
     if request.method == "POST":
         # build message data
         message = {
-            "from": session["user"],
+            "from": request.form.get("user_contact"),
             "message": request.form.get("message"),
             "timestamp": datetime.now(),
-            "to": "admin"
+            "to": "daniel"
         }
         # insert message
         mongo.db.messages.insert_one(message)
         # flash message
-        flash("Message Sent")
+        flash("Your message has been sent to the admin")
         # return to contact page
         return redirect(url_for("contact"))
     
     # get random background image
-    image = list(mongo.db.artwork.aggregate([{"$sample": {"size": 1}}]))
+    background = list(mongo.db.artwork.aggregate([{"$sample": {"size": 1}}]))
     # check if user is logged in
     if session.get("logged-in") == "yes":
         # get user data
@@ -999,11 +999,135 @@ def contact():
             {"username": session["user"]})["profile_image_url"]
         # return contact page with parameters
         return render_template("contact.html",
-                               image=image,
+                               background=background,
                                user_data=user_data)
     else:
         # return contact page
-        return render_template("contact.html", image=image)
+        return render_template("contact.html", background=background)
+
+
+# admin panel
+@app.route("/admin_panel", methods=["GET", "POST"])
+def admin_panel():
+    '''Admin panel'''
+    # check if user is logged in
+    if session["user"] == "daniel":
+        print("You are admin")
+
+    
+        # get all users
+        users = list(mongo.db.users.find())
+        # get all reviews
+        reviews = list(mongo.db.reviews.find())
+        # get all goals
+        goals = list(mongo.db.goals.find())
+        # get all messages
+        messages = list(mongo.db.messages.find())
+        # get all messages to admin
+        messages_to_admin = list(mongo.db.messages.find({"to": "daniel"}))
+        # get all artwork
+        artwork = list(mongo.db.artwork.find())
+        # get all friends
+        friends = list(mongo.db.friends.find())
+        # get all water logs
+        water_log = list(mongo.db.water_log.find())
+        # get all sleep logs
+        sleep_log = list(mongo.db.sleep_log.find()) 
+        # get all exercise logs
+        exercise_log = list(mongo.db.exercise_log.find())
+        # get all food logs
+        food_log = list(mongo.db.food_log.find())
+        # get all mind exercises logs
+        brain_train_log = list(mongo.db.brain_train_log.find())
+        # get all hygiene logs
+        hygiene_log = list(mongo.db.hygiene_log.find())
+        # get all welcome messages
+        welcome_messages = list(mongo.db.welcome_messages.find())
+
+        # check if is post method
+        if request.method == "POST":
+
+            # delete a user
+            if request.form.get("delete_user"):
+                # delete user
+                mongo.db.users.delete_one(
+                    {"username": request.form.get("delete_user")})
+                # delete user goals
+                mongo.db.goals.delete_many(
+                    {"created_by": request.form.get("delete_user")})
+                # delete user water log
+                mongo.db.water_log.delete_many(
+                    {"created_by": request.form.get("delete_user")})
+                # delete user sleep log
+                mongo.db.sleep_log.delete_many(
+                    {"created_by": request.form.get("delete_user")})
+                # delete user exercise log
+                mongo.db.exercise_log.delete_many(
+                    {"created_by": request.form.get("delete_user")})
+                # delete user food log
+                mongo.db.food_log.delete_many(
+                    {"created_by": request.form.get("delete_user")})
+                # delete user mind exercises log
+                mongo.db.brain_train_log.delete_many(
+                    {"created_by": request.form.get("delete_user")})
+                # delete user hygiene log
+                mongo.db.hygiene_log.delete_many(
+                    {"created_by": request.form.get("delete_user")})
+                # delete user reviews
+                mongo.db.reviews.delete_many(
+                    {"username": request.form.get("delete_user")})
+                # delete user messages
+                mongo.db.messages.delete_many(
+                    {"$or": [{"to": request.form.get("delete_user")}, {"from": request.form.get("delete_user")} ]})
+                # delete user from friends list
+                mongo.db.friends.delete_many(
+                    {"$or": [{"user": request.form.get("delete_user")}, {"friend_list": request.form.get("delete_user")}, {"pending_friends": request.form.get("delete_user")}, {"blocked": request.form.get("delete_user")} ]})
+                # delete user from friends list
+                mongo.db.friends.delete_one(
+                    {"user": request.form.get("delete_user")})
+                # flash message
+                flash("User deleted")
+            
+            # delete a review
+            if request.form.get("delete_review"):
+                # delete review
+                mongo.db.reviews.delete_one(
+                    {"_id": ObjectId(request.form.get("delete_review"))})
+                # flash message
+                flash("Review deleted")
+            
+            # delete a message
+            if request.form.get("delete_message"):
+                # delete message
+                mongo.db.messages.delete_one(
+                    {"_id": ObjectId(request.form.get("delete_message"))})
+                # flash message
+                flash("Message deleted")
+
+            
+            return redirect(url_for("admin_panel"))
+
+        
+        # return admin panel page with parameters
+        return render_template("admin_panel.html",
+                            users=users,
+                            reviews=reviews,
+                            goals=goals,
+                            messages=messages,
+                            artwork=artwork,
+                            friends=friends,
+                            water_log=water_log,
+                            sleep_log=sleep_log,
+                            exercise_log=exercise_log,
+                            food_log=food_log,
+                            brain_train_log=brain_train_log,
+                            hygiene_log=hygiene_log,
+                            welcome_messages=welcome_messages,
+                            messages_to_admin=messages_to_admin)
+    else:
+        print("You are not admin")
+        return redirect(url_for("home"))
+
 
 # Bootup App Params
 if __name__ == "__main__":
