@@ -1,6 +1,14 @@
 import os
+
 import base64
+
+from datetime import (
+    date,
+    datetime,
+    timedelta)
+
 import requests
+
 from flask import (
     Flask,
     flash,
@@ -9,12 +17,16 @@ from flask import (
     request,
     session,
     url_for)
+
 from flask_pymongo import PyMongo
+
 from bson.objectid import ObjectId
-from datetime import date, datetime, timedelta
+
+
 from werkzeug.security import (
     generate_password_hash,
     check_password_hash)
+
 if os.path.exists("env.py"):
     import env
 
@@ -160,7 +172,7 @@ def register():
             return redirect(url_for("register"))
         else:
             # build user object
-            register = {
+            register_user = {
                 "username": request.form.get("username").lower(),
                 "full_name": request.form.get("full_name"),
                 "password": generate_password_hash(request.form.get("password")),
@@ -173,7 +185,7 @@ def register():
                 "water": 0
             }
             # insert user into database
-            mongo.db.users.insert_one(register)
+            mongo.db.users.insert_one(register_user)
             # set session cookie
             session["user"] = request.form.get("username").lower()
             # flash message
@@ -208,7 +220,7 @@ def share_your_art():
                     "key": os.environ.get("IMGBB_API_KEY"),
                     "image": base64.b64encode(image_file.read()),
                 }
-        res = requests.post(url, payload)
+        res = requests.post(url, payload, timeout=60)
         responsejson = res.json()
         # build artwork
         artwork = {
@@ -281,7 +293,7 @@ def upload_profile_photo(user_id):
                 "key": os.environ.get("IMGBB_API_KEY"),
                 "image": base64.b64encode(image_file.read()),
             }
-        res = requests.post(url, payload)
+        res = requests.post(url, payload, timeout=60)
         responsejson = res.json()
     # update profile photo
     mongo.db.users.update_one(
@@ -832,8 +844,6 @@ def add_friend():
     # remove @ from username if present
     if username.startswith("@"):
         username = username.replace("@", "")
-    else:
-        username = username
     # get session user
     sessionuser = session["user"]
     # check if username exists
