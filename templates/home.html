@@ -23,7 +23,7 @@ Home
         <h1 class="hero-title">Welcome to Think Anything</h1>
         <h2 class="hero-slogan">Embrace the Journey, Empower Your Mind</h2>
         {% if session.user %}
-        <a class="btn indigo darken-1 hero-btn large" href="#">Go to your Journal</a>
+        <a class="btn indigo darken-1 hero-btn large" href="{{ url_for('journal') }}">Go to your Journal</a>
         {% else %}
         <a class="btn indigo darken-1 hero-btn left small" href="{{ url_for('login') }}">Log in</a>
         <a class="btn indigo darken-1 hero-btn right small" href="{{ url_for('register') }}">Sign up</a>
@@ -72,7 +72,7 @@ Home
       {% endfor %}
 
       {% else %}
-      <h3 class="center-align">You don't have any tasks today? <a href="#profile">Add a task in your profile</a></h3>
+      <h3 class="center-align">You don't have any tasks today? <a href="{{ url_for('journal') }}">Add a task in your journal</a></h3>
 
       {% endif %}
   </div>

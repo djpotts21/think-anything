@@ -12,20 +12,12 @@ main {
     bottom: unset;
   }
 
-.align-inputs {
-    display: flex;
-    align-content: center;
-    align-items: center;
-    height: 2.5rem;
+.card-panel.contact-form {
+    margin-left: auto;
+    margin-right: auto;
 }
-
-.input-field.col label {
-    left: 0rem;
-}
-
-.label-optional {
-    font-size: 9px;
-    margin-left: 5px;
+.full-width-btn {
+    width: 100%;
 }
 
   /* Tablet View (600px and up) */
@@ -34,11 +26,23 @@ main {
       top: 64px;
       bottom: unset;
     }
+    .card-panel.contact-form {
+      width: 90%;
+      margin-top: 2em;
+      margin-left: auto;
+      margin-right: auto;
+    }
     }
   
       /* Mobile view (600px and down) */
   @media only screen and (max-width: 600px) {
     .login-author {
       top: 56px;
+    }
+    .card-panel.contact-form {
+      width: 90%;
+      margin-top: 2em;
+      margin-left: auto;
+      margin-right: auto;
     }
     }

@@ -2,7 +2,7 @@
 
 <!-- page specific stylesheets below -->
 {% block pagestyles %}
-<link rel="stylesheet" href="{{ url_for ('static', filename='css/contact.css')}}" type="text/css">
+<link rel="stylesheet" href="{{ url_for ('static', filename='css/report_it.css')}}" type="text/css">
 <style>
     main {
         background-image: url("{{ background.0.image_url }}");
@@ -13,7 +13,7 @@
 
 <!-- page title below **NO FORMATING** -->
 {% block pagetitle %}
-Contact
+Report
 {% endblock %}
 <!-- end section-->
 
@@ -22,8 +22,8 @@ Contact
 
 <div class="row">
     <div class="card-panel contact-form">
-        <form method="post" action="{{ url_for('contact') }}">
-            <h3 class="center-align">Contact <strong>Think Anything</strong></h3>
+        <form method="post" action="{{ url_for('report_it') }}">
+            <h3 class="center-align">Report to <strong>Think Anything</strong></h3>
             <div class="row">
             {% if session.user %}
                 <div class="input-field col s12">
@@ -34,8 +34,8 @@ Contact
 
                 </div>   
                 <div class="input-field col s12">
-                    <textarea id="message" class="materialize-textarea" name="message" required></textarea>
-                    <label for="message">Message</label>
+                    <textarea id="message" class="materialize-textarea" name="message" required placeholder="Details of the report, the more details the better? Usernames, Times of incident etc"></textarea>
+                    <label for="message">Report Details</label>
                 </div>
                 {% else %}
                 <div class="input-field col s12">
@@ -43,8 +43,8 @@ Contact
                     <label for="user_contact">Email</label>
                 </div>
                 <div class="input-field col s12">
-                    <textarea id="message" class="materialize-textarea" name="message" required></textarea>
-                    <label for="message">Message</label>
+                    <textarea id="message" class="materialize-textarea" name="message" required placeholder="Details of the report, the more details the better? Usernames, Times of incident etc"></textarea>
+                    <label for="message">Report Details</label>
                 </div>
                 
                 {% endif %}
