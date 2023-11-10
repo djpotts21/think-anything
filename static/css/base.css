@@ -231,6 +231,10 @@ h3 {
     width: 80vw;
     margin: 0;
   }
+  .hero-btn.large {
+    width: 25vw;
+    left: 40vw;
+}
 
   .hero-btn.small {
     width: 27vw;
