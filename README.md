@@ -60,16 +60,16 @@ This project is build as a student of Code Institute Full Stack Developer Progra
 ## Final Screen Shots
 ### Desktop
 - [Home (Logged in)](/readme-files/final-screenshots/desktop/home-logged-in.jpeg)
-- [Home (Logged out)](/readme-files/final-screenshots/desktop/home-logged-out.jpeg)
+- [Home (Logged out)](/readme-files/final-screenshots/desktop/Home-logged-out.jpeg)
 - [Log in (Logged out)](/readme-files/final-screenshots/desktop/login.jpeg)
 - [Register (Logged out)](/readme-files/final-screenshots/desktop/register.jpeg)
 - [Account Profile (Logged in)](/readme-files/final-screenshots/desktop/profile.jpeg)
 - [My Journal (Logged in)](/readme-files/final-screenshots/desktop/journal.jpeg)
 - [Social (Logged in)](/readme-files/final-screenshots/desktop/social.jpeg)
 - [About)](/readme-files/final-screenshots/desktop/about.jpeg)
-- [Contact](/readme-files/final-screenshots/desktop/contact.jpeg)
-- [Report something](/readme-files/final-screenshots/desktop/report.jpeg)
-- [Share Artwork (Logged in)](/readme-files/final-screenshots/desktop/share-your-art.jpeg)
+- [Contact](/readme-files/final-screenshots/desktop/contact-logged-out.jpeg)
+- [Report something](/readme-files/final-screenshots/desktop/report-logged-out.jpeg)
+- [Share Artwork (Logged in)](/readme-files/final-screenshots/desktop/share-art-work.jpeg)
 
 ### Tablet
 - [Home (Logged in)](/readme-files/final-screenshots/tablet/home-logged-in.jpeg)
