@@ -27,23 +27,22 @@ Register
         <div class="row">
             <div class="input-field col s12 reduce-spacing-if">
                 <i class="fas fa-user-cog prefix indigo-text text-darken-1"></i>
-                <input id="username" name="username" type="text" class="validate" minlength="5" maxlength="15"
-                    required>
+                <input id="username" name="username" type="text" class="validate" minlength="5" maxlength="15" required>
                 <label for="username">Username</label></div>
         </div>
         <!-- full name -->
         <div class="row">
             <div class="input-field col s12 reduce-spacing-if">
                 <i class="fas fa-user-cog prefix indigo-text text-darken-1"></i>
-                <input id="full_name" name="full_name" type="text" class="validate" minlength="5" maxlength="50" required>
+                <input id="full_name" name="full_name" type="text" class="validate" minlength="5" maxlength="50"
+                    required>
                 <label for="full_name">Full Name</label></div>
         </div>
         <!-- email -->
         <div class="row">
             <div class="input-field col s12 reduce-spacing-if">
                 <i class="fas fa-user-cog prefix indigo-text text-darken-1"></i>
-                <input id="email" name="email" type="email" class="validate" minlength="5" maxlength="50"
-                    required>
+                <input id="email" name="email" type="email" class="validate" minlength="5" maxlength="50" required>
                 <label for="email">Email Address</label></div>
         </div>
         <!-- password -->
@@ -62,16 +61,17 @@ Register
             </button>
         </div>
         <div class="row">
-            <p class="center-align">Already got an account? <a href="{{ url_for('login') }}" class="indigo-text text-darken-1">Login</a></p>
+            <p class="center-align">Already got an account? <a href="{{ url_for('login') }}"
+                    class="indigo-text text-darken-1">Login</a></p>
         </div>
     </form>
     <span class="author login-author">Creator: <a
             href="{{ background.0.creator_backlink }}">{{ background.0.creator }}</a><br>Source: <a
             href="{{ background.0.source_backlink }}">{{ background.0.source }}</a>
-            {% if session.user %}
-            <br><br>
-            <a href="{{ url_for('share_your_art')}}">Share your own artwork</a>
-            {% endif %}
+        {% if session.user %}
+        <br><br>
+        <a href="{{ url_for('share_your_art')}}">Share your own artwork</a>
+        {% endif %}
 
 </div>
 

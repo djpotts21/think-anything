@@ -4,30 +4,36 @@
     border-width: 5px;
     border-color: #3949ab !important;
 }
+
 .title {
     font-size: 30px;
     line-height: 30px;
     margin-top: 10px;
     margin-bottom: 10px;
 }
+
 .boxed-style {
     border: #dadada 10px solid;
 }
+
 .user-tile-profile-picture {
     width: 40px;
     border-radius: 50%;
     vertical-align: middle;
     margin: 5px;
-  }
+}
+
 .action-btn-contai {
     display: flex;
     justify-content: space-between;
 }
+
 .user-tile-action-btn {
     margin: 5px 0px 5px;
     padding: unset;
     width: 40%;
 }
+
 .user-tile-action-btn i {
     font-size: 13px;
     padding: 0;
@@ -35,46 +41,58 @@
     text-align: center;
     line-height: 13px;
 }
+
 .user-tile {
     border: 5px solid;
 }
+
 i.fa-regular.fa-circle-user.user-tile-profile-placeholder {
     font-size: 40px;
     margin-top: 5px;
     margin-bottom: 5px;
 }
+
 .user-tile-container {
     padding: 0px !important;
 }
-.text-capitalise{
+
+.text-capitalise {
     text-transform: capitalize;
 }
+
 .one-line {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
 }
+
 .px5-margin {
     margin: 5px;
 }
+
 .message-container {
     width: 75%;
     padding: 5px;
 }
+
 .message {
     border-radius: 5px;
     padding: 5px;
-    margin:0px;
+    margin: 0px;
 }
-p.timestamp, p.sender {
+
+p.timestamp,
+p.sender {
     margin: 0;
     padding: 0;
     font-size: 8px;
 }
+
 .message-box {
     width: 88% !important;
     display: inline-block;
 }
+
 .message-btn {
     width: 10% !important;
     display: inline-block;
@@ -83,32 +101,48 @@ p.timestamp, p.sender {
     border: unset;
     box-shadow: unset;
 }
+
 .message-btn:hover {
     background-color: #f2f2f2;
     box-shadow: unset;
 }
+
 i.fa-solid.fa-paper-plane {
     font-size: 0.9rem !important;
 }
+
 .social-fixed-container {
     height: 70vh;
     overflow: scroll;
     overflow-x: hidden;
 }
+
 .flex-apart-messages {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
 }
+
 .message-alert {
     animation-name: newmessage;
     animation-duration: 2s;
-    animation-iteration-count:infinite;
+    animation-iteration-count: infinite;
 }
 
 
 @keyframes newmessage {
-    0% {color:black; background-color: white;}
-    50%   {color: red; background-color: white;}
-    100% {color:black; background-color: white;}
-  }
+    0% {
+        color: black;
+        background-color: white;
+    }
+
+    50% {
+        color: red;
+        background-color: white;
+    }
+
+    100% {
+        color: black;
+        background-color: white;
+    }
+}

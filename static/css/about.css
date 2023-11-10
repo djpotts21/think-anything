@@ -1,52 +1,62 @@
 .about-para {
     text-align: justify;
-    margin-right:40px;
+    margin-right: 40px;
 }
+
 .row {
     margin-top: 1em;
 }
+
 .about-fig-img {
-    width:auto;
-    height:300px;
+    width: auto;
+    height: 300px;
 }
+
 .about-fig-container {
     margin-top: 2em;
     margin-left: auto;
     text-align: center;
 }
+
 /* tablet css */
 @media (max-width: 768px) {
     .about-fig-img {
-        width:auto;
-        height:200px;
+        width: auto;
+        height: 200px;
     }
+
     .about-fig-container {
         margin-top: 2em;
         margin-left: auto;
         text-align: center;
     }
+
     .about-para {
         text-align: justify;
-        margin-right:0px;
+        margin-right: 0px;
     }
 }
+
 /* mobile css */
 @media (max-width: 576px) {
     .about-fig-img {
-        width:auto;
-        height:200px;
+        width: auto;
+        height: 200px;
     }
+
     .about-fig-container {
         margin-top: 2em;
         margin-left: 0;
         margin-right: 0;
         text-align: center;
     }
+
     .about-para {
         text-align: justify;
         padding: 5px;
-        margin-right:0px;
+        margin-right: 0px;
     }
+
     .about-heading {
         text-align: center;
     }

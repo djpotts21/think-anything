@@ -30,12 +30,13 @@
                         <li><a href="{{ url_for('journal') }}">My Journal</a></li>
                         <li><a href="{{ url_for('social') }}">Social</a></li>
                         <li><a href="{{ url_for('profile') }}">
-                            {% if session.profile_image_url != "No Photo"%}
-                            <img src="{{ session.profile_image_url }}" alt="Profile Picture" class="profile-picture-mini">
-                            {% else %}
-                            <i class="fa-regular fa-circle-user"></i>
-                            {% endif %}
-                        </a></li>
+                                {% if session.profile_image_url != "No Photo"%}
+                                <img src="{{ session.profile_image_url }}" alt="Profile Picture"
+                                    class="profile-picture-mini">
+                                {% else %}
+                                <i class="fa-regular fa-circle-user"></i>
+                                {% endif %}
+                            </a></li>
                         {% else %}
                         <li><a href="{{ url_for('login') }}">Log In</a></li>
                         <li><a href="{{ url_for('register') }}">Sign Up</a></li>

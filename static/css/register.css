@@ -1,18 +1,18 @@
 main {
-    background-size: cover;
-    background-position: right;
-    display: flex;
-    flex-direction: column;
-    flex-wrap: nowrap;
-    justify-content: center;
+  background-size: cover;
+  background-position: right;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  justify-content: center;
 }
 
 .login-author {
-    top: 64px;
-    bottom: unset;
-  }
+  top: 64px;
+  bottom: unset;
+}
 
-  
+
 .reduce-spacing-if {
   margin: 0;
   height: 6vh;
@@ -20,17 +20,17 @@ main {
 
 
 
-  /* Tablet View (600px and up) */
+/* Tablet View (600px and up) */
 @media only screen and (max-width: 1024px) and (min-width: 600px) {
   .login-author {
     top: 64px;
     bottom: unset;
   }
-  }
+}
 
-    /* Mobile view (600px and down) */
+/* Mobile view (600px and down) */
 @media only screen and (max-width: 600px) {
   .login-author {
     top: 56px;
   }
-  }
+}

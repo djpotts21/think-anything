@@ -148,14 +148,17 @@ span.hygiene {
 [type="radio"]:not(:checked)+span:after {
     border: 2px solid #ffffff;
 }
+
 .radio-spacer {
     height: 6px;
 }
+
 hr.radio-bottom-border {
     width: 80%;
     opacity: 0.5;
     border-width: 0.1px;
 }
+
 .task-description {
     white-space: nowrap;
     text-overflow: ellipsis;

@@ -4,46 +4,61 @@
     border-width: 5px;
     border-color: #3949ab !important;
 }
+
 .welcome-message {
     font-size: 2rem;
     line-height: 100%;
     margin-bottom: 0;
 }
+
 .profile-picture {
     width: 100px;
     border-radius: 50%;
     font-size: 100px;
     float: right;
 }
+
 .modal-footer {
     text-align: center !important;
 }
-.inline-button-form{
-    display:inline
+
+.inline-button-form {
+    display: inline
 }
-.w100{
+
+.w100 {
     width: 100% !important;
 }
+
 .switch {
     cursor: pointer;
     display: flex;
     justify-content: space-between;
 }
+
 .card {
-        min-height: 260px;
+    min-height: 260px;
 
 }
+
 .double-btn-spacer {
-    margin-bottom:5px;
+    margin-bottom: 5px;
 }
-.form-force-white-text, .form-force-white-text label, input.select-dropdown.dropdown-trigger, textarea#review{
+
+.form-force-white-text,
+.form-force-white-text label,
+input.select-dropdown.dropdown-trigger,
+textarea#review {
     color: white !important;
 
 }
-.select-wrapper .caret{
+
+.select-wrapper .caret {
     fill: rgb(255 255 255 / 100%) !important;
 }
-.dropdown-content li>a, .dropdown-content li>span{
+
+.dropdown-content li>a,
+.dropdown-content li>span {
     color: black !important;
 
 }
@@ -54,15 +69,16 @@
 
 /* Mobile view (600px and down) */
 @media only screen and (max-width: 600px) {
-.switch {
-    font-size: smaller;
-    margin-bottom: 5px
-}
+    .switch {
+        font-size: smaller;
+        margin-bottom: 5px
+    }
 
 }
+
 /* Tablet View (600px and up) */
 @media only screen and (min-width: 600px) and (max-width: 1024px) {
-.card {
-    max-height: 260px;
-}
+    .card {
+        max-height: 260px;
+    }
 }

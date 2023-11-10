@@ -580,44 +580,44 @@ Journal
           <hr>
           <p class="center-align"><strong>Any routine hygiene tasks?</strong></p>
           <div class="radio-spacer"></div>
-            <form action="{{ url_for('hygiene_log_update', user=user_data._id, dateurl=selected_date )}}" method="POST">
-              {% if hygiene_log[0]|length != 0 %}
-              {% if hygiene_log[0].done == "yes" %}
-              <p class="radio-align">
-                <label>
-                  <input class="with-gap" name="hygiene" type="radio" value="yes" checked />
-                  <span class="hygiene">Yes</span>
-                </label>
-                <label>
-                  <input class="with-gap" name="hygiene" value="no" type="radio" />
-                  <span class="hygiene">No</span>
-                </label>
-              </p>
-              {% elif hygiene_log[0].done == "no" %}
-              <p class="radio-align"> <label>
-                  <input class="with-gap" name="hygiene" value="yes" type="radio" />
-                  <span class="hygiene">Yes</span>
-                </label>
-                <label>
-                  <input class="with-gap" name="hygiene" value="no" type="radio" checked />
-                  <span class="hygiene">No</span>
-                </label>
-              </p>
-              {% endif %}
-              {% else %}
-              <p class="radio-align"> <label>
-                  <input class="with-gap" name="hygiene" value="yes" type="radio" />
-                  <span class="hygiene">Yes</span>
-                </label>
-                <label>
-                  <input class="with-gap" name="hygiene" value="no" type="radio" />
-                  <span class="hygiene">No</span>
-                </label>
-              </p>
-              {% endif %}
-          <div class="radio-spacer"></div>
-          <hr class="radio-bottom-border">
-          <button type="submit" class="btn full-width">Save</button>
+          <form action="{{ url_for('hygiene_log_update', user=user_data._id, dateurl=selected_date )}}" method="POST">
+            {% if hygiene_log[0]|length != 0 %}
+            {% if hygiene_log[0].done == "yes" %}
+            <p class="radio-align">
+              <label>
+                <input class="with-gap" name="hygiene" type="radio" value="yes" checked />
+                <span class="hygiene">Yes</span>
+              </label>
+              <label>
+                <input class="with-gap" name="hygiene" value="no" type="radio" />
+                <span class="hygiene">No</span>
+              </label>
+            </p>
+            {% elif hygiene_log[0].done == "no" %}
+            <p class="radio-align"> <label>
+                <input class="with-gap" name="hygiene" value="yes" type="radio" />
+                <span class="hygiene">Yes</span>
+              </label>
+              <label>
+                <input class="with-gap" name="hygiene" value="no" type="radio" checked />
+                <span class="hygiene">No</span>
+              </label>
+            </p>
+            {% endif %}
+            {% else %}
+            <p class="radio-align"> <label>
+                <input class="with-gap" name="hygiene" value="yes" type="radio" />
+                <span class="hygiene">Yes</span>
+              </label>
+              <label>
+                <input class="with-gap" name="hygiene" value="no" type="radio" />
+                <span class="hygiene">No</span>
+              </label>
+            </p>
+            {% endif %}
+            <div class="radio-spacer"></div>
+            <hr class="radio-bottom-border">
+            <button type="submit" class="btn full-width">Save</button>
           </form>
         </div>
       </div>

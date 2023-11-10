@@ -25,14 +25,16 @@ Contact
         <form method="post" action="{{ url_for('contact') }}">
             <h3 class="center-align">Contact <strong>Think Anything</strong></h3>
             <div class="row">
-            {% if session.user %}
+                {% if session.user %}
                 <div class="input-field col s12">
-                    <input id="user_contact_disbaled" type="email" class="validate" name="user_contact_disbaled" disabled value="{{ user_data.email }}" required>
+                    <input id="user_contact_disbaled" type="email" class="validate" name="user_contact_disbaled"
+                        disabled value="{{ user_data.email }}" required>
                     <label for="user_contact_disbaled">Email (Your registered account email)</label>
                     <!-- Send user email as user_contact as disabled field won't post?? -->
-                    <input id="user_contact" type="email" class="validate" name="user_contact" value="{{ user_data.email }}" hidden>
+                    <input id="user_contact" type="email" class="validate" name="user_contact"
+                        value="{{ user_data.email }}" hidden>
 
-                </div>   
+                </div>
                 <div class="input-field col s12">
                     <textarea id="message" class="materialize-textarea" name="message" required></textarea>
                     <label for="message">Message</label>
@@ -46,29 +48,28 @@ Contact
                     <textarea id="message" class="materialize-textarea" name="message" required></textarea>
                     <label for="message">Message</label>
                 </div>
-                
+
                 {% endif %}
                 <button type="submit" class="btn indigo white-text full-width-btn">Submit</button>
             </div>
         </form>
     </div>
 </div>
-    <span class="author login-author">Creator: <a
-            href="{{ background.0.creator_backlink }}">{{ background.0.creator }}</a>
-        <br>
-        {% if background.0.source %}
-        Source:
-        {% if background.0.source_backlink %}
-        <a href="{{ background.0.source_backlink }}">{{ background.0.source }}</a>
-        {% else %}
-        <strong>{{ background.0.source }}</strong>
-        {% endif %}
-        {% endif %}
-        {% if session.user %}
-        <br><br>
-        <a href="{{ url_for('share_your_art')}}">Share your own artwork</a>
-        {% endif %}
-    </span>
+<span class="author login-author">Creator: <a href="{{ background.0.creator_backlink }}">{{ background.0.creator }}</a>
+    <br>
+    {% if background.0.source %}
+    Source:
+    {% if background.0.source_backlink %}
+    <a href="{{ background.0.source_backlink }}">{{ background.0.source }}</a>
+    {% else %}
+    <strong>{{ background.0.source }}</strong>
+    {% endif %}
+    {% endif %}
+    {% if session.user %}
+    <br><br>
+    <a href="{{ url_for('share_your_art')}}">Share your own artwork</a>
+    {% endif %}
+</span>
 </div>
 
 

@@ -252,10 +252,11 @@ Profile
               <input type="hidden" value="" id="stars" name="stars">
 
               {% endif %}
-            
+
             </div>
             <div class="input-field white-text">
-              <textarea id="review" class="materialize-textarea white-text" name="review">{{ review.description }}</textarea>
+              <textarea id="review" class="materialize-textarea white-text"
+                name="review">{{ review.description }}</textarea>
               <label for="review" class="form-force-white-text">Review</label>
             </div>
             <input type="hidden" value="{{ user_data.full_name }}" name="name">

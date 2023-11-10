@@ -13,6 +13,7 @@ main {
 header {
   margin-bottom: -3px;
 }
+
 .profile-picture-mini {
   width: 40px;
   border-radius: 50%;
@@ -24,6 +25,7 @@ header {
 .row.flashes {
   margin-bottom: 1px;
 }
+
 .flash-margins {
   margin: 0px;
   padding: 10px;
@@ -137,7 +139,7 @@ h3 {
   height: 24px;
   border-radius: 50%;
   object-fit: cover;
-  margin: 0, 10px, 0, 0
+  margin: 0 10px 0 0
 }
 
 .in-line-btn {
@@ -176,11 +178,13 @@ h3 {
     top: 50%;
     width: 80vw;
   }
+
   .hero-btn.large {
     width: 50vw;
     left: 25vw;
     bottom: 12vh;
-}
+  }
+
   .hero-btn.small {
     width: 27vw;
   }

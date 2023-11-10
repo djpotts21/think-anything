@@ -23,17 +23,18 @@ $(document).ready(function () {
 
 // rating stars -- https://codepen.io/nnoy01/pen/VwPdeNo
 document.querySelector('.rating-wrapper').addEventListener('click', updateStarRating, false);
-function updateStarRating(evt){
-    for(i=0; i < parseInt(evt.target.id); i++){
-        const stars = document.querySelectorAll('.rating-wrapper i');
-        for(s=0; s < 5; s++){
-            stars[s].classList.remove('rating-checked');
-        }
-        for(j=0; j < parseInt(evt.target.id); j++){
-            stars[j].classList.add('rating-checked');
-        }
+
+function updateStarRating(evt) {
+  for (i = 0; i < parseInt(evt.target.id); i++) {
+    const stars = document.querySelectorAll('.rating-wrapper i');
+    for (s = 0; s < 5; s++) {
+      stars[s].classList.remove('rating-checked');
     }
-    document.querySelector('#stars').value = evt.target.id;
+    for (j = 0; j < parseInt(evt.target.id); j++) {
+      stars[j].classList.add('rating-checked');
+    }
+  }
+  document.querySelector('#stars').value = evt.target.id;
 }
 
 // Plus and minus buttons for quantity input 
@@ -76,7 +77,9 @@ jQuery(document).ready(function () {
 
 
 // Hide flash messages after 5 seconds
-  $('.row.flashes').delay(5000).fadeOut(2000, function() { $(this).remove(); });
+$('.row.flashes').delay(5000).fadeOut(2000, function () {
+  $(this).remove();
+});
 
 // Limit file upload to 32MB for IMGBB Limit
 
