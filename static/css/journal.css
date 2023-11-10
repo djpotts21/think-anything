@@ -5,6 +5,10 @@
     border-color: #3949ab !important;
 }
 
+.row {
+    margin-bottom: 0px;
+
+}
 .welcome-message {
     font-size: 2rem;
     line-height: 100%;
