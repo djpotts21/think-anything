@@ -21,8 +21,6 @@ $(document).ready(function () {
   $("#messages").scrollTop($("#messages").prop("scrollHeight"));
 });
 
-// rating stars -- https://codepen.io/nnoy01/pen/VwPdeNo
-document.querySelector('.rating-wrapper').addEventListener('click', updateStarRating, false);
 
 function updateStarRating(evt) {
   for (i = 0; i < parseInt(evt.target.id); i++) {
@@ -38,7 +36,6 @@ function updateStarRating(evt) {
 }
 
 // Plus and minus buttons for quantity input 
-jQuery(document).ready(function () {
   // This button will increment the value
   $('[data-quantity="plus"]').click(function (e) {
     // Stop acting like a button
@@ -73,7 +70,7 @@ jQuery(document).ready(function () {
       $('input[name=' + fieldName + ']').val(0);
     }
   });
-});
+
 
 
 // Hide flash messages after 5 seconds
