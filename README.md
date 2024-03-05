@@ -5,6 +5,10 @@ I am developing this digital mental health journal to allow users to sign up, lo
 
 This project is build as a student of Code Institute Full Stack Developer Program and the Level 5 Diploma in Web Application Development.
 
+### Project Purpose
+
+The purpose of creating this digital mental health journal is to provide users with a convenient platform to effectively manage their mental well-being. Users can sign up, log in, and record their daily feelings, activities, and other essential things such as water intake, food, exercise, and more. By using this journal, users can increase their self-awareness, track their emotional and behavioural patterns, and ultimately improve their overall mental health and quality of life. Additionally, users will be able to review their journal entries to identify patterns, gain insights into their emotions and behaviours, and find effective strategies that positively impacted their mental health on specific days.
+
 ## Wireframes
 ### Desktop
 - [Home (Logged in)](/readme-files/wireframe/home-(logged-in)_page_1.png)
