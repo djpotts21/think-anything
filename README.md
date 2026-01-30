@@ -58,9 +58,6 @@ The purpose of creating this digital mental health journal is to provide users w
 - [Report something (Logged out)](/readme-files/wireframe/report-something-(logged-out)_page_3.png)
 - [Share Artwork (Logged in)](/readme-files/wireframe/share-artwork-(logged-in)_page_3.png)
 
-## Live URL
-[https://think-anything-eba7c58cc9e2.herokuapp.com/](https://think-anything-eba7c58cc9e2.herokuapp.com/)
-
 ## Final Screen Shots
 ### Desktop
 - [Home (Logged in)](/readme-files/final-screenshots/desktop/home-logged-in.jpeg)
